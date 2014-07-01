@@ -249,9 +249,10 @@ sub load_repository_config_module
 	my $repcfgd = $info->{archiveroot}."/cfg/cfg.d";
 	my %files_map = ();
 
+	my $defaultcfg_cfgd = $SYSTEMCONF->{load_defaultcfg} ? $SYSTEMCONF->{"lib_path"}."/defaultcfg/cfg.d" : undef;
 	my $site_lib_cfgd = $SYSTEMCONF->{"base_path"}."/site_lib/cfg.d";
 
-	foreach my $dir ( $libcfgd, $site_lib_cfgd, $repcfgd )
+	foreach my $dir ( $libcfgd, $defaultcfg_cfgd, $site_lib_cfgd, $repcfgd )
 	{
 		next if( ! -e $dir );
 		opendir( my $dh, $dir ) || EPrints::abort( "Can't read cfg.d config files from $dir: $!" );

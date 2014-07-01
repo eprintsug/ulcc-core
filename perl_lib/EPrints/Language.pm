@@ -103,6 +103,14 @@ sub new
 		$repository->get_conf( "lib_path" ).
 			"/lang/".$self->{id}."/phrases" );
 
+	if( $repository->config( "load_defaultcfg" ) )
+	{
+		$self->_read_phrases_dir(
+			$self->{data},
+			$repository->config( "lib_path" ).
+				"/defaultcfg/lang/".$self->{id}."/phrases" );
+	}
+
 	if( -e $repository->config( "base_path" )."/site_lib/lang/".$self->{id}."/phrases" )
 	{
 		$self->_read_phrases_dir(

@@ -794,6 +794,14 @@ sub _load_workflows
 		$self->config( "lib_path" )."/workflows",
 		$self->{workflows} );
 
+	if( $self->config( "load_defaultcfg" ) )
+	{
+		# load /lib/defaultcfg/ workflows
+		EPrints::Workflow::load_all(
+			$self->config( "lib_path" )."/defaultcfg/workflows",
+			$self->{workflows} );
+	}
+
 	if( -e $self->config( "base_path" )."/site_lib/workflows" )
 	{	
 		# load /site_lib/ workflows
@@ -937,6 +945,11 @@ sub _load_citation_specs
 	$self->_load_citation_dir( $self->config( "config_path" )."/citations" );
 	# load system-level citations (won't overwrite)
 	$self->_load_citation_dir( $self->config( "lib_path" )."/citations" );
+
+	if( $self->config( "load_defaultcfg" ) )
+	{
+		$self->_load_citation_dir( $self->config( "lib_path" )."/defaultcfg/citations" );
+	}
 
 	if( -e $self->config( "base_path" )."/site_lib/citations" )
 	{
@@ -1296,6 +1309,7 @@ sub _load_namedsets
 		$self->config( "base_path" )."/site_lib/namedsets",
 		$self->config( "config_path" )."/namedsets",
 	);
+	unshift @paths, $self->config( "lib_path" )."/defaultcfg/namedsets" if $self->config( "load_defaultcfg" );
 
 	# load /namedsets/* 
 
@@ -1972,6 +1986,12 @@ sub get_static_dirs
 	# site_lib
 	push @dirs, "$site_lib_path/lang/$langid/static";
 	push @dirs, "$site_lib_path/static";
+
+	if( $self->config( "load_defaultcfg" ) )
+	{
+		push @dirs, "$lib_path/defaultcfg/lang/$langid/static";
+		push @dirs, "$lib_path/defaultcfg/static";
+	}
 
 	# system path: /lib/static/
 	push @dirs, "$lib_path/lang/$langid/static";
