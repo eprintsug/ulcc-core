@@ -81,4 +81,7 @@ $repo->dataset( 'epm' )->dataobj_class->map($repo, sub {
 }
 print "\n";
 
+# ULCC version
+printf( "ulcc_version: %s\n", $repo->config( "ulcc_version" ) );
+
 exit;
