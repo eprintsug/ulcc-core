@@ -152,7 +152,7 @@ sub cache_list_items
 
 	foreach my $item_list (values %$screen_lists)
 	{
-		@$item_list = sort { $a->{position} <=> $b->{position} } @$item_list;
+		@$item_list = sort { $a->{position} <=> $b->{position} } grep { defined $_->{position} } @$item_list;
 	}
 
 	return $session->get_plugin_factory->cache( "screen_lists", $screen_lists );

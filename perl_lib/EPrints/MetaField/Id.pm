@@ -45,7 +45,7 @@ sub value_from_sql_row
 {
 	my( $self, $session, $row ) = @_;
 
-	if( $session->{database}->{dbh}->{Driver}->{Name} eq "mysql" )
+	if( $session->{database}->{dbh}->{Driver}->{Name} eq "mysql" && defined $row->[0] )
 	{
 		utf8::decode( $row->[0] );
 	}

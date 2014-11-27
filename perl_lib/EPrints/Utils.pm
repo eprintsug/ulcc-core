@@ -451,6 +451,15 @@ sub wget
 		return HTTP::Response->new( 403, "Access denied by configuration: web imports disabled" );
 	}
 
+	if( $url->scheme eq "sftp" )
+	{
+		my %opts = ( SOURCE => "$url", TARGET => $target );
+		if( $session->can_invoke( "wget_sftp", %opts ) )
+		{
+			return HTTP::Response->new( $session->exec( "wget_sftp", %opts ) ? ( 500, "Error" ) : 200 );
+		}
+	}
+
 	my $ua = LWP::UserAgent->new();
 
 	my $r = $ua->get( $url,
