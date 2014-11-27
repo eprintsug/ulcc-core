@@ -1,3 +1,6 @@
 [submodule "site_lib"]
 	path = site_lib
 	url = https://github.com/eprintsug/ulcc-site_lib
+[submodule "lib/epm/rioxx2"]
+	path = lib/epm/rioxx2
+	url = git@github.com:eprintsug/rioxx2.git
