@@ -7,3 +7,6 @@
 [submodule "gitaar"]
 	path = gitaar
 	url = https://github.com/eprintsug/gitaar
+[submodule "lib/epm/reports"]
+	path = lib/epm/reports
+	url = https://github.com/eprintsug/reports.git
