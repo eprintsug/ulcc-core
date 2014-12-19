@@ -13,3 +13,6 @@
 [submodule "lib/epm/recollect"]
 	path = lib/epm/recollect
 	url = https://github.com/eprintsug/recollect.git
+[submodule "lib/epm/DataCiteDoi"]
+	path = lib/epm/DataCiteDoi
+	url = https://github.com/eprintsug/DataCiteDoi.git
