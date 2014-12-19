@@ -10,3 +10,6 @@
 [submodule "lib/epm/reports"]
 	path = lib/epm/reports
 	url = https://github.com/eprintsug/reports.git
+[submodule "lib/epm/recollect"]
+	path = lib/epm/recollect
+	url = https://github.com/eprintsug/recollect.git
