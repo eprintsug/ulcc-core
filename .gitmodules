@@ -22,3 +22,6 @@
 [submodule "lib/epm/irus"]
 	path = lib/epm/irus
 	url = https://github.com/eprintsug/irus.git
+[submodule "lib/epm/irstats2"]
+	path = lib/epm/irstats2
+	url = https://github.com/eprintsug/irstats2.git
