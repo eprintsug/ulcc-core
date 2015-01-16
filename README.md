@@ -43,7 +43,7 @@ The repository will only contain a minimal set of files which you can edit to su
  │   ├── cfg.d
  │   │   ├── 10_core.pl # hostname of repository
  │   │   ├── adminemail.pl
- │   │   └── database.pl # database connection details
+ │   │   └── database.pl # db connection details (use 'bin/epadmin config_db foo' to change if preferred)
  │   └── lang
  │       └── en
  │           └── phrases
@@ -58,9 +58,10 @@ Get everything up and running:
 ````
 cd /opt/eprints3
 mkdir archives/foo/documents/disk0
+bin/epadmin create_db foo
 bin/import_subjects foo lib/defaultcfg/subjects
 bin/generate_apacheconf --replace --system # follow instructions for adding EPrints to global apache conf
-bin/create_user foo
+bin/epadmin create_user foo
 testdata/bin/import_test_data foo archive username
 ````
 
@@ -75,19 +76,10 @@ tools/epm enable foo bootstrap
 
 Some plugins require additional steps - see below.
 
-RIOXX2
+**RIOXX2 and Recollect**
 
-Before enabling:
- 
-````
-mkdir -p archives/blank/cfg/workflows/eprint/
-cp lib/defaultcfg/workflows/eprint/default.xml archives/blank/cfg/workflows/eprint/
-````
+Both of these expect to find a workflow file archives/foo/cfg/workflows/eprint/default.xml - the ulcc-skel repository does not provide one so do the following before enabling:
 
-Recollect
-
-Before enabling:
- 
 ````
 mkdir -p archives/blank/cfg/workflows/eprint/
 cp lib/defaultcfg/workflows/eprint/default.xml archives/blank/cfg/workflows/eprint/
