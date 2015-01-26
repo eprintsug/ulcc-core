@@ -85,6 +85,32 @@ mkdir -p archives/blank/cfg/workflows/eprint/
 cp lib/defaultcfg/workflows/eprint/default.xml archives/blank/cfg/workflows/eprint/
 ````
 
+### Adding new plugins ###
+
+```
+git checkout develop # don't modify the master branch
+git submodule add http://github.com/eprintsug/foo lib/epm/foo
+git status # should show changes to .gitmodules and lib/epm/foo
+git commit -am "Added foo 1.0.0"
+git push
+```
+
+## Merging upstream changes ##
+
+ulcc-core is a fork of https://github.com/eprints/eprints/tree/3.3 so upstream changes can be merged as follows:
+
+```
+git clone git@github.com:eprintsug/ulcc-core .
+git checkout develop # don't modify the master branch
+git submodule init
+git submodule update
+git remote add upstream https://github.com/eprints/eprints.git
+git fetch upstream 3.3
+git merge upstream/3.3
+# may need to fix conflicts and commit
+git push
+```
+
 ## Initial setup ##
 
 ````
