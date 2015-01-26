@@ -34,3 +34,6 @@
 [submodule "lib/epm/meprints"]
 	path = lib/epm/meprints
 	url = https://github.com/eprintsug/meprints.git
+[submodule "lib/epm/arkivum"]
+	path = lib/epm/arkivum
+	url = https://github.com/eprintsug/arkivum.git
