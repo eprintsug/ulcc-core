@@ -25,3 +25,6 @@
 [submodule "lib/epm/irstats2"]
 	path = lib/epm/irstats2
 	url = https://github.com/eprintsug/irstats2.git
+[submodule "lib/epm/altmetric"]
+	path = lib/epm/altmetric
+	url = https://github.com/eprintsug/altmetric.git
