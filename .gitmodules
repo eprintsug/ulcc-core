@@ -31,3 +31,6 @@
 [submodule "lib/epm/ref2014"]
 	path = lib/epm/ref2014
 	url = git@github.com:eprintsug/ref2014.git
+[submodule "lib/epm/meprints"]
+	path = lib/epm/meprints
+	url = https://github.com/eprintsug/meprints.git

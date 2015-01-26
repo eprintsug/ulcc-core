@@ -78,11 +78,22 @@ Some plugins require additional steps - see below.
 
 **RIOXX2 and Recollect**
 
-Both of these expect to find a workflow file archives/foo/cfg/workflows/eprint/default.xml - the ulcc-skel repository does not provide one so do the following before enabling:
+Both of these expect to find a workflow file archives/foo/cfg/workflows/eprint/default.xml - the ulcc-skel repository does not provide this file so do the following before enabling:
 
 ````
 mkdir -p archives/blank/cfg/workflows/eprint/
 cp lib/defaultcfg/workflows/eprint/default.xml archives/blank/cfg/workflows/eprint/
+````
+
+**MePrints**
+
+MePrints expects to find 2 workflow files: archives/foo/cfg/workflows/eprint/default.xml and archives/foo/cfg/workflows/user/default.xml - the ulcc-skel repository does not provide these files so do the following before enabling:
+
+````
+mkdir -p archives/blank/cfg/workflows/eprint/
+mkdir -p archives/blank/cfg/workflows/user/
+cp lib/defaultcfg/workflows/eprint/default.xml archives/blank/cfg/workflows/eprint/
+cp lib/defaultcfg/workflows/user/default.xml archives/blank/cfg/workflows/user/
 ````
 
 ### Adding new plugins ###
