@@ -106,6 +106,95 @@ git commit -am "Added foo 1.0.0"
 git push
 ```
 
+### Migrating from EPrints Bazaar ###
+
+Some plugins are not source controlled - in general it's a good idea to move these onto a platform like github so that changes can be tracked and contributions managed.
+
+Firstly, make sure you are working on the develop branch and have clean working directories (/opt/eprints3 and /opt/eprints3/archives/foo).
+
+Install the plugin in the normal way via the EPrints Bazaar screen in EPrints (under the Admin menu).
+
+Next use git status to identify the files that were installed:
+
+```
+git checkout develop # don't modify the master branch
+git status
+On branch develop
+Your branch is up-to-date with 'origin/develop'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	lib/epm/CheckDOI/
+	lib/lang/en/phrases/zz_check_doi.xml
+	lib/plugins/
+	lib/static/images/epm/DoiCheckButton.png
+```
+
+Make a note of the plugin ID - CheckDOI in this case - and create a new repository (https://github.com/organizations/eprintsug/repositories/new) using the plugin ID as the repository name (don't add a README, .gitignore or license).
+
+Now use the files installed by the plugin to layout the new repository:
+
+```
+cd /tmp
+mkdir CheckDOI
+cd CheckDOI
+git init
+cd /opt/eprints3
+cp -r --parents lib/epm/CheckDOI/ lib/lang/en/phrases/zz_check_doi.xml lib/plugins/ lib/static/images/epm/DoiCheckButton.png /tmp/CheckDOI # all files/dirs reported by git status
+cd /tmp/CheckDOI
+# change code layout
+mv lib/epm/CheckDOI/* .
+rmdir lib/epm/CheckDOI/
+rmdir lib/epm
+rm CheckDOI.epm
+tree
+.
+├── cfg
+│   └── cfg.d
+│       ├── zz_check_doi_cfg.pl
+│       └── zz_CheckDoi.pl
+├── CheckDOI.epmi
+└── lib
+    ├── lang
+    │   └── en
+    │       └── phrases
+    │           └── zz_check_doi.xml
+    ├── plugins
+    │   └── EPrints
+    │       └── Plugin
+    │           ├── Import
+    │           │   └── CheckDOI.pm
+    │           └── Screen
+    │               └── EPMC
+    │                   └── CheckDOI.pm
+    └── static
+        └── images
+            └── epm
+                └── DoiCheckButton.png
+```
+
+Commit the code and push to github:
+
+```
+git add *
+VERSION=$(xml_grep version CheckDOI.epmi --text_only)
+git commit -m "Add CheckDOI $VERSION"
+git push
+```
+
+Finally clean up your working directories and you are ready to add the plugin using git submodule:
+
+```
+cd /opt/eprint3
+git clean -xdf
+git status # should report 'working directory clean'
+cd archives/foo
+git clean -xdf
+git status # should report 'working directory clean'
+```
+
+
 ## Merging upstream changes ##
 
 ulcc-core is a fork of https://github.com/eprints/eprints/tree/3.3 so upstream changes can be merged as follows:
