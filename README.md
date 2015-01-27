@@ -125,62 +125,80 @@ Your branch is up-to-date with 'origin/develop'.
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
-	lib/epm/CheckDOI/
-	lib/lang/en/phrases/zz_check_doi.xml
-	lib/plugins/
-	lib/static/images/epm/DoiCheckButton.png
+        lib/epm/orcid_tier_1_importer/
+        lib/lang/en/phrases/orcid.xml
+        lib/plugins/
+        lib/static/images/epm/orcid_import_1.png
+        lib/static/style/auto/orcidmanager.css
+
 ```
 
-Make a note of the plugin ID - CheckDOI in this case - and create a new repository (https://github.com/organizations/eprintsug/repositories/new) using the plugin ID as the repository name (don't add a README, .gitignore or license).
+Make a note of the plugin ID - orcid_tier_1_importer in this case - and create a new repository (https://github.com/organizations/eprintsug/repositories/new) using the plugin ID as the repository name (don't add a README, .gitignore or license).
 
 Now use the files installed by the plugin to layout the new repository:
 
 ```
 cd /tmp
-mkdir CheckDOI
-cd CheckDOI
+mkdir orcid_tier_1_importer
+cd orcid_tier_1_importer
 git init
 cd /opt/eprints3
-cp -r --parents lib/epm/CheckDOI/ lib/lang/en/phrases/zz_check_doi.xml lib/plugins/ lib/static/images/epm/DoiCheckButton.png /tmp/CheckDOI # all files/dirs reported by git status
-cd /tmp/CheckDOI
+cp -r --parents lib/epm/orcid_tier_1_importer/ lib/lang/en/phrases/zz_check_doi.xml lib/plugins/ lib/static/images/epm/DoiCheckButton.png /tmp/orcid_tier_1_importer # all files/dirs reported by git status
+cd /tmp/orcid_tier_1_importer
 # change code layout
-mv lib/epm/CheckDOI/* .
-rmdir lib/epm/CheckDOI/
+mv lib/epm/orcid_tier_1_importer/* .
+rmdir lib/epm/orcid_tier_1_importer/
 rmdir lib/epm
-rm CheckDOI.epm
+rm orcid_tier_1_importer.epm
 tree
 .
 ├── cfg
 │   └── cfg.d
-│       ├── zz_check_doi_cfg.pl
-│       └── zz_CheckDoi.pl
-├── CheckDOI.epmi
-└── lib
-    ├── lang
-    │   └── en
-    │       └── phrases
-    │           └── zz_check_doi.xml
-    ├── plugins
-    │   └── EPrints
-    │       └── Plugin
-    │           ├── Import
-    │           │   └── CheckDOI.pm
-    │           └── Screen
-    │               └── EPMC
-    │                   └── CheckDOI.pm
-    └── static
-        └── images
-            └── epm
-                └── DoiCheckButton.png
+│       └── z_orcid.pl
+├── lib
+│   ├── lang
+│   │   └── en
+│   │       └── phrases
+│   │           └── orcid.xml
+│   ├── plugins
+│   │   └── EPrints
+│   │       └── Plugin
+│   │           ├── Event
+│   │           ├── MePrints
+│   │           │   └── Widget
+│   │           ├── Screen
+│   │           │   ├── Admin
+│   │           │   │   └── Orcid
+│   │           │   │       └── OrcidManager.pm
+│   │           │   ├── EPMC
+│   │           │   │   └── OrcidWorksTier1.pm
+│   │           │   ├── EPrint
+│   │           │   │   └── Box
+│   │           │   └── IRStats2
+│   │           └── Stats
+│   │               ├── Export
+│   │               ├── Filter
+│   │               ├── Processor
+│   │               │   ├── Access
+│   │               │   ├── EPrint
+│   │               │   └── History
+│   │               └── View
+│   │                   └── Google
+│   └── static
+│       └── images
+│           └── epm
+│               └── orcid_import_1.png
+└── orcid_tier_1_importer.epmi
+
 ```
 
 Commit the code and push to github:
-
+i
 ```
 git add *
-VERSION=$(xml_grep version CheckDOI.epmi --text_only)
-git commit -m "Add CheckDOI $VERSION"
-git remote add origin git@github.com:eprintsug/CheckDOI.git
+VERSION=$(xml_grep version orcid_tier_1_importer.epmi --text_only)
+git commit -m "Add orcid_tier_1_importer $VERSION"
+git remote add origin https://github.com/eprintsug/orcid_tier_1_importer.git
 git push origin master
 ```
 
