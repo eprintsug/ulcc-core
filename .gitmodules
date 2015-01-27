@@ -37,3 +37,6 @@
 [submodule "lib/epm/arkivum"]
 	path = lib/epm/arkivum
 	url = https://github.com/eprintsug/arkivum.git
+[submodule "lib/epm/orcid_tier_1_importer"]
+	path = lib/epm/orcid_tier_1_importer
+	url = https://github.com/eprintsug/orcid_tier_1_importer.git
