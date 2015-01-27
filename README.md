@@ -180,7 +180,8 @@ Commit the code and push to github:
 git add *
 VERSION=$(xml_grep version CheckDOI.epmi --text_only)
 git commit -m "Add CheckDOI $VERSION"
-git push
+git remote add origin git@github.com:eprintsug/ref2014.git
+git push origin master
 ```
 
 Finally clean up your working directories and you are ready to add the plugin using git submodule:
