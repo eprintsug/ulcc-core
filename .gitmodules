@@ -40,3 +40,6 @@
 [submodule "lib/epm/orcid_tier_1_importer"]
 	path = lib/epm/orcid_tier_1_importer
 	url = https://github.com/eprintsug/orcid_tier_1_importer.git
+[submodule "lib/epm/collections"]
+	path = lib/epm/collections
+	url = https://github.com/eprintsug/collections
