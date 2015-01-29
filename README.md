@@ -27,7 +27,7 @@ git submodule init
 git submodule update
 ````
 
-To create a repository, first fork https://cziaarm@bitbucket.org/ulcc-art/ulcc-skel.git, then:
+To create a repository, first fork https://bitbucket.org/ulcc-art/ulcc-skel.git, then:
 
 ````
 cd archives
