@@ -95,6 +95,41 @@ mkdir -p archives/blank/cfg/workflows/user/
 cp lib/defaultcfg/workflows/eprint/default.xml archives/blank/cfg/workflows/eprint/
 cp lib/defaultcfg/workflows/user/default.xml archives/blank/cfg/workflows/user/
 ````
+### Creating a release ###
+
+(With reference to http://nvie.com/posts/a-successful-git-branching-model/)
+
+First create release branch:
+
+```
+git checkout -b release-x.y.z develop # insert appropriate version
+vim lib/syscfg.d/ulcc_version.pl # update version
+git add lib/syscfg.d/ulcc_version.pl # etc.
+git commit -m "Bump version to x.y.z"
+# commit any other release-specific changes
+git push origin release-x.y.z
+```
+
+When the release branch is ready to become a real release:
+
+```
+git checkout master
+# make sure working copy is clean
+git merge --no-ff release-x.y.z
+git push origin master
+git tag -a x.y.z
+```
+
+Finally merge the release-specific changes into develop:
+
+```
+git checkout develop
+# make sure working copy is clean
+git merge --no-ff release-x.y.z
+git push origin develop
+git branch -d release-x.y.z # delete local release branch
+git push origin :release-x.y.z # delete remote release branch
+```
 
 ### Adding new plugins ###
 
@@ -163,27 +198,12 @@ tree
 │   ├── plugins
 │   │   └── EPrints
 │   │       └── Plugin
-│   │           ├── Event
-│   │           ├── MePrints
-│   │           │   └── Widget
-│   │           ├── Screen
-│   │           │   ├── Admin
-│   │           │   │   └── Orcid
-│   │           │   │       └── OrcidManager.pm
-│   │           │   ├── EPMC
-│   │           │   │   └── OrcidWorksTier1.pm
-│   │           │   ├── EPrint
-│   │           │   │   └── Box
-│   │           │   └── IRStats2
-│   │           └── Stats
-│   │               ├── Export
-│   │               ├── Filter
-│   │               ├── Processor
-│   │               │   ├── Access
-│   │               │   ├── EPrint
-│   │               │   └── History
-│   │               └── View
-│   │                   └── Google
+│   │           └── Screen
+│   │               ├── Admin
+│   │               │   └── Orcid
+│   │               │       └── OrcidManager.pm
+│   │               └── EPMC
+│   │                   └── OrcidWorksTier1.pm
 │   └── static
 │       └── images
 │           └── epm
