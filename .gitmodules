@@ -43,3 +43,6 @@
 [submodule "lib/epm/collections"]
 	path = lib/epm/collections
 	url = https://github.com/eprintsug/collections
+[submodule "lib/epm/datesdatesdates"]
+	path = lib/epm/datesdatesdates
+	url = https://github.com/eprintsug/datesdatesdates.git
