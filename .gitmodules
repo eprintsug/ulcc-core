@@ -3,7 +3,46 @@
 	url = https://github.com/eprintsug/ulcc-site_lib
 [submodule "lib/epm/rioxx2"]
 	path = lib/epm/rioxx2
-	url = git@github.com:eprintsug/rioxx2.git
+	url = https://github.com/eprintsug/rioxx2
 [submodule "gitaar"]
 	path = gitaar
-	url = git@github.com:eprintsug/gitaar.git
+	url = https://github.com/eprintsug/gitaar
+[submodule "lib/epm/reports"]
+	path = lib/epm/reports
+	url = https://github.com/eprintsug/reports.git
+[submodule "lib/epm/recollect"]
+	path = lib/epm/recollect
+	url = https://github.com/eprintsug/recollect.git
+[submodule "lib/epm/DataCiteDoi"]
+	path = lib/epm/DataCiteDoi
+	url = https://github.com/eprintsug/DataCiteDoi.git
+[submodule "lib/epm/bootstrap"]
+	path = lib/epm/bootstrap
+	url = https://github.com/eprintsug/bootstrap.git
+[submodule "lib/epm/irus"]
+	path = lib/epm/irus
+	url = https://github.com/eprintsug/irus.git
+[submodule "lib/epm/irstats2"]
+	path = lib/epm/irstats2
+	url = https://github.com/eprintsug/irstats2.git
+[submodule "lib/epm/altmetric"]
+	path = lib/epm/altmetric
+	url = https://github.com/eprintsug/altmetric.git
+[submodule "lib/epm/ref2014"]
+	path = lib/epm/ref2014
+	url = https://github.com/eprintsug/ref2014.git
+[submodule "lib/epm/meprints"]
+	path = lib/epm/meprints
+	url = https://github.com/eprintsug/meprints.git
+[submodule "lib/epm/arkivum"]
+	path = lib/epm/arkivum
+	url = https://github.com/eprintsug/arkivum.git
+[submodule "lib/epm/orcid_tier_1_importer"]
+	path = lib/epm/orcid_tier_1_importer
+	url = https://github.com/eprintsug/orcid_tier_1_importer.git
+[submodule "lib/epm/collections"]
+	path = lib/epm/collections
+	url = https://github.com/eprintsug/collections
+[submodule "lib/epm/datesdatesdates"]
+	path = lib/epm/datesdatesdates
+	url = https://github.com/eprintsug/datesdatesdates.git
