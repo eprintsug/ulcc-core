@@ -46,3 +46,6 @@
 [submodule "lib/epm/datesdatesdates"]
 	path = lib/epm/datesdatesdates
 	url = https://github.com/eprintsug/datesdatesdates.git
+[submodule "lib/epm/RepoLink"]
+	path = lib/epm/RepoLink
+	url = http://github.com/eprintsug/RepoLink.git

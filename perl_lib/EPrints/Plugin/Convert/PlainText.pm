@@ -67,7 +67,7 @@ sub can_convert
 	{
 		my $cmd_id = $EPrints::Plugin::Convert::PlainText::APPS{$ext};
 
-		if( $fn =~ /\.$ext$/ )
+		if( $fn =~ /\.$ext$/i )
 		{
 			if( $plugin->get_repository->can_execute( $cmd_id ) )
 			{
