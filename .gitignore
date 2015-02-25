@@ -1,2 +1,8 @@
 apache
 perl_lib/EPrints/SystemSettings.pm
+
+.bash_history
+.bashrc
+.git-completion.bash
+.gitconfig
+.viminfo
