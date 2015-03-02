@@ -349,6 +349,7 @@ sub new_from_manifest
 			hash_type => "MD5",
 			mime_type => $media_info->{mime_type},
 			copies => [$copy],
+			datasetid => "document",
 		});
 		$install->set_value( "files", [
 			@{$install->value( "files")},
@@ -376,6 +377,7 @@ sub new_from_manifest
 					hash_type => "MD5",
 					mime_type => $media_info->{mime_type},
 					copies => [$copy],
+					datasetid => "document",
 				})
 			]);
 			$self->set_value( "documents", [
