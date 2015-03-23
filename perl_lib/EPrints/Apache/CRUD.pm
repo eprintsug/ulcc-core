@@ -894,8 +894,7 @@ sub content_negotiate_best_plugin
 	{
 		# summary page is higher priority than anything else for /id/eprint/23
 		# and /id/contents
-		if( ( $self->scope == CRUD_SCOPE_DATAOBJ && $dataset->base_id ne "subject" ) || $self->scope == CRUD_SCOPE_USER_CONTENTS )
-
+		if( ( $self->scope == CRUD_SCOPE_DATAOBJ && $self->{dataset}->base_id ne "subject" ) || $self->scope == CRUD_SCOPE_USER_CONTENTS )
 		{
 			my $plugin = $repo->plugin( "Export::SummaryPage" );
 			my $mimetype = $plugin->param( "produce" );

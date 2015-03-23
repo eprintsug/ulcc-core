@@ -21,6 +21,7 @@ sub new
 	$self->{name} = "Subject";
 	$self->{visible} = "all";
 	$self->{visdepth} = 1;
+	$self->{search_q_style} = ( EPrints::Utils::require_if_exists( "Search::Xapian" ) ) ? "_q" : "q"; # sorry
 	return $self;
 }
 
@@ -382,7 +383,8 @@ sub _tree
 	my $id = $top->id;
 
 	# infinite loop protection
-	return if $seen->{$id}++;
+##this prevents multi parent node to be rendered, hence commented out
+#	return if $seen->{$id}++;
 
 	return if defined($self->{whitelist}) && !$self->{whitelist}->{$id};
 
@@ -406,7 +408,7 @@ sub get_state_params
 	my( $self ) = @_;
 
 	my $params = "";
-	foreach my $id ( $self->{prefix}."_q" )
+	foreach my $id ( $self->{prefix}.$self->{search_q_style} )
 	{
 		my $v = $self->{session}->param( $id );
 		next unless defined $v;
