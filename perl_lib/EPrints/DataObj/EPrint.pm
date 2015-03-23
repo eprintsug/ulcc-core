@@ -1524,11 +1524,15 @@ sub render
 		{
 			$replacement = $self->{session}->eprint( $self->value( "succeeds" ) );
 		}
+		elsif( $self->{dataset}->has_field( "replacedby" ) && $self->is_set( "replacedby" ) ) ##backward compatibility for repository upgraded from older version, which had replacedby. 
+		{
+			$replacement = $self->{session}->eprint( $self->value( "replacedby" ) );
+		}
 		if( defined $replacement && $replacement->value( "eprint_status" ) eq "archive" )
 		{
 			$dom->appendChild( 
 				$self->{session}->html_phrase( 
-					"lib/eprint:later_version", 
+					"lib/eprint:replaced_version", 
 					citation => $replacement->render_citation_link ) );
 		}
 	}
