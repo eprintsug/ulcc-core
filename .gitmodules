@@ -48,7 +48,7 @@
 	url = https://github.com/eprintsug/datesdatesdates.git
 [submodule "lib/epm/RepoLink"]
 	path = lib/epm/RepoLink
-	url = http://github.com/eprintsug/RepoLink.git
+	url = https://github.com/eprintsug/RepoLink.git
 [submodule "lib/epm/carousel"]
 	path = lib/epm/carousel
 	url = https://github.com/eprintsug/carousel.git
