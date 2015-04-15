@@ -204,7 +204,7 @@ sub action_deposit
 
 	$self->{processor}->{screenid} = "EPrint::View";	
 
-	my $problems = $self->{processor}->{eprint}->validate( $self->{processor}->{for_archive} );
+	my $problems = $self->{processor}->{eprint}->validate( $self->{processor}->{for_archive}, $self->workflow_id );
 	if( scalar @{$problems} > 0 )
 	{
 		$self->{processor}->add_message( "error", $self->html_phrase( "validation_errors" ) ); 
