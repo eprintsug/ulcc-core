@@ -2135,6 +2135,10 @@ sub fieldlist_sizes
 	# get the id/counts for the menu level requested
 	my $id_map = $searchexp->perform_distinctby( $menu_fields );
 
+	# workaround for https://github.com/eprints/eprints/issues/310
+	my $menu = $self->{menus}->[$menu_level];
+	delete $id_map->{NULL} unless $menu->{allow_null};
+
 	# if the field is a subject then we populate sizes with the entire tree of
 	# values - each ancestor is the sum of all unique child node entries
 	if( $menu_fields->[0]->isa( "EPrints::MetaField::Subject" ) )

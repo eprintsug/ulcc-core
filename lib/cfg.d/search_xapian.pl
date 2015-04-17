@@ -81,6 +81,7 @@ $c->add_trigger( EP_TRIGGER_INDEX_FIELDS, sub {
 		next if $field->isa( "EPrints::MetaField::Langid" );
 		next if $field->isa( "EPrints::MetaField::Subobject" );
 		next if $field->isa( "EPrints::MetaField::Storable" );
+		next if $field->is_virtual;
 
 		my $prefix = $field->name . ':';
 		my $value = $field->get_value( $dataobj );
