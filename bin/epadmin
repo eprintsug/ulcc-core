@@ -2741,6 +2741,17 @@ sub upgrade_mysql_charset_table
 	my $Q_table = $db->quote_identifier( $table );
 	my $Q_new_table = $db->quote_identifier( $new_table );
 
+	# don't upgrade tables that are already upgraded (probably mysql only)
+	my $Q_schema = $db->quote_value( $repo->config( "dbname" ) );
+	my $Q_table_value = $db->quote_value( $table );
+	$sql = "SELECT CCSA.character_set_name FROM information_schema.TABLES T, information_schema.COLLATION_CHARACTER_SET_APPLICABILITY CCSA WHERE CCSA.collation_name = T.table_collation AND T.table_schema = $Q_schema AND T.table_name = $Q_table_value";
+	my $enc = $db->{dbh}->selectrow_array( $sql, undef );
+	if( $enc eq "utf8" )
+	{
+		print STDERR "$Q_table already upgraded, skipping\n";
+		return 1;
+	}
+
 	print STDERR "Upgrading $Q_table by insertion\n";
 
 	# create a table LIKE $table
