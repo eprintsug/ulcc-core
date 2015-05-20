@@ -141,6 +141,12 @@ git commit -am "Added foo 1.0.0"
 git push
 ```
 
+### Update all submodules ###
+
+```
+$ git submodule foreach git pull origin
+```
+
 ### Migrating from EPrints Bazaar ###
 
 Some plugins are not source controlled - in general it's a good idea to move these onto a platform like github so that changes can be tracked and contributions managed.
