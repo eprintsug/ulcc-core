@@ -70,7 +70,7 @@ testdata/bin/import_test_data foo archive username
 In most cases, plugins can be enabled with 2 steps, for example:
 
 ````
-tools/epm/link_lib bootstrap
+tools/epm link_lib bootstrap
 tools/epm enable foo bootstrap
 ````
 
