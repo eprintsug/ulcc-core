@@ -52,3 +52,6 @@
 [submodule "lib/epm/carousel"]
 	path = lib/epm/carousel
 	url = https://github.com/eprintsug/carousel.git
+[submodule "lib/epm/mapsRecollect"]
+	path = lib/epm/mapsRecollect
+	url = https://github.com/eprintsug/mapsRecollect.git
