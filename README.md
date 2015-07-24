@@ -144,7 +144,7 @@ git push
 ### Update all submodules ###
 
 ```
-$ git submodule foreach git pull origin
+$ git submodule foreach git pull origin master
 ```
 
 ### Migrating from EPrints Bazaar ###
