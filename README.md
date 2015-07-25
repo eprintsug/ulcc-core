@@ -70,7 +70,7 @@ testdata/bin/import_test_data foo archive username
 In most cases, plugins can be enabled with 2 steps, for example:
 
 ````
-tools/epm/link_lib bootstrap
+tools/epm link_lib bootstrap
 tools/epm enable foo bootstrap
 ````
 
@@ -139,6 +139,12 @@ git submodule add http://github.com/eprintsug/foo lib/epm/foo
 git status # should show changes to .gitmodules and lib/epm/foo
 git commit -am "Added foo 1.0.0"
 git push
+```
+
+### Update all submodules ###
+
+```
+$ git submodule foreach git pull origin master
 ```
 
 ### Migrating from EPrints Bazaar ###
