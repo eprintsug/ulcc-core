@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>EPrints for Deployments by eprintsug</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>EPrints for Deployments</h1>
+        <h2>ULCC deployment of EPrints 3.3 branch</h2>
+        <a href="https://github.com/eprintsug/ulcc-core" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p>ulcc-core was originally developed at the University of London Computer Centre <a href="http://www.ulcc.ac.uk/">http://www.ulcc.ac.uk/</a> and is the basis for all of ULCC's EPrints-based services. ulcc-core is a fork of <a href="https://github.com/eprints/eprints/tree/3.3">https://github.com/eprints/eprints/tree/3.3</a> - currently the active EPrints development branch.</p>
+
+<h2>
+<a id="aim" class="anchor" href="#aim" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aim</h2>
+
+<p>The aim of ulcc-core is to provide a deployment-ready codebase for EPrints that has a number of useful Bazaar modules already pre-installed. One of the (interesting?) features of ulcc-core is that configuration files in lib/defaultcfg are automatically loaded - this means that (a) the repository-level configuration can be very minimal as most settings are inherited from lib/defaultcfg and (b) any changes to lib/defaultcfg (for example as the result of a new EPrints release) are automatically inherited by all repositories.</p>
+
+<h2>
+<a id="how-to-contribute" class="anchor" href="#how-to-contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Contribute</h2>
+
+<p>Please see eprintsug.github.io</p>
+
+<h2>
+<a id="deployment" class="anchor" href="#deployment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deployment</h2>
+
+<p>Assuming you want to deploy ulcc-core into /opt/eprints3:</p>
+
+<pre><code>cd /opt
+mkdir eprints3
+chown eprints:eprints eprints3
+chmod 02775 eprints3
+cd eprints3
+su eprints
+git clone https://github.com/eprintsug/ulcc-core.git .
+cp perl_lib/EPrints/SystemSettings.pm.ulcc perl_lib/EPrints/SystemSettings.pm
+</code></pre>
+
+<p>Edit SystemSettings.pm to suit - usually this just means adding the appropriate user and group.</p>
+
+<p>Pull in the pre-installed Bazaar modules:</p>
+
+<pre><code>git submodule init
+git submodule update
+</code></pre>
+
+<p>To create a repository, first fork <a href="https://bitbucket.org/ulcc-art/ulcc-skel">https://bitbucket.org/ulcc-art/ulcc-skel</a>, then:</p>
+
+<pre><code>cd archives
+git clone https://bitbucket.org/your/fork
+</code></pre>
+
+<p>Your new repository will contain a minimal set of configuration files which you should now edit to suit your requirements:</p>
+
+<pre><code>tree archives/foo
+ archives/foo/
+ ├── bin
+ │   └── nightly.sh # schedule this to run nightly via cron
+ ├── cfg
+ │   ├── cfg.d
+ │   │   ├── 10_core.pl # hostname of repository
+ │   │   ├── adminemail.pl # repository administrator email address
+ │   │   └── database.pl # db connection details (use 'bin/epadmin config_db foo' to change if preferred)
+ │   └── lang
+ │       └── en
+ │           └── phrases
+ │               └── archive_name.xml # repository name
+ ├── documents
+ │   └── disk0
+ ├── html
+ └── var
+</code></pre>
+
+<p>To get everything up and running:</p>
+
+<pre><code>cd /opt/eprints3
+bin/epadmin create_db foo
+bin/import_subjects foo lib/defaultcfg/subjects
+bin/epadmin create_user foo # create a user called 'admin'
+testdata/bin/import_test_data foo archive admin
+bin/generate_apacheconf --replace --system
+</code></pre>
+
+<p>Follow the instructions given by generate_apacheconf for adding EPrints to your global Apache configuration, then finally (re)start Apache.</p>
+
+<h3>
+<a id="enabling-bazaar-modules-" class="anchor" href="#enabling-bazaar-modules-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enabling Bazaar Modules ###</h3>
+
+<p>In most cases, plugins can be enabled with 2 steps, for example:</p>
+
+<pre><code>tools/epm link_lib bootstrap
+tools/epm enable foo bootstrap
+</code></pre>
+
+<p>Some plugins require additional steps - see below.</p>
+
+<p><strong>RIOXX2 and Recollect</strong></p>
+
+<p>Both of these expect to find a workflow file archives/foo/cfg/workflows/eprint/default.xml - the ulcc-skel repository does not provide this file so do the following before enabling:</p>
+
+<pre><code>mkdir -p archives/blank/cfg/workflows/eprint/
+cp lib/defaultcfg/workflows/eprint/default.xml archives/blank/cfg/workflows/eprint/
+</code></pre>
+
+<p><strong>MePrints</strong></p>
+
+<p>MePrints expects to find 2 workflow files: archives/foo/cfg/workflows/eprint/default.xml and archives/foo/cfg/workflows/user/default.xml - the ulcc-skel repository does not provide these files so do the following before enabling:</p>
+
+<pre><code>mkdir -p archives/blank/cfg/workflows/eprint/
+mkdir -p archives/blank/cfg/workflows/user/
+cp lib/defaultcfg/workflows/eprint/default.xml archives/blank/cfg/workflows/eprint/
+cp lib/defaultcfg/workflows/user/default.xml archives/blank/cfg/workflows/user/
+</code></pre>
+
+<h2>
+<a id="ulcc-deployment" class="anchor" href="#ulcc-deployment" aria-hidden="true"><span class="octicon octicon-link"></span></a>ULCC Deployment</h2>
+
+<p>The steps that ULCC use for deploying ulcc-core on staging and production servers.</p>
+
+<p>RHEL5 servers may not have the required SSL CAs for github: if you see an SSL certificate error prefix the git command with "env GIT_SSL_NO_VERIFY=true", for example:</p>
+
+<p>env GIT_SSL_NO_VERIFY=true git clone <a href="https://github.com/eprintsug/ulcc-core.git">https://github.com/eprintsug/ulcc-core.git</a> .</p>
+
+<h3>
+<a id="staging" class="anchor" href="#staging" aria-hidden="true"><span class="octicon octicon-link"></span></a>Staging</h3>
+
+<p>After requesting DNS name for staging service, define staging service in Wumpus and deploy to staging server (see internal ULCC documentation).</p>
+
+<p>Run the following on the staging server:</p>
+
+<pre><code>cd /www/foo-test
+mkdir eprints3
+chown eprints:eprints eprints3
+chmod 02775 eprints3
+cd eprints3
+su foo
+git clone https://github.com/eprintsug/ulcc-core.git .
+cp perl_lib/EPrints/SystemSettings.pm.ulcc perl_lib/EPrints/SystemSettings.pm
+vim perl_lib/EPrints/SystemSettings.pm # set user and group to 'foo'
+git submodule init
+git submodule update
+</code></pre>
+
+<p>To deploy the repository configuration from bitbucket you need to create an ssh key and add it to bitbucket as a Deployment Key <a href="https://confluence.atlassian.com/bitbucket/use-deployment-keys-294486051.html">https://confluence.atlassian.com/bitbucket/use-deployment-keys-294486051.html</a>:</p>
+
+<pre><code>ssh-keygen # if keys not already generated
+cat /u/web/foo/.ssh/id_rsa.pub # copy to bitbucket
+</code></pre>
+
+<p>The deployment key should then let you checkout the repository configuration:</p>
+
+<pre><code>cd archives
+git clone git@bitbucket.org:ulcc-art/foo.git footest
+</code></pre>
+
+<p>The repository configuration should contain production settings so override these with settings suitable for staging:</p>
+
+<pre><code>cd cfg/cfg.d
+cp 10_core.pl 10_core_test.pl # set staging hostname
+cp database.pl database_test.pl # set staging db name, user and password
+</code></pre>
+
+<p>Enable required Bazaar modules:</p>
+
+<pre><code>cd /www/foo-test/eprints3
+for epm in $(ls archives/footest/cfg/epm); do tools/epm link_lib $epm; done
+tools/epm link_lib pirus # always enable IRUS
+tools/epm link_lib meprints # if irstats enabled without meprints (to prevent warnings)
+</code></pre>
+
+<p>Get up and running:</p>
+
+<pre><code>bin/epadmin create_db footest
+bin/generate_apacheconf
+bin/epadmin footest # final sanity check
+/scripts/mapachectl2 restart FOO-test # restart apache for 'foo' staging service
+</code></pre>
+
+<h3>
+<a id="production" class="anchor" href="#production" aria-hidden="true"><span class="octicon octicon-link"></span></a>Production</h3>
+
+<p>After requesting DNS name for production service, define production service in Wumpus and deploy to production server (see internal ULCC documentation).</p>
+
+<p>Run the following on the production server:</p>
+
+<pre><code>cd /www/foo
+mkdir eprints3
+chown eprints:eprints eprints3
+chmod 02775 eprints3
+cd eprints3
+su foo
+git clone https://github.com/eprintsug/ulcc-core.git .
+cp perl_lib/EPrints/SystemSettings.pm.ulcc perl_lib/EPrints/SystemSettings.pm
+vim perl_lib/EPrints/SystemSettings.pm # set user and group to 'foo'
+git submodule init
+git submodule update
+</code></pre>
+
+<p>To deploy the repository configuration from bitbucket you need to create a key pair and add the public to bitbucket as a Deployment Key <a href="https://confluence.atlassian.com/bitbucket/use-deployment-keys-294486051.html">https://confluence.atlassian.com/bitbucket/use-deployment-keys-294486051.html</a>:</p>
+
+<pre><code>ssh-keygen # if keys not already generated
+cat /u/web/foo/.ssh/id_rsa.pub # copy to bitbucket
+</code></pre>
+
+<p>The deployment key should then let you checkout the repository configuration:</p>
+
+<pre><code>cd archives
+git clone git@bitbucket.org:ulcc-art/foo.git foo
+</code></pre>
+
+<p>Enable required Bazaar modules:</p>
+
+<pre><code>cd /www/foo/eprints3
+for epm in $(ls archives/foo/cfg/epm); do tools/epm link_lib $epm; done
+tools/epm link_lib meprints # if irstats enabled without meprints (to prevent warnings)
+tools/epm link_lib pirus # always enable IRUS
+</code></pre>
+
+<p>Get up and running:</p>
+
+<pre><code>bin/epadmin create_db foo
+bin/generate_apacheconf
+bin/epadmin footest # final sanity check
+/scripts/mapachectl2 restart FOO # restart apache for 'foo' production service
+</code></pre>
+
+<h2>
+<a id="contributing-to-ulcc-core" class="anchor" href="#contributing-to-ulcc-core" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing to ulcc-core</h2>
+
+<h3>
+<a id="adding-new-plugins" class="anchor" href="#adding-new-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding new plugins</h3>
+
+<pre><code>git submodule add http://github.com/eprintsug/foo lib/epm/foo
+git status # should show changes to .gitmodules and lib/epm/foo
+git commit -am "Added foo 1.0.0"
+git push
+</code></pre>
+
+<h3>
+<a id="merging-upstream-changes" class="anchor" href="#merging-upstream-changes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Merging upstream changes</h3>
+
+<p>To merge upstream changes from eprints/3.3 directly into ulcc-core/master, run the following:</p>
+
+<pre><code>git clone git@github.com:eprintsug/ulcc-core.git
+git submodule init
+git submodule update
+git remote add upstream https://github.com/eprints/eprints.git
+git fetch upstream 3.3
+git merge upstream/3.3
+# may need to fix conflicts and commit
+git push
+</code></pre>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/eprintsug/ulcc-core/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/eprintsug/ulcc-core/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/eprintsug/ulcc-core"></a> is maintained by <a href="https://github.com/eprintsug">eprintsug</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
