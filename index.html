@@ -1,34 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <meta charset="UTF-8">
+    <title>EPrints for Deployments by eprintsug</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <title>EPrints for Deployments by eprintsug</title>
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>EPrints for Deployments</h1>
-        <h2>ULCC deployment of EPrints 3.3 branch</h2>
-        <a href="https://github.com/eprintsug/ulcc-core" class="button"><small>View project on</small> GitHub</a>
-      </div>
-    </header>
+    <section class="page-header">
+      <h1 class="project-name">EPrints for Deployments</h1>
+      <h2 class="project-tagline">ULCC deployment of EPrints 3.3 branch</h2>
+      <a href="https://github.com/eprintsug/ulcc-core" class="btn">View on GitHub</a>
+      <a href="https://github.com/eprintsug/ulcc-core/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/eprintsug/ulcc-core/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <p>ulcc-core was originally developed at the University of London Computer Centre <a href="http://www.ulcc.ac.uk/">http://www.ulcc.ac.uk/</a> and is the basis for all of ULCC's EPrints-based services. ulcc-core is a fork of <a href="https://github.com/eprints/eprints/tree/3.3">https://github.com/eprints/eprints/tree/3.3</a> - currently the active EPrints development branch.</p>
+    <section class="main-content">
+      <p>ulcc-core was originally developed at the University of London Computer Centre <a href="http://www.ulcc.ac.uk/">http://www.ulcc.ac.uk/</a> and is the basis for all of ULCC's EPrints-based services. ulcc-core is a fork of <a href="https://github.com/eprints/eprints/tree/3.3">https://github.com/eprints/eprints/tree/3.3</a> - currently the active EPrints development branch.</p>
 
 <h2>
 <a id="aim" class="anchor" href="#aim" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aim</h2>
@@ -38,7 +29,7 @@
 <h2>
 <a id="how-to-contribute" class="anchor" href="#how-to-contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Contribute</h2>
 
-<p>Please see eprintsug.github.io</p>
+<p>Please see <a href="http://eprintsug.github.io/">http://eprintsug.github.io/</a></p>
 
 <h2>
 <a id="deployment" class="anchor" href="#deployment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deployment</h2>
@@ -103,7 +94,7 @@ bin/generate_apacheconf --replace --system
 <p>Follow the instructions given by generate_apacheconf for adding EPrints to your global Apache configuration, then finally (re)start Apache.</p>
 
 <h3>
-<a id="enabling-bazaar-modules-" class="anchor" href="#enabling-bazaar-modules-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enabling Bazaar Modules ###</h3>
+<a id="enabling-bazaar-modules" class="anchor" href="#enabling-bazaar-modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enabling Bazaar Modules</h3>
 
 <p>In most cases, plugins can be enabled with 2 steps, for example:</p>
 
@@ -113,7 +104,8 @@ tools/epm enable foo bootstrap
 
 <p>Some plugins require additional steps - see below.</p>
 
-<p><strong>RIOXX2 and Recollect</strong></p>
+<h4>
+<a id="rioxx2-and-recollect" class="anchor" href="#rioxx2-and-recollect" aria-hidden="true"><span class="octicon octicon-link"></span></a>RIOXX2 and Recollect</h4>
 
 <p>Both of these expect to find a workflow file archives/foo/cfg/workflows/eprint/default.xml - the ulcc-skel repository does not provide this file so do the following before enabling:</p>
 
@@ -121,7 +113,8 @@ tools/epm enable foo bootstrap
 cp lib/defaultcfg/workflows/eprint/default.xml archives/blank/cfg/workflows/eprint/
 </code></pre>
 
-<p><strong>MePrints</strong></p>
+<h4>
+<a id="meprints" class="anchor" href="#meprints" aria-hidden="true"><span class="octicon octicon-link"></span></a>MePrints</h4>
 
 <p>MePrints expects to find 2 workflow files: archives/foo/cfg/workflows/eprint/default.xml and archives/foo/cfg/workflows/user/default.xml - the ulcc-skel repository does not provide these files so do the following before enabling:</p>
 
@@ -132,7 +125,7 @@ cp lib/defaultcfg/workflows/user/default.xml archives/blank/cfg/workflows/user/
 </code></pre>
 
 <h2>
-<a id="ulcc-deployment" class="anchor" href="#ulcc-deployment" aria-hidden="true"><span class="octicon octicon-link"></span></a>ULCC Deployment</h2>
+<a id="deployment--ulcc" class="anchor" href="#deployment--ulcc" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deployment @ ULCC</h2>
 
 <p>The steps that ULCC use for deploying ulcc-core on staging and production servers.</p>
 
@@ -269,24 +262,14 @@ git merge upstream/3.3
 # may need to fix conflicts and commit
 git push
 </code></pre>
-        </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/eprintsug/ulcc-core/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/eprintsug/ulcc-core/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/eprintsug/ulcc-core">EPrints for Deployments</a> is maintained by <a href="https://github.com/eprintsug">eprintsug</a>.</span>
 
-          <p class="repo-owner"><a href="https://github.com/eprintsug/ulcc-core"></a> is maintained by <a href="https://github.com/eprintsug">eprintsug</a>.</p>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
 
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
+    </section>
 
   
   </body>
