@@ -237,7 +237,7 @@ git clone git@bitbucket.org:ulcc-art/foo.git foo
 <pre><code>cd /www/foo/eprints3
 for epm in $(ls archives/foo/cfg/epm); do tools/epm link_lib $epm; done
 tools/epm link_lib meprints # if irstats enabled without meprints (to prevent warnings)
-tools/epm link_lib pirus # always enable IRUS
+tools/epm link_lib irus # always enable IRUS
 </code></pre>
 
 <p>Get up and running:</p>
@@ -254,7 +254,7 @@ bin/epadmin footest # final sanity check
 <h3>
 <a id="adding-new-plugins" class="anchor" href="#adding-new-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding new plugins</h3>
 
-<pre><code>git submodule add http://github.com/eprintsug/foo lib/epm/foo
+<pre><code>git submodule add https://github.com/eprintsug/foo.git lib/epm/foo
 git status # should show changes to .gitmodules and lib/epm/foo
 git commit -am "Added foo 1.0.0"
 git push
