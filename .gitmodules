@@ -58,3 +58,6 @@
 [submodule "lib/epm/openoffice"]
 	path = lib/epm/openoffice
 	url = https://github.com/eprintsug/openoffice.git
+[submodule "lib/epm/corewidget"]
+	path = lib/epm/corewidget
+	url = https://github.com/eprintsug/corewidget.git
