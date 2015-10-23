@@ -55,6 +55,3 @@
 [submodule "lib/epm/mapsRecollect"]
 	path = lib/epm/mapsRecollect
 	url = https://github.com/eprintsug/mapsRecollect.git
-[submodule "lib/epm/openoffice"]
-	path = lib/epm/openoffice
-	url = https://github.com/eprintsug/openoffice.git
