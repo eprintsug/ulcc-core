@@ -64,3 +64,6 @@
 [submodule "lib/epm/coversheets"]
 	path = lib/epm/coversheets
 	url = https://github.com/eprintsug/coversheets.git
+[submodule "lib/epm/droid"]
+	path = lib/epm/droid
+	url = https://github.com/eprintsug/droid.git
