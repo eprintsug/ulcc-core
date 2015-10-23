@@ -67,3 +67,6 @@
 [submodule "lib/epm/droid"]
 	path = lib/epm/droid
 	url = https://github.com/eprintsug/droid.git
+[submodule "lib/epm/preservation_toolkit"]
+	path = lib/epm/preservation_toolkit
+	url = https://github.com/eprintsug/preservation_toolkit.git
