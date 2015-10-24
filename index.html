@@ -93,6 +93,13 @@ git clone https://bitbucket.org/your/fork
  └── var
 </code></pre>
 
+<p>The repository configuration should contain production settings so override these with settings suitable for your dev environment:</p>
+
+<pre><code>cd cfg/cfg.d
+cp 10_core.pl 10_core_test.pl # set dev hostname
+cp database.pl database_test.pl # (Optional: set dev db name, user and password)
+</code></pre>
+
 <p>To get everything up and running:</p>
 
 <pre><code>cd /opt/eprints3
