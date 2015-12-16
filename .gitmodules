@@ -73,3 +73,6 @@
 [submodule "lib/epm/citation-import"]
 	path = lib/epm/citation-import
 	url = https://github.com/eprintsug/citation-import.git
+[submodule "lib/epm/hefce_oa"]
+	path = lib/epm/hefce_oa
+	url = git@github.com:eprintsug/hefce_oa.git
