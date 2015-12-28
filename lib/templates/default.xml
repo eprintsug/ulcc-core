@@ -66,7 +66,7 @@
           </td>
           <td align="right" style="white-space: nowrap">
             <epc:pin ref="languages"/>
-            <form method="get" accept-charset="utf-8" action="{$config{http_cgiurl}}/search" style="display:inline">
+            <form method="get" accept-charset="utf-8" action="{$config{rel_cgipath}}/search" style="display:inline">
               <input class="ep_tm_searchbarbox" size="20" type="text" name="q"/>
               <input class="ep_tm_searchbarbutton" value="{phrase('lib/searchexpression:action_search')}" type="submit" name="_action_search"/>
               <input type="hidden" name="_action_search" value="Search"/>
