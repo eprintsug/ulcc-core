@@ -73,3 +73,6 @@
 [submodule "lib/epm/hefce_oa"]
 	path = lib/epm/hefce_oa
 	url = https://github.com/eprintsug/hefce_oa.git
+[submodule "lib/epm/bootstrap"]
+	path = lib/epm/bootstrap
+	url = https://github.com/eprintsug/bootstrap.git
