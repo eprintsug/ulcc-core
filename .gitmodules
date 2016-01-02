@@ -16,9 +16,6 @@
 [submodule "lib/epm/DataCiteDoi"]
 	path = lib/epm/DataCiteDoi
 	url = https://github.com/eprintsug/DataCiteDoi.git
-[submodule "lib/epm/bootstrap"]
-	path = lib/epm/bootstrap
-	url = https://github.com/eprintsug/bootstrap.git
 [submodule "lib/epm/irus"]
 	path = lib/epm/irus
 	url = https://github.com/eprintsug/irus.git
