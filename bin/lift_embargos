@@ -26,6 +26,7 @@ This script will:
 
   - search the repository for documents which have an expired publisher- or funder-imposed embargo date (relative to the system date)
   - make all documents whose embargo has expired publically available
+  - (NB Unless the default_embargo_security config options is set to something other than public)
   - remove the expired embargo date value
   - re-generate the abstract page for the eprint
 
@@ -132,6 +133,15 @@ my $list = $searchexp->perform_search;
 # For matching documents, remove embargo date value,
 # make documents publically accessible, and
 # re-generate abstract page
+
+#########
+# Where the default security setting for a repository is "validuser"  we don't 
+# want items to become public on embargo expiry.
+#
+# Add a config option to override the default reversion to public if necessary
+#########
+my $default_security = $session->get_conf("default_embargo_security") || "public";
+
 $list->map( sub {
 	my( $session, $dataset, $doc ) = @_;
 
@@ -146,7 +156,9 @@ $list->map( sub {
 	}
 	if( !$dryrun )
 	{
-		$doc->set_value( "security", "public" );
+
+
+		$doc->set_value( "security", $default_security );
 		$doc->set_value( "date_embargo", undef );
 		$doc->commit( 1 ); # pass force through to parent eprint
 		$eprint->generate_static;
