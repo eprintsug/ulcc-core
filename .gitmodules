@@ -77,5 +77,5 @@
 	path = lib/epm/bootstrap
 	url = https://github.com/eprintsug/bootstrap.git
 [submodule "lib/epm/youtube_importer"]
-	path = lib/epm/youtube_importer
+	path = lib/epm/youtube_import
 	url = https://github.com/eprintsug/youtube_importer.git
