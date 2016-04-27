@@ -79,3 +79,6 @@
 [submodule "lib/epm/youtube_importer"]
 	path = lib/epm/youtube_import
 	url = https://github.com/eprintsug/youtube_importer.git
+[submodule "lib/epm/syrtug"]
+	path = lib/epm/syrtug
+	url = https://github.com/eprintsug/syrtug.git
