@@ -82,3 +82,6 @@
 [submodule "lib/epm/syrtug"]
 	path = lib/epm/syrtug
 	url = https://github.com/eprintsug/syrtug.git
+[submodule "lib/epm/arkivum2"]
+	path = lib/epm/arkivum2
+	url = https://github.com/eprintsug/arkivum2.git
