@@ -85,3 +85,6 @@
 [submodule "lib/epm/arkivum2"]
 	path = lib/epm/arkivum2
 	url = https://github.com/eprintsug/arkivum2.git
+[submodule "lib/epm/orcidt2"]
+	path = lib/epm/orcidt2
+	url = https://github.com/eprintsug/orcidt2.git
