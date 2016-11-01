@@ -246,7 +246,7 @@ sub xml_to_epdata
 
         my $list = $searchexp->perform_search;
 
-        if($list->count == 1){
+        if($list->count >= 1){
           my @data = $list->get_records;
           $epdata->{eprintid} = $data[0]->get_id;
         }
