@@ -4,6 +4,8 @@ use strict;
 
 use EPrints::Plugin::Import::DefaultXML;
 
+use Data::Dumper;
+
 our @ISA = qw/ EPrints::Plugin::Import::DefaultXML /;
 
 sub new
@@ -34,6 +36,8 @@ sub xml_to_dataobj
         return $plugin->epdata_to_dataobj( $dataset, $epdata );
 }
 
+sub handler_class { "EPrints::Plugin::Import::DefaultXML::DOMHandler" }
+
 sub xml_to_epdata
 {
         # $xml is the PubmedArticle element
@@ -49,14 +53,14 @@ sub xml_to_epdata
 
 
         #title
-        my $title = $xml->getElementsByTagName("dc:title")->item(0);
+        my $title = $xml->getElementsByTagName("title")->item(0);
         if(defined $title){
                 my $title_str = $plugin->xml_to_text($title);
                 $title_str =~ s/&#13;//g;
                 $epdata->{title} = $title_str;
         }
         #creators (these seem to be very random in nature so putting into the lastname of the eprints creators_name... can be sorted out by a human later)
-        foreach my $dc_creator ( $xml->getElementsByTagName("dc:creator") )
+        foreach my $dc_creator ( $xml->getElementsByTagName("creator") )
         {
                 my $name = {};
         #       $plugin->{session}->get_repository->log($plugin->xml_to_text($creator));
@@ -69,7 +73,7 @@ sub xml_to_epdata
         }
 
         # (these seem to be very random in nature so putting into the lastname of the eprints creators_name... can be sorted out by a human later)
-        foreach my $dc_contributor ( $xml->getElementsByTagName("dc:contributor") )
+        foreach my $dc_contributor ( $xml->getElementsByTagName("contributor") )
         {
                 my $ed = {};
         #       $plugin->{session}->get_repository->log($plugin->xml_to_text($contributor));
@@ -82,14 +86,14 @@ sub xml_to_epdata
         }
 
         #publisher
-        my $publisher = $xml->getElementsByTagName("dc:publisher")->item(0);
+        my $publisher = $xml->getElementsByTagName("publisher")->item(0);
         if(defined $publisher){
                 $epdata->{publisher} = $plugin->xml_to_text($publisher);
         }
 
         #description (appending multiple descriptions into a newline separated text block)
         my $description = undef;
-        foreach my $desc ( $xml->getElementsByTagName("dc:description") )
+        foreach my $desc ( $xml->getElementsByTagName("description") )
         {
 #               $plugin->{session}->get_repository->log($plugin->xml_to_text($desc));
                 my $desc_str = $plugin->xml_to_text($desc);
@@ -98,7 +102,7 @@ sub xml_to_epdata
         }
 
         #date
-        my $dc_date = $xml->getElementsByTagName("dc:date")->item(0);
+        my $dc_date = $xml->getElementsByTagName("date")->item(0);
         if(defined $dc_date){
                 $epdata->{date} = $plugin->xml_to_text($dc_date);
 
@@ -135,7 +139,7 @@ sub xml_to_epdata
                         # SMUC
                         "journal article" => "article",
                 };
-        foreach my $type ( $xml->getElementsByTagName("dc:type") )
+        foreach my $type ( $xml->getElementsByTagName("type") )
         {
 #               $plugin->{session}->get_repository->log("TYPE: ".$plugin->xml_to_text($type));
                 my $type_str = $plugin->xml_to_text($type);
@@ -158,7 +162,7 @@ sub xml_to_epdata
                 }
         }
         #relation
-        foreach my $rel ( $xml->getElementsByTagName("dc:relation") ){
+        foreach my $rel ( $xml->getElementsByTagName("relation") ){
                 my $rel_str = $plugin->xml_to_text($rel);
                 if(defined $this_repo && $rel_str =~ /$this_repo_q/){
                         my $rel_url = {};
@@ -170,7 +174,7 @@ sub xml_to_epdata
         }
         # Resource identifier
         # EPrints... url of object or citation | DSpace/DigitalCommons url of abstract
-        foreach my $ident ( $xml->getElementsByTagName("dc:identifier") )
+        foreach my $ident ( $xml->getElementsByTagName("identifier") )
         {
                 my $ident_str = $plugin->xml_to_text($ident);
                 if($ident_str =~ /^http:\/\/.*\d$/){ #this will do FOR NOW! (oh no it won't! added pattern for start of string too)
@@ -187,7 +191,7 @@ sub xml_to_epdata
         }
 #       print $plugin->xml_to_text($oai_identifier)." ".$epdata->{source_repository}->{item_url}."\n";
 
-        foreach my $subject ( $xml->getElementsByTagName("dc:subject") ){
+        foreach my $subject ( $xml->getElementsByTagName("subject") ){
                 my $subj = $plugin->xml_to_text($subject);
                 $subj =~ /^(\w+)\s*/;
                 my $subj_part = $1;
@@ -207,7 +211,7 @@ sub xml_to_epdata
 
         #dc: subject, source, format and type will go into the note field for the delictation of someone who might know what they can be used for.
         my $keywords = "";
-        foreach my $subject ( $xml->getElementsByTagName("dc:subject") )
+        foreach my $subject ( $xml->getElementsByTagName("subject") )
         {
                 $keywords .= $plugin->xml_to_text($subject)."; ";
         }
@@ -218,18 +222,33 @@ sub xml_to_epdata
                 $epdata->{keywords} = $keywords;
         }
 
-        # Last of all we will see if the oai_identifier has been recorded and if so we will add the eprintid (from this repo)
-        # which will cause the record to be updated if it already exists.
-        my $searchexp = EPrints::Search->new(
-                session => $plugin->{session},
-                dataset => $dataset,
-        );
-        $searchexp->add_field( $dataset->get_field( "source_repository_oai_identifier" ),$plugin->xml_to_text($oai_identifier) );
+        # AH 01/11/2016: the following block of code conducts a search of the repository
+        # using the source_repository_oai_identifier value. If the resulting $list has
+        # at least one search result, it obtains the eprint_id from the first search
+        # result and adds the eprint_id to the $epdata object constructed above. Because
+        # the $epdata object will already have an eprint_id value, the system will
+        # update the record, rather than create a new record.
+        # NOTE: the conditional if statement checks if the list has one or more search
+        # results as there could be cases where an item has one or more versions created
+        # manually by a repository administrator and each version shares the same
+        # source_repository_oai_identifier value
 
-        my $list = eval { $searchexp->perform_search };
+        my $searchexp = EPrints::Search->new(
+          session => $plugin->{session},
+          dataset => $dataset,
+        );
+
+        $searchexp->add_field(
+          fields => $dataset->field( "source_repository_oai_identifier" ),
+          value => $plugin->xml_to_text($oai_identifier) ,
+          match => "EQ",
+        );
+
+        my $list = $searchexp->perform_search;
+
         if($list->count == 1){
-                my @data = $list->get_records;
-                $epdata->{eprintid} = $data[0]->get_id;
+          my @data = $list->get_records;
+          $epdata->{eprintid} = $data[0]->get_id;
         }
 
         return $epdata;
