@@ -185,10 +185,11 @@ sub xml_to_epdata
         }
         # Info on the source repository
         $epdata->{source_repository} = {name => $this_repo_name, url=>$this_repo, item_url=>$epdata->{related_url}->[0]->{url}};
-        my $oai_identifier = $xml->getElementsByTagName("identifier")->item(0);
+        my $oai_identifier = $xml->getElementsByTagName("identifier")->item(1);
         if(defined $oai_identifier){
                 $epdata->{source_repository}->{oai_identifier} = $plugin->xml_to_text($oai_identifier);
         }
+
 #       print $plugin->xml_to_text($oai_identifier)." ".$epdata->{source_repository}->{item_url}."\n";
 
         foreach my $subject ( $xml->getElementsByTagName("subject") ){
