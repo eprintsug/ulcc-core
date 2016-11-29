@@ -88,3 +88,6 @@
 [submodule "lib/epm/orcidt2"]
 	path = lib/epm/orcidt2
 	url = https://github.com/eprintsug/orcidt2.git
+[submodule "lib/epm/soundcloud"]
+	path = lib/epm/soundcloud
+	url = https://github.com/eprintsug/soundcloud.git
