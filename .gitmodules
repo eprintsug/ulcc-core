@@ -93,4 +93,4 @@
 	url = https://github.com/eprintsug/soundcloud.git
 [submodule "lib/epm/orcid_support"]
 	path = lib/epm/orcid
-	url = git@github.com:eprints/orcid_support.git
+	url = https://github.com/eprints/orcid_support.git 
