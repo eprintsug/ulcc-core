@@ -92,7 +92,7 @@ sub input_text_fh
 			id => $doi,
 		);
 
-		my $url = URI->new( "http://www.crossref.org/openurl" );
+		my $url = URI->new( "http://doi.crossref.org/openurl" );
 		$url->query_form( %params );
 
 		my $dom_doc;
@@ -236,7 +236,7 @@ sub convert_input
 		$epdata->{$doi_field} = $data->{"doi"};
 		my $doi = $data->{"doi"};
 		$doi =~ s/^\s*doi:\s*//gi;
-		$epdata->{official_url} = "http://doi.org/$doi";
+		$epdata->{official_url} = "https://doi.org/$doi";
 	}
 	if( defined $data->{"volume_title"} )
 	{
