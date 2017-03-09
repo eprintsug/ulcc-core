@@ -97,3 +97,6 @@
 [submodule "lib/epm/swordlegacy"]
 	path = lib/epm/swordlegacy
 	url = https://github.com/eprintsug/swordlegacy.git
+[submodule "lib/epm/multiline_excel"]
+	path = lib/epm/multiline_excel
+	url = https://github.com/eprintsug/mulitline_excel.git
