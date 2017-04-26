@@ -100,3 +100,6 @@
 [submodule "lib/epm/multiline_excel"]
 	path = lib/epm/multiline_excel
 	url = https://github.com/eprintsug/multiline_excel.git
+[submodule "lib/epm/batchedit-extended"]
+	path = lib/epm/batchedit-extended
+	url = https://github.com/eprintsug/batchedit-extended.git
