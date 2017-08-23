@@ -103,3 +103,6 @@
 [submodule "lib/epm/batchedit-extended"]
 	path = lib/epm/batchedit-extended
 	url = https://github.com/eprintsug/batchedit-extended.git
+[submodule "lib/epm/RJ_Broker_2"]
+	path = lib/epm/RJ_Broker_2
+	url = https://github.com/eprintsug/RJ_Broker_2.git
