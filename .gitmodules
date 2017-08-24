@@ -103,3 +103,6 @@
 [submodule "lib/epm/RJ_Broker_2"]
 	path = lib/epm/RJ_Broker_2
 	url = https://github.com/eprintsug/RJ_Broker_2.git
+[submodule "lib/epm/coversheets-latex"]
+	path = lib/epm/coversheets-latex
+	url = https://github.com/eprintsug/coversheets-latex
