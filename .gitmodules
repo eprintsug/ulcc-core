@@ -106,3 +106,6 @@
 [submodule "lib/epm/coversheets-latex"]
 	path = lib/epm/coversheets-latex
 	url = https://github.com/eprintsug/coversheets-latex
+[submodule "lib/epm/oai_uketd_dc"]
+	path = lib/epm/oai_uketd_dc
+	url = https://github.com/eprintsug/oai_uketd_dc.git
