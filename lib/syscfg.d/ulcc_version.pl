@@ -1,1 +1,1 @@
-$c->{ulcc_version} = "1.0.9";
+$c->{ulcc_version} = "1.1.0";
