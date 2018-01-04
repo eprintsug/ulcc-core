@@ -264,9 +264,20 @@ sub handler
 		# If the software (web client) stopped listening
 		# before we stopped sending then that's not a fail.
 		# even if $rv was not set
-		if( $@ !~ m/^Software caused connection abort/ )
+		if(
+			$@ !~ m/^Software caused connection abort/ &&
+			$@ !~ m/:Apache2 IO write: \(104\) Connection reset by peer/ &&
+			$@ !~ m/:Apache2 IO write: \(32\) Broken pipe/ &&
+			$@ !~ m/:Apache2 IO write: \(70007\) The timeout specified has expired/
+		  )
 		{
 			EPrints::abort( "Error in file retrieval: $@" );
+		}
+		else
+		{
+			# Shows in httpd logs as 499, even though the client
+			# received a '200 Ok' response. From nginx
+			return 499;
 		}
 	}
 	elsif( !$rv )
