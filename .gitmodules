@@ -109,3 +109,6 @@
 [submodule "lib/epm/oai_uketd_dc"]
 	path = lib/epm/oai_uketd_dc
 	url = https://github.com/eprintsug/oai_uketd_dc.git
+[submodule "lib/epm/pubrouter_rioxx_importer"]
+	path = lib/epm/pubrouter_rioxx_importer
+	url = https://github.com/jisc-services/eprints-plugin-PubRouter-RIOXXplus-Connector.git
