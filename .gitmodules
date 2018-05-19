@@ -112,3 +112,6 @@
 [submodule "lib/epm/pubrouter_rioxx_importer"]
 	path = lib/epm/pubrouter_rioxx_importer
 	url = https://github.com/eprintsug/eprints-plugin-PubRouter-RIOXXplus-Connector.git
+[submodule "lib/epm/ref2021"]
+	path = lib/epm/ref2021
+	url = https://github.com/eprintsug/ref2021.git
