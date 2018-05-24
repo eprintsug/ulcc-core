@@ -10,7 +10,7 @@ $c->{rdf}->{person_uri} = sub {
 		# them from the URI, uncomment the following line and edit SECRET to be 
 		# something unique and unguessable. 
 		#
-		# return "epid:person/ext-".md5_hex( utf8::encode( $person->{id}." SECRET" ));
+		return "epid:person/ext-".md5_hex( utf8::encode( $person->{id}." SECRET" ));
 		
 		return "epid:person/ext-".$person->{id};
 	}
