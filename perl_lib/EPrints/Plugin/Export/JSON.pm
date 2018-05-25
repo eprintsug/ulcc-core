@@ -78,6 +78,10 @@ sub output_list
 	my $first = 1;
 	$opts{list}->map( sub {
 		my( $session, $dataset, $dataobj ) = @_;
+
+        $self->{dataobj} = $dataobj;
+        $self->{parent_field} = undef;
+
 		my $part = "";
 		if( $first ) { $first = 0; } else { $part = ",\n"; }
 		$part .= $self->_epdata_to_json( $dataobj, 1, 0, %opts );
@@ -114,6 +118,8 @@ sub output_dataobj
 {
 	my( $self, $dataobj, %opts ) = @_;
 
+    $self->{dataobj} = $dataobj;
+    $self->{parent_field} = undef;
 	return $self->_header( %opts ).$self->_epdata_to_json( $dataobj, 1, 0, %opts ).$self->_footer( %opts );
 }
 
@@ -150,8 +156,27 @@ sub _epdata_to_json
 	}
 	elsif( ref( $epdata ) eq "HASH" )
 	{
-		return "$pre_pad\{\n" . join(",\n", map {
-			$pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts )
+
+		return "$pre_pad\{\n" . join("\n", map {
+
+            #Keep track of possible compounds so...
+            if( ref($epdata->{$_}) eq "ARRAY"){
+                $self->{parent_field} = $_;
+            }
+            # When we run across a sub field...
+            my $sub_name = $self->{parent_field}."_".$_;
+            if( $self->{dataobj}->dataset->has_field($sub_name) ){
+                #That really is a sub field...
+                my $sub_field = $self->{dataobj}->dataset->field($sub_name);
+                #We can check if we shoudl be xporting it
+                if($sub_field->get_property( "export_as_xml" )){
+            		$pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts ).","
+                }else{
+                    "";
+                }
+            }else{
+    	        $pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts ).","
+            }
 		} keys %$epdata) . "\n$pad\}";
 	}
 	elsif( $epdata->isa( "EPrints::DataObj" ) )
