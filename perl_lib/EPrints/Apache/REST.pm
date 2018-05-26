@@ -193,6 +193,7 @@ sub serve_dataobj
 			{
 				next if( $field->get_property( "sub_name" ) );
 				next if( $field->isa( "EPrints::MetaField::Secret" ) );
+				next if( !$field->get_property( "export_as_xml" ) );
 				my $name = $field->get_name;
 				$c.="<li><a href='$name.xml'>$name.xml</a></li>";
 				if( $field->get_property( "multiple" )
@@ -414,6 +415,7 @@ sub serve_compound
 			my $c = "<ul>\n";
 			foreach my $sub_field ( @{$f} )
 			{
+				next if( !$sub_field->get_property( "export_as_xml" ) );
 				my $fieldname = $sub_field->get_name;
 				my $alias = $fieldname_to_alias{$fieldname};
 				if( $sub_field->is_type( "compound","subobject","name" ) )
