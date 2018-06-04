@@ -27,6 +27,7 @@ sub new
 	$self->{arguments}->{jsonp} = undef;
 	$self->{arguments}->{callback} = undef;
 	$self->{arguments}->{hide_volatile} = 1;
+	$self->{dataobj} = undef;
 
 	return $self;
 }
@@ -156,8 +157,11 @@ sub _epdata_to_json
 	}
 	elsif( ref( $epdata ) eq "HASH" )
 	{
+#		return "$pre_pad\{\n" . join(",\n", map {	
+#			$pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts )
 
-		return "$pre_pad\{\n" . join("\n", map {
+
+		return "$pre_pad\{\n" . join(",\n", map {
 
             #Keep track of possible compounds so...
             if( ref($epdata->{$_}) eq "ARRAY"){
@@ -165,17 +169,17 @@ sub _epdata_to_json
             }
             # When we run across a sub field...
             my $sub_name = $self->{parent_field}."_".$_;
-            if( $self->{dataobj}->dataset->has_field($sub_name) ){
+            if( ref($self->{dataobj}) =~ /EPrints::DataObj/ && $self->{dataobj}->dataset->has_field($sub_name) ){
                 #That really is a sub field...
                 my $sub_field = $self->{dataobj}->dataset->field($sub_name);
                 #We can check if we shoudl be xporting it
                 if($sub_field->get_property( "export_as_xml" )){
-            		$pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts ).","
+            		$pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts )
                 }else{
                     "";
                 }
             }else{
-    	        $pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts ).","
+    	        $pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts )
             }
 		} keys %$epdata) . "\n$pad\}";
 	}
