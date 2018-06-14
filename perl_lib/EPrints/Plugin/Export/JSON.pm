@@ -157,11 +157,8 @@ sub _epdata_to_json
 	}
 	elsif( ref( $epdata ) eq "HASH" )
 	{
-#		return "$pre_pad\{\n" . join(",\n", map {	
-#			$pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts )
+		my $json_str = "$pre_pad\{\n" . join(",\n", map {
 
-
-		return "$pre_pad\{\n" . join(",\n", map {
 
             #Keep track of possible compounds so...
             if( ref($epdata->{$_}) eq "ARRAY"){
@@ -182,6 +179,10 @@ sub _epdata_to_json
     	        $pad . "  \"" . $_ . "\": " . $self->_epdata_to_json( $epdata->{$_}, $depth + 1, 1, %opts )
             }
 		} keys %$epdata) . "\n$pad\}";
+
+        #strip any commas hanging round at the end of the string (after we have expunged the non-exportable subs, this may happen)
+		$json_str =~ s/,\n$//m;
+		return $json_str;
 	}
 	elsif( $epdata->isa( "EPrints::DataObj" ) )
 	{
