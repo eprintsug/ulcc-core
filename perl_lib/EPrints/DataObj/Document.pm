@@ -1698,6 +1698,9 @@ sub icon_url
 
 	if( $session->{preparing_static_page} )
 	{
+        if( $session->get_conf("securehost") ){
+    		return $session->config( "https_url" )."/$rel_path/$icon";
+        }
 		return $session->config( "http_url" )."/$rel_path/$icon";
 	}
 
