@@ -1644,6 +1644,9 @@ sub thumbnail_url
 
 	if( $self->{session}->{preparing_static_page} )
 	{
+        if( $self->{session}->get_conf("securehost") ){
+    		return $self->{session}->config( "https_url" ) . "/" . $path;
+        }
 		return $self->{session}->config( "http_url" ). "/" . $path;
 	}
 
