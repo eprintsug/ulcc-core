@@ -182,7 +182,7 @@ sub _epdata_to_json
 
         #strip any commas hanging round at the end of the string (after we have expunged the non-exportable subs, this may happen)
        	$json_str =~ s/\n,\n/\n/m;
-
+        $json_str =~ s/,\n$//m;
 		return $json_str;
 	}
 	elsif( $epdata->isa( "EPrints::DataObj" ) )
