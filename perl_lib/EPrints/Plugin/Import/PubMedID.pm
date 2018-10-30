@@ -8,6 +8,8 @@ package EPrints::Plugin::Import::PubMedID;
 
 use strict;
 
+# Updated to use HTTPS, XML parser also needed updating as it doesnt support HTTPS.  Note that you must also have LWP::Protocol::https instaled.
+# jb4/09nov2016
 
 use EPrints::Plugin::Import;
 use URI;
@@ -26,8 +28,6 @@ sub new
 	$self->{name} = "PubMed ID";
 	$self->{visible} = "all";
 	$self->{produce} = [ 'list/eprint', 'dataobj/eprint' ];
-
-    #RM update to use https
 	$self->{EFETCH_URL} = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&rettype=full';
 
 	return $self;
@@ -61,37 +61,22 @@ sub input_fh
 		my $url = URI->new( $plugin->{EFETCH_URL} );
 		$url->query_form( $url->query_form, id => $pmid );
 
-		#my $xml = EPrints::XML::parse_url( $url );
-        
-        #RM Use LWP which works with https, 
-        #Minimal additions from https://github.com/eprintsug/PubMedID-Import/blob/master/perl_lib/EPrints/Plugin/Import/PubMedID.pm to make Import functional
-		my $host = $plugin->{session}->get_repository->config( 'host ');
-
-		my $req = HTTP::Request->new( "GET", $url );
+		my $host = $plugin->{session}->get_repository->config( 'host');
+		my $req = HTTP::Request->new("GET", $url);
 		$req->header( "Accept" => "text/xml" );
 		$req->header( "Accept-Charset" => "utf-8" );
 		$req->header( "User-Agent" => "EPrints 3.3.x; " . $host  );
 
 		my $ua = LWP::UserAgent->new;
-		$ua->env_proxy;
-		$ua->timeout(60);
-		my $response = $ua->request($req);
-		my $success = $response->is_success;
-		
-		if ( $response->code != 200 )
+		my $resp = $ua->request( $req );
+
+		if( $resp->code != 200 )
 		{
-			print STDERR "HTTP status " . $response->code .  " from ncbi.nlm.nih.gov for PubMed ID $pmid\n";
+			$plugin->warning( "Could not connect to remote site: $url (".$resp->code.")" );
+			next;
 		}
 
-		my $xml;	
-
-		if (!$success)
-		{	
-			$xml = $parser->parse_string( '<?xml version="1.0" ?><eFetchResult><ERROR>' . $response->code . '</ERROR></eFetchResult>' );
-		}else{
-			$xml = $parser->parse_string( $response->content );
-		}
-        ########## end additions for LWP/https #############
+		my $xml = $parser->parse_string( $resp->content );
 
 		my $root = $xml->documentElement;
 

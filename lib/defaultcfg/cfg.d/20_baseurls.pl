@@ -30,3 +30,8 @@
 #  e.g. /myspecial/cgi
 # Will match http://yourrepo/myspecial/cgi
 #$c->{rewrite_exceptions} = [];
+#
+
+#if turned on, the abstract page url will be: http://domain.com/id/eprint/43/. This format helps google scholar to index eprints repository.
+#if turned off: http://domain.com/43/
+$c->{use_long_url_format} = 0;

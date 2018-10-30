@@ -23,6 +23,8 @@ contains a number of methods for handling the entire tree.
 
 EPrints::DataObj::Subject is a subclass of EPrints::DataObj
 
+=head1 METHODS
+
 =over 4
 
 =cut
@@ -313,18 +315,19 @@ sub remove_all
 
 	
 ######################################################################
-# =pod
-# 
-# =item $subject = EPrints::DataObj::Subject::create( $session, $id, $name, $parents, $depositable )
-# 
-# Creates a new subject in the database. $id is the ID of the subject,
-# $name is a multilang data structure with the name of the subject in
-# one or more languages. eg. { en=>"Trousers", en-us=>"Pants}. $parents
-# is a reference to an array containing the ID's of one or more other
-# subjects (don't make loops!). If $depositable is true then eprints may
-# belong to this subject.
-# 
-# =cut
+=pod
+
+=item $subject = EPrints::DataObj::Subject::create( $session, $id, $name, $parents, $depositable )
+
+Creates a new subject in the database. $id is the ID of the subject,
+$name is a multilang data structure with the name of the subject in
+one or more languages eg.
+[{"name"=>"New Subject Name",lang=>"en"}, {"name"=>"Nouveau nom du sujet",lang=>"fr"} ]
+ $parents is a reference to an array containing the ID's of one or more other
+subjects (don't make loops!). If $depositable is true then eprints may
+belong to this subject.
+
+=cut
 ######################################################################
 
 sub create
@@ -348,15 +351,15 @@ sub create
 }
 
 ######################################################################
-# =pod
-# 
-# =item $dataobj = EPrints::DataObj::Subject->create_from_data( $session, $data, $dataset )
-# 
-# Returns undef if a bad (or no) subjectid is specified.
-# 
-# Otherwise calls the parent method in EPrints::DataObj.
-# 
-# =cut
+=pod
+
+=item $dataobj = EPrints::DataObj::Subject->create_from_data( $session, $data, $dataset )
+
+Returns undef if a bad (or no) subjectid is specified.
+
+Otherwise calls the parent method in EPrints::DataObj.
+
+=cut
 ######################################################################
 
 sub create_from_data
@@ -408,6 +411,8 @@ sub _get_ancestors
 	return @ancestors;
 }
 
+######################################################################
+
 =item $subject = $subject->top()
 
 Returns the subject that is at the top of this subject's tree (which may be this subject).
@@ -415,6 +420,7 @@ Returns the subject that is at the top of this subject's tree (which may be this
 Returns undef if the subject is not part of a tree.
 
 =cut
+######################################################################
 
 sub top
 {
@@ -490,6 +496,7 @@ sub get_children
 			}
 		],
 		custom_order=>"sortvalue_sortvalue/name_name" );
+
 	return $results->slice;
 }
 
@@ -645,18 +652,6 @@ sub get_paths
 
 
 ######################################################################
-#
-# ( $tags, $labels ) = get_postable( $session, $user )
-#
-#  Returns a list of the subjects that can be posted to by $user. They
-#  are returned in a tuple, the first element being a reference to an
-#  array of tags (for the ordering) and the second being a reference
-#  to the hash mapping tags to full names. [STATIC]
-#
-######################################################################
-
-
-######################################################################
 =pod
 
 =item $subject_pairs = $subject->get_subjects ( [$postable_only], [$show_top_level], [$nes_tids], [$no_nest_label] )
@@ -761,7 +756,7 @@ sub _get_subjects2
 }
 
 # cjg CACHE this per, er, session?
-# commiting a subject should erase the cache
+# committing a subject should erase the cache
 
 ######################################################################
 =pod
@@ -875,7 +870,7 @@ sub posted_eprints
 =item $count = $subject->count_eprints( $dataset )
 
 Return the number of eprints in the dataset which are in this subject
-or one of its decendants. Search all fields of type subject.
+or one of its descendants. Search all fields of type subject.
 
 =cut
 ######################################################################
@@ -959,13 +954,13 @@ sub render_description
 #deprecated
 
 ######################################################################
-=pod
-
-=item $subj->render()
-
-undocumented
-
-=cut
+#=pod
+#
+#=item $subj->render()
+#
+#undocumented
+#
+#=cut
 ######################################################################
 
 sub render
