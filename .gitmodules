@@ -112,3 +112,6 @@
 [submodule "lib/epm/orcid_support_advance"]
 	path = lib/epm/orcid_support_advance
 	url = https://github.com/eprints/orcid_support_advance.git
+[submodule "lib/epm/issues2"]
+	path = lib/epm/issues2
+	url = https://github.com/eprints/issues2.git
