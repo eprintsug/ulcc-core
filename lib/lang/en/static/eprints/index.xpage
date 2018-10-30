@@ -24,7 +24,7 @@
 
 <p>EPrints is free software developed at the <a href="http://www.ecs.soton.ac.uk/">School of Electronics and Computer Science</a> at the <a href="http://www.soton.ac.uk/">University of Southampton</a>, England.</p>
 
-<p>Other institutions are invited (and encouraged) to set up their own open repositories for author <a href="http://www.eprints.org/self-faq/">self-archiving</a>, using the freely-distributable <a href="http://www.eprints.org/software/">EPrints software</a> used at this site. The Southampton EPrints team can also provide <a href="http://www.eprints.org/services/">hosting, training and consultancy services</a>.</p>
+<p>Other institutions are invited (and encouraged) to set up their own open repositories for author <a href="http://www.eprints.org/self-faq/">self-archiving</a>, using the freely-distributable <a href="http://www.eprints.org/software/">EPrints software</a> used at this site.</p>
 
 
 <h2>Credits</h2>
@@ -85,16 +85,6 @@
 
 <p>Thanks to the EPrints users and community for contributing ideas, bug reports and fixes.</p>
 
-
-
-
-
-
-
-
-
-
-
 <epc:phrase ref="ruler" />
 
 <h2>Technologies employed and supported:</h2>
@@ -129,8 +119,7 @@
 <epc:phrase ref="ruler" />
 
 <div align="center" style='margin-top:2em'>
-<a href="http://www.ecs.soton.ac.uk/"><img src="{$config{rel_path}}/images/ecslogo.jpg" border="0" alt="School of Electronics and Computer Science, University of Southampton" align="top"/></a>
-<p>EPrints is Copyright &#169; University of Southampton, 2000-2015.</p>
+<p>EPrints is Copyright &#169; University of Southampton, 2000-2018.</p>
 </div>
 
 
