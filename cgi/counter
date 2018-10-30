@@ -55,8 +55,9 @@ foreach my $ds_id ( sort keys %counts )
 }
 
 # version
-print "version: " . EPrints->human_version . " " . $repo->config( "vendor_short" ) . "\n";
-foreach my $key ( qw / version_description version_long version_alias vendor_long vendor_short / )
+print "Base EPrints version: " . EPrints->human_version . " " . $repo->config( "base_vendor_short" ) . "\n";
+print "Platform version: " . $repo->config( "version_short" ) . " " . $repo->config( "vendor_short" ) . "\n";
+foreach my $key ( qw / version_description base_version_long base_version_alias base_vendor_long base_vendor_short version_long version_alias vendor_long vendor_short / )
 {
 	print $key . ": " . $repo->config( $key ) . "\n";
 }
