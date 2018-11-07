@@ -70,9 +70,9 @@
 [submodule "lib/epm/bootstrap"]
 	path = lib/epm/bootstrap
 	url = https://github.com/eprintsug/bootstrap.git
-[submodule "lib/epm/youtube_importer"]
+[submodule "lib/epm/youtube_import"]
 	path = lib/epm/youtube_import
-	url = https://github.com/eprintsug/youtube_importer.git
+	url = https://github.com/eprintsug/youtube_import.git
 [submodule "lib/epm/syrtug"]
 	path = lib/epm/syrtug
 	url = https://github.com/eprintsug/syrtug.git
