@@ -1262,7 +1262,9 @@ sub redo_mime_type
 			# hide volatiles from the search interface (sort of)
 			if( $doc->has_relation( undef, "isVolatileVersionOf" ) )
 			{
-				$doc->set_value( "format", "other" );
+                #really really hide volatiles from search interface rather than sort of hide them:
+#				$doc->set_value( "format", "other" );
+				$doc->set_value( "format", undef );
 			}
 
 			$file->commit;
