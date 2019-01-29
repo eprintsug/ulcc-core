@@ -162,7 +162,7 @@ sub _parse_bibliography
 	$epdata->{referencetext} = Encode::decode_utf8( $buffer );
 
 	push @{$epdata->{documents}}, {
-			format => "other",
+			format => "text",
 			formatdesc => "Plain Text Bibliography",
 			content => "bibliography",
 			mime_type => "text/plain",

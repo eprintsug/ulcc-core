@@ -357,7 +357,7 @@ sub convert
 	}
 
 	my $new_doc = $eprint->create_subdataobj( "documents", {
-		format => "other",
+#		format => "other",
 		formatdesc => $self->{name} . ' conversion from ' . $doc->get_type . ' to ' . $type,
 		main => $main,
 		files => \@files,

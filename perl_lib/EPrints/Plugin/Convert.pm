@@ -248,7 +248,7 @@ sub convert
 		main => $main_file,
 		eprintid => $eprint->get_id,
 		_parent => $eprint,
-		format => "other",
+#		format => "other",
 		mime_type => $filedata[0]->{mime_type},
 		security => $doc->value( "security" ),
 		formatdesc => $plugin->{name} . ' conversion from ' . $doc->get_type . ' to ' . $type,
