@@ -115,3 +115,6 @@
 [submodule "lib/epm/issues2"]
 	path = lib/epm/issues2
 	url = https://github.com/eprintsug/issues2.git
+[submodule "lib/epm/search_results_highlighter"]
+	path = lib/epm/search_results_highlighter
+	url = https://github.com/eprintsug/search_results_highlighter.git
