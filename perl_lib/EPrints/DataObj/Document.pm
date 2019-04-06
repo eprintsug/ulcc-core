@@ -595,7 +595,11 @@ sub get_url
 	my $path = $self->file_path( $file );
 	return undef if !defined $path;
 
+
 	my $url = $self->{session}->config( "http_url" ) . "/";
+    if( $self->{session}->get_conf("securehost") ){
+        $url = $self->{session}->config( "https_url" )."/";
+    }
 
 	$url .= 'id/eprint/' if $self->{session}->get_conf( "use_long_url_format");
 

@@ -397,6 +397,9 @@ sub fileinfo
 	my( $self ) = @_;
 
 	my $base_url = $self->{session}->config( 'http_url' );
+    if( $self->{session}->get_conf("securehost") ){
+        $base_url = $self->{session}->config( "https_url" );
+    }
 
 	local $self->{session}->{preparing_static_page} = 1; # force full URLs
 
