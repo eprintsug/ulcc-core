@@ -115,3 +115,6 @@
 [submodule "lib/epm/search_results_highlighter"]
 	path = lib/epm/search_results_highlighter
 	url = https://github.com/eprintsug/search_results_highlighter.git
+[submodule "lib/epm/hefce_oa"]
+	path = lib/epm/hefce_oa
+	url = https://github.com/eprintsug/hefce_oa.git
