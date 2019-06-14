@@ -324,3 +324,21 @@ git pull upstream 3.3
 git push origin master
 git branch --set-upstream-to=origin/master master
 ````
+
+## Docker image for ULCC Core
+
+An docker image of ULCC Core is available in the Docker Hub https://hub.docker.com/r/researchtech/ulcc-core
+
+The image contains an apache-based docker image containing the ulcc-core code, submodules and libraries and dependencies for running EPrints.
+
+The current image is `alpha`
+
+To try out the docker code locally:
+
+* cp .env.template .env
+* fill out the required variables in .env
+* docker-compose up --build
+
+You should see the apache 'it works' page running on port 80.
+
+This image is intended to form the basis of a further Docker build for your application. 

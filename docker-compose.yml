@@ -1,0 +1,20 @@
+version: '3.3'
+
+networks:
+  internal:
+
+services:
+
+  ulcccore: 
+    build: 
+      context: .
+      args:
+         BRANCH: ${BRANCH}
+    env_file:
+      - .env
+    networks:
+      internal:
+    expose: 
+      - 80
+    ports:
+      - 80:80
