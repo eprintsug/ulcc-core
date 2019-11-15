@@ -121,9 +121,6 @@
 [submodule "lib/epm/ref_support"]
 	path = lib/epm/ref_support
 	url = https://github.com/eprints/ref_support.git
-[submodule "lib/epm/dorian"]
-	path = lib/epm/dorian
-	url = https://github.com/eprintsug/dorian.git
 [submodule "lib/epm/iiif-manifest"]
 	path = lib/epm/iiif-manifest
 	url = https://github.com/eprintsug/iiif-manifest.git
