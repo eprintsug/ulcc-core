@@ -777,6 +777,7 @@ sub _list
 	}
 
 	my $ds = $repo->dataset( "eprint" );
+    $repo->load_config; # ensure config is freshly loaded and has not been affected by previous OAI requests
 	my $filters = $repo->config( "oai", "filters" );
 	$filters = [] unless defined $filters;
 
