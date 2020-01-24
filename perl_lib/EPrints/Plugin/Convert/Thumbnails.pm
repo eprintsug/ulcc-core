@@ -124,6 +124,7 @@ $DEFAULT{convert_formats} = {qw(
 	jpeg image/jpeg
 	jpe image/jpeg
 	jpg image/jpeg
+	jfif image/jpeg
 	jp2	image/jp2
 	png image/png
 	tiff image/tiff
@@ -357,7 +358,6 @@ sub convert
 	}
 
 	my $new_doc = $eprint->create_subdataobj( "documents", {
-#		format => "image",
 		formatdesc => $self->{name} . ' conversion from ' . $doc->get_type . ' to ' . $type,
 		main => $main,
 		files => \@files,
@@ -768,7 +768,7 @@ sub export_cell
 
 	$offset = _seconds_to_marker( $offset );
 
-	$self->{_mime_type} = "image/jpg";
+	$self->{_mime_type} = "image/jpeg";
 
 	# extract the frame in MJPEG format
 	my $fn = $size . '.jpg';

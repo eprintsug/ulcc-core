@@ -102,7 +102,7 @@ use Carp;
 
 use strict;
 
-our $VERSION = v3.3.15;
+our $VERSION = v3.3.16;
 $conf->{version} = "EPrints ".EPrints->human_version;
 $conf->{versionid} = "eprints-".EPrints->human_version;
 
@@ -510,7 +510,7 @@ sub abort
 </head>
 <body>
 <h1>EPrints System Error</h1>
-<p><tt>$htmlerrmsg</tt></p>
+<p><code>$htmlerrmsg</code></p>
 </body>
 </html>
 END

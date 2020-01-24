@@ -64,15 +64,12 @@
 [submodule "lib/epm/citation-import"]
 	path = lib/epm/citation-import
 	url = https://github.com/eprintsug/citation-import.git
-[submodule "lib/epm/hefce_oa"]
-	path = lib/epm/hefce_oa
-	url = https://github.com/eprintsug/hefce_oa.git
 [submodule "lib/epm/bootstrap"]
 	path = lib/epm/bootstrap
 	url = https://github.com/eprintsug/bootstrap.git
-[submodule "lib/epm/youtube_importer"]
+[submodule "lib/epm/youtube_import"]
 	path = lib/epm/youtube_import
-	url = https://github.com/eprintsug/youtube_importer.git
+	url = https://github.com/eprintsug/youtube_import.git
 [submodule "lib/epm/syrtug"]
 	path = lib/epm/syrtug
 	url = https://github.com/eprintsug/syrtug.git
@@ -84,7 +81,7 @@
 	url = https://github.com/eprintsug/soundcloud.git
 [submodule "lib/epm/orcid_support"]
 	path = lib/epm/orcid_support
-	url = https://github.com/eprints/orcid_support.git
+	url = https://github.com/eprintsug/orcid_support.git
 [submodule "lib/epm/swordlegacy"]
 	path = lib/epm/swordlegacy
 	url = https://github.com/eprintsug/swordlegacy.git
@@ -109,3 +106,24 @@
 [submodule "lib/epm/ref2021"]
 	path = lib/epm/ref2021
 	url = https://github.com/eprintsug/ref2021.git
+[submodule "lib/epm/orcid_support_advance"]
+	path = lib/epm/orcid_support_advance
+	url = https://github.com/eprintsug/orcid_support_advance.git
+[submodule "lib/epm/issues2"]
+	path = lib/epm/issues2
+	url = https://github.com/eprintsug/issues2.git
+[submodule "lib/epm/search_results_highlighter"]
+	path = lib/epm/search_results_highlighter
+	url = https://github.com/eprintsug/search_results_highlighter.git
+[submodule "lib/epm/hefce_oa"]
+	path = lib/epm/hefce_oa
+	url = https://github.com/eprintsug/hefce_oa.git
+[submodule "lib/epm/ref_support"]
+	path = lib/epm/ref_support
+	url = https://github.com/eprints/ref_support.git
+[submodule "lib/epm/iiif-manifest"]
+	path = lib/epm/iiif-manifest
+	url = https://github.com/eprintsug/iiif-manifest.git
+[submodule "lib/epm/dorian"]
+	path = lib/epm/dorian
+	url = https://github.com/eprintsug/dorian.git

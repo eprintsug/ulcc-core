@@ -48,7 +48,7 @@ The numerical ID of the object in the dataset.
 =item revision (int)
 
 The revision of the object. This is the revision number after the
-action occured. Not all actions increase the revision number.
+action occurred. Not all actions increase the revision number.
 
 =item timestamp (time)
 
@@ -297,7 +297,7 @@ sub render
 	}
 	else
 	{
-		$pins{cause} = $self->{session}->make_element( "tt" );
+		$pins{cause} = $self->{session}->make_element( "code" );
 		$pins{cause}->appendChild( $self->{session}->make_text( $self->get_value( "actor" ) ) );
 	}
 

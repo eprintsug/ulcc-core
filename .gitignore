@@ -1,8 +1,15 @@
 apache
 perl_lib/EPrints/SystemSettings.pm
-
 .bash_history
 .bashrc
 .git-completion.bash
 .gitconfig
 .viminfo
+INSTALL
+Makefile.in
+aclocal.m4
+autom4te.cache/
+configure
+install-sh
+missing
+*.swp
