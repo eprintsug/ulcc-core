@@ -127,3 +127,6 @@
 [submodule "lib/epm/dorian"]
 	path = lib/epm/dorian
 	url = https://github.com/eprintsug/dorian.git
+[submodule "lib/epm/simply_advanced_searchbar"]
+	path = lib/epm/simply_advanced_searchbar
+	url = https://github.com/eprintsug/simply_advanced_searchbar
