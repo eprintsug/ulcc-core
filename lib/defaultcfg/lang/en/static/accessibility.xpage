@@ -1,0 +1,99 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE page SYSTEM "entities.dtd" >
+<xpage:page xmlns="http://www.w3.org/1999/xhtml" xmlns:xpage="http://eprints.org/ep3/xpage" xmlns:epc="http://eprints.org/ep3/control">
+        <xpage:title>Accessibility statement for <epc:phrase ref="archive_name"/></xpage:title>
+<xpage:body>
+
+        <p>This website is run by <epc:phrase ref="accessibility_institution"/>. We want as many people as possible to be able to use this website. For example, that means you should be able to:</p>
+
+        <ul>
+                <li>change colours, contrast levels and fonts</li>
+                <li>zoom in up to 300% without the text spilling off the screen</li>
+                <li>navigate most of the website using just a keyboard</li>
+                <li>navigate most of the website using speech recognition software</li>
+                <li>listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)</li>
+        </ul>
+                
+                <p>We’ve also made the website text as simple as possible to understand.</p>
+
+                <p><a rel="external" href="https://mcmw.abilitynet.org.uk/">AbilityNet</a> has advice on making your device easier to use if you have a disability.</p>
+
+                <h3 id="how-accessible-this-website-is">Haow accessible this website is</h3>
+                
+                <p>We know some parts of <epc:phrase ref="archive_name" /> are not fully accessible:</p>
+                
+                <ul>
+                        <li>most older PDF documents are not fully accessible to screen reader software</li>
+                        <!-- Examples:
+                        <li>the text will not reflow in a single column when you change the size of the browser window</li>
+                        <li>you cannot modify the line height or spacing of text</li>
+                        <li>most audio and video files do not have captions</li>
+                        <li>some of our online forms are difficult to navigate using just a keyboard</li>
+                        <li>you cannot skip to the main content when using a screen reader</li>
+                        -->
+                </ul>
+
+                <h3 id="what-to-do-if-you-cannot-access-parts-of-this-website">What to do if you cannot access parts of this website</h3>
+
+                <p>If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:</p>
+
+                <ul>
+                        <li>email <a href="mailto:{$config{accessibilityemail}}"><epc:print expr="$config{accessibilityemail}" /></a></li>
+                </ul>
+
+                <p>We’ll consider your request and get back to you in <epc:phrase ref="accessibility_no_response_days"/> days.</p>
+
+                <h3 id="reporting-accessibility-problems-with-this-website">Reporting accessibility problems with this website</h3>
+
+                <p>We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact: <a href="mailto:{$config{accessibilityemail}}"><epc:print expr="$config{accessibilityemail}" /></a></p>
+
+                <h3 id="enforcement-procedure">Enforcement procedure</h3>
+
+                <p>The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/">contact the Equality Advisory and Support Service (EASS)</a></p>
+
+                <h2 id="technical-information-about-this-websites-accessibility">Technical information about this website’s accessibility</h2>
+
+                <p><epc:phrase ref="accessibility_institution"/> is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.</p>
+
+                <p>This website is not compliant with the <a rel="external" href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a> AA standard. The non-accessible sections are listed below.</p>
+
+                <h2 id="non-accessible-content">Non accessible content</h2>
+
+                <p>The content listed below is non-accessible for the following reasons.</p>
+
+                <h3 id="non-compliance-with-the-accessibility-regulations">Non compliance with the accessibility regulations</h3>
+
+                <p>[List accessibilty problems below]</p>
+
+                <h3 id="disproportionate-burden">Disproportionate burden</h3>
+
+                <p>[List accessibility problems whcih would be a disproportionate burden to fix below]</p>
+
+                <h3 id="content-thats-not-within-the-scope-of-the-accessibility-regulations">Content that’s not within the scope of the accessibility regulations</h3>
+
+                <h4 id="pdfs-and-other-documents">PDFs and other documents</h4>
+                
+                <p>As <epc:phrase ref="archive_name" /> is an open access research repository, the principal content made available to users are research outputs such as articles, papers, posters and reports, many of which are PDF documents. Many PDF documents, especially older ones, are not fully accessible to screen reader software and do not contain other common accessibility features. In particular:</p>
+                
+                <ul>
+                        <li>many documents, especially older ones, do not conform to the PDF/A archiving format.</li>
+                        <li>many lack bookmarks or document titles, therefore failing to meet WCAG 2.1 success criteria 2.4.5 and 2.4.2.</li>
+                        <li>many discuss scientific or scholarly concepts which may be abbreviated with no mechanism for discovering the meaning of the abbreviations, or unusual words arising from scholarly discourse without definitions. These issues each fail WCAG 2.1 criteria 3.1.4 and 3.1.1 respectively.</li>
+                        <li>there may be some documents that fail to specify their human language, thereby failing WCAG 2.1 success criterion 3.1.1.</li>
+                        <li>many documents may not reflow satisfactorily. This fails WCAG 2.1 success criterion 1.4.10.</li>
+                </ul>
+                
+                <h2 id="how-we-tested-this-website">How we tested this website</h2>
+
+                <p>This website was last tested on <epc:phrase ref="accessibility_last_tested_date"/> The test was carried out by <epc:phrase ref="accessibility_test_org"/>.</p>
+
+                <p>We used this approach to deciding on a sample of pages to test <epc:phrase ref="accessibility_explanation_link"/>.</p>
+
+                <h2 id="what-were-doing-to-improve-accessibility">What we’re doing to improve accessibility</h2>
+
+                <p>Our accessibility roadmap <epc:phrase ref="accessibility_roadmap_link"/> shows how and when we plan to improve accessibility on this website.</p>
+
+                <p>This statement was prepared on <b><epc:phrase ref="accessibility_statement_first_prepared_date"/></b>. It was last updated on <b><epc:phrase ref="accessibility_statement_last_updated_date"/></b>.</p>
+
+</xpage:body>
+</xpage:page>
