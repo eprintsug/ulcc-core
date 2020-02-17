@@ -55,7 +55,7 @@ h1, h2, h3, h4 {
 	color: white;
 }
 .ep_tm_searchbar, .ep_columns_title, td.ep_columns_alter, .ep_toolbox_title {
-	color: #606060;
+	color: #555;
 }
 .ep_tm_searchbar, .ep_columns_title, td.ep_columns_alter {
 	background-color: #ccc;
