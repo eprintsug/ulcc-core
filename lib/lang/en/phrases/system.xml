@@ -2032,10 +2032,16 @@ User Area CGI Scripts
       <epc:pin name="problems"/>
       <div class="ep_block">
         <p>Please enter your username and password. <epc:pin name="reset_link" /></p>
-        <table style="margin:auto">
-          <tr><td>Username:</td><td><epc:pin name="input_username"/></td></tr>
-          <tr><td>Password:</td><td><epc:pin name="input_password"/></td><td><epc:pin name="login_button"/></td></tr>
-        </table>
+        <div style="margin:auto; display:table">
+          <div style="display:table-row">
+                  <div style="display:table-cell"><label for="login_username">Username:</label></div>
+                  <div style="display:table-cell; text-align:left"><epc:pin name="input_username"/></div>
+          </div>
+          <div style="display:table-row">
+                  <div style="display:table-cell"><label for="login_password">Password:</label></div>
+                  <div style="display:table-cell"><epc:pin name="input_password"/><epc:pin name="login_button"/></div>
+          </div>
+        </div>
         <p>Note: you must have cookies enabled.</p>
       </div>
     </epp:phrase>
