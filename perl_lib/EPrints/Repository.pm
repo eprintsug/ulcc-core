@@ -4297,18 +4297,18 @@ sub render_message
 
 	my $id = "m".$self->get_next_id;
 	my $div = $self->make_element( "div", class=>"ep_msg_".$type, id=>$id );
-	my $content_div = $self->make_element( "div", class=>"ep_msg_".$type."_content" );
-	my $table = $self->make_element( "table" );
-	my $tr = $self->make_element( "tr" );
+	my $content_div = $self->make_element( "div", class=>"ep_msg ep_msg_".$type."_content" );
+	my $table = $self->make_element( "div", class=>"table");
+	my $tr = $self->make_element( "div", class=>"table-row" );
 	$table->appendChild( $tr );
 	if( $show_icon )
 	{
-		my $td1 = $self->make_element( "td" );
+		my $td1 = $self->make_element( "div", class=>"table-cell msg-icon" );
 		my $imagesurl = $self->get_repository->get_conf( "rel_path" );
 		$td1->appendChild( $self->make_element( "img", class=>"ep_msg_".$type."_icon", src=>"$imagesurl/style/images/".$type.".png", alt=>$self->phrase( "Plugin/Screen:message_".$type ) ) );
 		$tr->appendChild( $td1 );
 	}
-	my $td2 = $self->make_element( "td" );
+	my $td2 = $self->make_element( "div", class=>"table-cell msg-content" );
 	$tr->appendChild( $td2 );
 	$td2->appendChild( $content );
 	$content_div->appendChild( $table );

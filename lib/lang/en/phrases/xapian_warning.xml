@@ -5,10 +5,10 @@
 
 <!-- see https://github.com/eprints/eprints/issues/169 - can be removed when this issue fixed -->
 <epp:phrase id="saved_search_xapian_warning">
-<div class="ep_msg_warning"><div class="ep_msg_warning_content"><table><tbody><tr><td>
-<img alt="Message" src="{$config{rel_path}}/style/images/warning.png" /></td><td>
+<div class="ep_msg ep_msg_warning"><div class="ep_msg_warning_content"><div class="table"><div class="table-row"><div class="table-cell msg-icon">
+<img alt="Message" src="{$config{rel_path}}/style/images/warning.png" /></div><div class="table-cell msg-content">
 Please note: Email alerts for saved simple searches are not supported in this version.
-</td></tr></tbody></table></div></div>
+</div></div></div></div></div>
 </epp:phrase>
 
 </epp:phrases>
