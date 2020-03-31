@@ -297,6 +297,10 @@ sub render_simple_form
 	my $form = $self->{session}->render_form( "get" );
 	$div->appendChild( $form );
 
+    my $label = $xml->create_element( "label", for => "q_merge", class => "ep_lbl_merge" );
+    $label->appendChild( $session->html_phrase( "lib/searchexpression:merge" ) );
+    $form->appendChild( $label );
+
 	# avoid adding "dataset", which is selectable here
 	$form->appendChild( $self->SUPER::render_hidden_bits );
 
@@ -307,13 +311,14 @@ sub render_simple_form
 
 	$form->appendChild( $self->render_preamble );
 
-	$form->appendChild( $self->{processor}->{search}->render_simple_fields );
+    $form->appendChild( $self->{processor}->{search}->render_simple_fields( 'aria-labelledby' => $session->phrase( "lib/searchexpression:action_search" ) ) );
 
 	$input = $xml->create_element( "input",
 		type => "submit",
 		name => "_action_search",
-		value => $self->{session}->phrase( "lib/searchexpression:action_search" ),
+		value => $session->phrase( "lib/searchexpression:action_search" ),
 		class => "ep_form_action_button",
+        id => $session->phrase( "lib/searchexpression:action_search" ),
 	);
 	$form->appendChild( $input );
 
@@ -356,7 +361,7 @@ sub render_dataset
 		{
 			$input->setAttribute( checked => "yes" );
 		}
-		my $label = $xml->create_element( "label" );
+		my $label = $xml->create_element( "label", id=>$datasetid );
 		$frag->appendChild( $label );
 		$label->appendChild( $input );
 		$label->appendChild( $session->html_phrase( "datasetname_$datasetid" ) );

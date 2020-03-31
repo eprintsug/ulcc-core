@@ -103,3 +103,11 @@ th.ep_title_row {
 {
 	padding: 2px;
 }
+
+.ep_table_row {
+    display: table-row;
+}
+
+.ep_table_cell {
+    display: table-cell;
+}
