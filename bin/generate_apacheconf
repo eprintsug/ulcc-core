@@ -205,6 +205,9 @@ PerlSwitches -I$perl_lib
 PerlModule EPrints
 PerlPostConfigHandler +EPrints::post_config_handler
 
+# https://xclacksoverhead.org/
+Header append X-Clacks-Overhead "GNU Tim Miles-Board, Julie Allinson"
+
 # Load the per-repository apache configuration
 Include $inc_path/*.conf
 
