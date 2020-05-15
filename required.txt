@@ -67,11 +67,6 @@ URI::Escape
 URI::Heuristic
 URI::OpenURL
 Unicode::Collate
-Win32::Console
-Win32::Daemon
-Win32::DriveInfo
-Win32::Process 
-Win32::Service
 XML::LibXML
 XML::LibXML::SAX
 XML::LibXSLT
