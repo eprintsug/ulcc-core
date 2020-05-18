@@ -338,7 +338,7 @@ sub action_link_lib
 	my( $name ) = @ARGV;
 
 	my $epm = &epm( $repo, $name );
-
+    print "Linking lib for $name\n" unless($noise < 0);
 	my $sourcedir = $epm->epm_dir . '/lib';
 	my $targetdir = $repo->config( "base_path" ) . '/lib';
 
@@ -352,7 +352,7 @@ sub action_link_lib
 		EPrints->system->mkdir( $path );
 
 		if( $opt_force ) {
-			unlink "$path/$_";
+			unlink "$path/$_" if $noise;
 		}
 		symlink($File::Find::name, "$path/$_");
 
