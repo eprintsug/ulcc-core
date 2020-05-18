@@ -70,6 +70,7 @@ use warnings;
 
 my $opt_version;
 my $opt_verbose = 0;
+my $opt_quiet;
 my $opt_force = 0;
 my $opt_help;
 my $opt_man;
@@ -79,6 +80,7 @@ GetOptions(
 	'epm=s' => \$opt_epm,
 	'version=s' => \$opt_version,
 	'verbose+' => \$opt_verbose,
+	'quiet' => \$opt_quiet,
 	'force' => \$opt_force,
 	'help' => \$opt_help,
 	'man' => \$opt_man,
@@ -92,6 +94,7 @@ my $cmd = shift @ARGV;
 
 my $noise = $opt_verbose + 1;
 my $force = $opt_force;
+$noise = 0 if $opt_quiet;
 
 my $f = "action_$cmd";
 if( !defined &$f )
@@ -205,7 +208,7 @@ sub action_build
 	binmode($fhout, ":utf8");
 	syswrite($fhout, $epm->serialise( 1 ));
 
-	print "$output\n";
+	print "$output\n" if $noise;
 }
 
 =item disable I<repository> I<package>
@@ -274,7 +277,7 @@ sub action_install
 
 	if( $epm->install( $handler, $force ) )
 	{
-		print "Installed ".$epm->value( "epmid" )." [$source]\n";
+		print "Installed ".$epm->value( "epmid" )." [$source]\n" if $noise;
 	}
 }
 
@@ -313,7 +316,7 @@ sub action_link_cfg
 		}
 		symlink($File::Find::name, "$path/$_");
 
-		print "$path/$_\n";
+		print "$path/$_\n" if $noise;
 	}, $sourcedir);
 }
 
@@ -353,7 +356,7 @@ sub action_link_lib
 		}
 		symlink($File::Find::name, "$path/$_");
 
-		print "$path/$_\n";
+		print "$path/$_\n" if $noise;
 	}, $sourcedir);
 }
 
@@ -388,12 +391,12 @@ sub action_copy_cfg
 		EPrints->system->mkdir( $path );
 
 		if( $opt_force ) {
-			unlink "$path/$_";
+			unlink "$path/$_" if $noise;
 		}
 #		symlink($File::Find::name, "$path/$_");
 		copy($File::Find::name, "$path/$_");
 
-		print "$path/$_\n";
+		print "$path/$_\n" if $noise;
 	}, $sourcedir);
 }
 
@@ -431,12 +434,12 @@ sub action_copy_lib
 		EPrints->system->mkdir( $path );
 
 		if( $opt_force ) {
-			unlink "$path/$_";
+			unlink "$path/$_" if $noise;
 		}
 		copy($File::Find::name, "$path/$_");
 		#symlink($File::Find::name, "$path/$_");
 
-		print "$path/$_\n";
+		print "$path/$_\n" if $noise;
 	}, $sourcedir);
 }
 =item list
@@ -476,7 +479,7 @@ sub action_rebuild
 
 	$epm->commit;
 
-	print $epm->epm_dir . "/" . $epm->id . ".epm\n";
+	print $epm->epm_dir . "/" . $epm->id . ".epm\n" if $noise;
 }
 
 =item uninstall I<package>
@@ -511,7 +514,7 @@ sub action_uninstall
 
 	if( $epm->uninstall( $handler, $force ) )
 	{
-		print "Uninstalled $name\n";
+		print "Uninstalled $name\n" if $noise;
 	}
 }
 
