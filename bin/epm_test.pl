@@ -35,7 +35,7 @@ if( !defined $repo )
 	exit 1;
 }
 
-chdir "$FindBin::Bin/../lib/epm/$pluginid" or die("Could not find $pluginid in lib/epm");
+chdir "$FindBin::Bin/../lib/epm/$pluginid/lib" or die("Could not find $pluginid in lib/epm/lib");
 my $dir = getcwd;
 
 print "\n";
@@ -63,7 +63,7 @@ for my $use_stmt (`grep -rP '^use ' ./*`){
     $seen->{$1} =1;
 }
 print "\n";
-print "Suggest running 'tools/epm link_lib $pluginid' to ensure that all the epm packages are available\n\n" if $use_fail;
+print "Suggest installing any required modeules and/or running 'tools/epm link_lib $pluginid' to ensure that all the epm packages are available\n\n" if $use_fail;
 print "#######################################################\n";
 print "  Checking that all packages are loaded for $pluginid  \n";
 print "#######################################################\n";
@@ -75,14 +75,24 @@ my $pkg_fail=0;
 for my $pkg (`grep -rP '^package ' ./*`){
 #    next if $use_stmt =~ /use lib/;
     chomp $pkg;
-    $pkg =~ /package EPrints::Plugin::(.*);/;
-    next if $seen->{$1};
-    my $class = $repo->get_plugin_factory->get_plugin_class( $1 );
-    if( defined $class ){
-        printf "%-50s %s \n", $1, print_ok;
-    }else{
-        printf "%-50s %s \n", $1, print_fail;
-        $pkg_fail=1;
+
+    if($pkg =~ /package EPrints::Plugin::(.*);/){
+        my $plugin_pkg = $1;
+        next if $seen->{$plugin_pkg};
+        
+        # Modules that are abstract or otherwise DISABLED should not be checked as they won't have been loaded
+        my ($file,$package) = split/:package /,$pkg;
+        $package =~ s/;$//;
+        my $str = "grep -rP \"\$$package\:\:DISABLE\\s*=\\s*1\" $file";
+        next if `$str`;
+        my $class = $repo->get_plugin_factory->get_plugin_class( $plugin_pkg );
+        if( defined $class ){
+            printf "%-50s %s \n", $plugin_pkg, print_ok;
+        }else{
+            printf "%-50s %s \n", $plugin_pkg, print_fail;
+            $pkg_fail=1;
+        }
+        $seen->{$plugin_pkg} = 1;
     }
 }
 
