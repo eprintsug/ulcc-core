@@ -59,7 +59,6 @@ URI::Heuristic
 Unicode::Collate
 XML::LibXML
 XML::LibXML::SAX
-XML::LibXSLT
 XML::NamespaceSupport 
 XML::Parser
 XML::SAX::Base
