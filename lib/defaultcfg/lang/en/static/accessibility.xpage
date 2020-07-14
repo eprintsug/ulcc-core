@@ -13,15 +13,15 @@
                 <li>navigate most of the website using speech recognition software</li>
                 <li>listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)</li>
         </ul>
-                
+
                 <p>We’ve also made the website text as simple as possible to understand.</p>
 
                 <p><a rel="external" href="https://mcmw.abilitynet.org.uk/">AbilityNet</a> has advice on making your device easier to use if you have a disability.</p>
 
-                <h3 id="how-accessible-this-website-is">Haow accessible this website is</h3>
-                
+                <h3 id="how-accessible-this-website-is">How accessible this website is</h3>
+
                 <p>We know some parts of <epc:phrase ref="archive_name" /> are not fully accessible:</p>
-                
+
                 <ul>
                         <li>most older PDF documents are not fully accessible to screen reader software</li>
                         <!-- Examples:
@@ -30,6 +30,7 @@
                         <li>most audio and video files do not have captions</li>
                         <li>some of our online forms are difficult to navigate using just a keyboard</li>
                         <li>you cannot skip to the main content when using a screen reader</li>
+                        <li>there’s a limit to how far you can magnify the map on our ‘contact us’ page</li>
                         -->
                 </ul>
 
@@ -39,21 +40,34 @@
 
                 <ul>
                         <li>email <a href="mailto:{$config{accessibilityemail}}"><epc:print expr="$config{accessibilityemail}" /></a></li>
+                        <li>call <epc:phrase ref="accessibility_contact_number" /></li>
                 </ul>
 
                 <p>We’ll consider your request and get back to you in <epc:phrase ref="accessibility_no_response_days"/> days.</p>
 
+                <p>If you cannot view the map on our <a href="{$config{contact_page}}">‘contact us’</a> page, call or email us for directions.</p>
+
                 <h3 id="reporting-accessibility-problems-with-this-website">Reporting accessibility problems with this website</h3>
 
-                <p>We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact: <a href="mailto:{$config{accessibilityemail}}"><epc:print expr="$config{accessibilityemail}" /></a></p>
+                <p>We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact: <a href="mailto:{$config{accessibilityemail}}"><epc:print expr="$config{accessibilityemail}" /></a>.</p>
 
                 <h3 id="enforcement-procedure">Enforcement procedure</h3>
 
-                <p>The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/">contact the Equality Advisory and Support Service (EASS)</a></p>
+                <p>The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/">contact the Equality Advisory and Support Service (EASS)</a>.</p>
+
+                <!-- Need to include an if statement here for those who provide a text relay service.
+              <if $text_relay=true>
+                <h3 id="contacting_us_by_phone">Contacting us by phone</h3>
+                <p>We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.</p>
+                <p>Find out how to <a href="$config{contact_page}">contact us</a>.</p>
+              </if>
+                -->
 
                 <h2 id="technical-information-about-this-websites-accessibility">Technical information about this website’s accessibility</h2>
 
                 <p><epc:phrase ref="accessibility_institution"/> is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.</p>
+
+                <h2 id="compliance-status">Compliance status</h2>
 
                 <p>This website is not compliant with the <a rel="external" href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a> AA standard. The non-accessible sections are listed below.</p>
 
@@ -64,17 +78,18 @@
                 <h3 id="non-compliance-with-the-accessibility-regulations">Non compliance with the accessibility regulations</h3>
 
                 <p>[List accessibilty problems below]</p>
+                <p>[List plans for resolving these issues]</p>
 
                 <h3 id="disproportionate-burden">Disproportionate burden</h3>
 
-                <p>[List accessibility problems whcih would be a disproportionate burden to fix below]</p>
+                <p>[List accessibility problems which would be a disproportionate burden to fix below]</p>
 
                 <h3 id="content-thats-not-within-the-scope-of-the-accessibility-regulations">Content that’s not within the scope of the accessibility regulations</h3>
 
                 <h4 id="pdfs-and-other-documents">PDFs and other documents</h4>
-                
+
                 <p>As <epc:phrase ref="archive_name" /> is an open access research repository, the principal content made available to users are research outputs such as articles, papers, posters and reports, many of which are PDF documents. Many PDF documents, especially older ones, are not fully accessible to screen reader software and do not contain other common accessibility features. In particular:</p>
-                
+
                 <ul>
                         <li>many documents, especially older ones, do not conform to the PDF/A archiving format.</li>
                         <li>many lack bookmarks or document titles, therefore failing to meet WCAG 2.1 success criteria 2.4.5 and 2.4.2.</li>
@@ -82,18 +97,19 @@
                         <li>there may be some documents that fail to specify their human language, thereby failing WCAG 2.1 success criterion 3.1.1.</li>
                         <li>many documents may not reflow satisfactorily. This fails WCAG 2.1 success criterion 1.4.10.</li>
                 </ul>
-                
-                <h2 id="how-we-tested-this-website">How we tested this website</h2>
-
-                <p>This website was last tested on <epc:phrase ref="accessibility_last_tested_date"/> The test was carried out by <epc:phrase ref="accessibility_test_org"/>.</p>
-
-                <p>We used this approach to deciding on a sample of pages to test <epc:phrase ref="accessibility_explanation_link"/>.</p>
 
                 <h2 id="what-were-doing-to-improve-accessibility">What we’re doing to improve accessibility</h2>
 
                 <p>Our accessibility roadmap <epc:phrase ref="accessibility_roadmap_link"/> shows how and when we plan to improve accessibility on this website.</p>
 
+                <h2 id="preparation-of-this-accessibility-statement">Preparation of this accessibility statement</h2>
+
                 <p>This statement was prepared on <b><epc:phrase ref="accessibility_statement_first_prepared_date"/></b>. It was last updated on <b><epc:phrase ref="accessibility_statement_last_updated_date"/></b>.</p>
+
+                <p>This website was last tested on <epc:phrase ref="accessibility_last_tested_date"/> The test was carried out by <epc:phrase ref="accessibility_test_org"/>.</p>
+
+              <p>We used this approach to deciding on a sample of pages to test <epc:phrase ref="accessibility_explanation_link"/>.</p>
+                
 
 </xpage:body>
 </xpage:page>
