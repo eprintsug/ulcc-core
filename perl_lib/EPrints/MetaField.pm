@@ -2153,7 +2153,8 @@ sub render_search_input
 				name=>$searchfield->get_form_prefix."_merge",
 				values=>\@text_tags,
 				default=>$searchfield->get_merge,
-				labels=>\%text_labels ) );
+				labels=>\%text_labels,
+                'aria-labelledby' => $searchfield->get_form_prefix . "_label" ) );
 		$frag->appendChild( $session->make_text(" ") );
 	}
 	$frag->appendChild(
@@ -2164,6 +2165,7 @@ sub render_search_input
 			value => $searchfield->get_value,
 			size => $self->get_property( "search_cols" ),
 			maxlength => 256,
+            'aria-labelledby' => $searchfield->get_form_prefix . "_label",
 			%opts,
 			) );
 	if( $searchfield->get_match ne $self->property( "match" ) )

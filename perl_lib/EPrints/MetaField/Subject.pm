@@ -140,7 +140,8 @@ sub render_set_input
 		id => $basename,
 		default => $default,
 		multiple => $self->{multiple},
-		height => $self->{input_rows}  );
+		height => $self->{input_rows},
+        'aria-labelledby' => $basename . "_label" );
 
 } 
 
@@ -209,7 +210,8 @@ sub render_search_set_input
 		default => \@defaults,
 		multiple => 1,
 		pairs => $pairs,
-		height => $height );
+		height => $height,
+        'aria-labelledby' => $prefix . "_label" );
 }	
 
 sub traverse_subjects

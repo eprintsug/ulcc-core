@@ -1536,6 +1536,7 @@ For more information see <a href="http://eprints.org/d/?keyword=MetaFields">Meta
     <epp:phrase id="lib/searchexpression:export_error_search"><p>The search failed to execute correctly.</p></epp:phrase>
     <epp:phrase id="lib/searchexpression:export_error_format"><p>The requested output format is not available.</p></epp:phrase>
     <epp:phrase id="lib/searchexpression:savesearch">Save search</epp:phrase>
+    <epp:phrase id="lib/searchexpression:merge">Merge</epp:phrase>
 
 <!-- Search::Field (Used to be SearchField)-->
 
@@ -2032,10 +2033,16 @@ User Area CGI Scripts
       <epc:pin name="problems"/>
       <div class="ep_block">
         <p>Please enter your username and password. <epc:pin name="reset_link" /></p>
-        <table style="margin:auto">
-          <tr><td>Username:</td><td><epc:pin name="input_username"/></td></tr>
-          <tr><td>Password:</td><td><epc:pin name="input_password"/></td><td><epc:pin name="login_button"/></td></tr>
-        </table>
+        <div style="margin:auto; display:table">
+          <div style="display:table-row">
+                  <div style="display:table-cell"><label for="login_username">Username:</label></div>
+                  <div style="display:table-cell; text-align:left"><epc:pin name="input_username"/></div>
+          </div>
+          <div style="display:table-row">
+                  <div style="display:table-cell"><label for="login_password">Password:</label></div>
+                  <div style="display:table-cell"><epc:pin name="input_password"/><epc:pin name="login_button"/></div>
+          </div>
+        </div>
         <p>Note: you must have cookies enabled.</p>
       </div>
     </epp:phrase>
@@ -3772,7 +3779,7 @@ PY = 2006 and OG = (Cambridge)<br />
 	<epp:phrase id="template/navigation:home">Home</epp:phrase>
 	<epp:phrase id="template/navigation:about">About</epp:phrase>
 	<epp:phrase id="template/navigation:browse">Browse</epp:phrase>
-	<epp:phrase id="template:about_eprints"><div><epc:phrase ref="archive_name" /> is powered by <em><a href="http://eprints.org/software/">EPrints 3</a></em> which is developed by the <a href="http://www.ecs.soton.ac.uk/">School of Electronics and Computer Science</a> at the University of Southampton. <a href="{$config{http_url}}/eprints/">More information and software credits</a>.</div></epp:phrase>
+	<epp:phrase id="template:about_eprints"><div><epc:phrase ref="archive_name" /> is powered by <em>EPrints 3</em> which is developed by the <a href="http://www.ecs.soton.ac.uk/">School of Electronics and Computer Science</a> at the University of Southampton. <a href="{$config{http_url}}/eprints/">More information and software credits</a>.</div></epp:phrase>
 
 
 
