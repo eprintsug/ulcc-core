@@ -45,7 +45,7 @@
 
                 <p>We’ll consider your request and get back to you in <epc:phrase ref="accessibility_no_response_days"/> days.</p>
 
-                <p>If you cannot view the map on our <a href="{$config{contact_page}}">‘contact us’</a> page, call or email us for directions.</p>
+                <p>If you cannot view the map on our <epc:phrase ref="accessibility_contact_link"/> page, call or email us for directions.</p>
 
                 <h3 id="reporting-accessibility-problems-with-this-website">Reporting accessibility problems with this website</h3>
 
@@ -100,7 +100,7 @@
 
                 <h2 id="what-were-doing-to-improve-accessibility">What we’re doing to improve accessibility</h2>
 
-                <p>Our accessibility roadmap <epc:phrase ref="accessibility_roadmap_link"/> shows how and when we plan to improve accessibility on this website.</p>
+                <p>Our <epc:phrase ref="accessibility_roadmap_link"/> shows how and when we plan to improve accessibility on this website.</p>
 
                 <h2 id="preparation-of-this-accessibility-statement">Preparation of this accessibility statement</h2>
 
