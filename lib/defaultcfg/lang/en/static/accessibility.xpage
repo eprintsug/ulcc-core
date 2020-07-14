@@ -40,12 +40,12 @@
 
                 <ul>
                         <li>email <a href="mailto:{$config{accessibilityemail}}"><epc:print expr="$config{accessibilityemail}" /></a></li>
-                        <li>call <epc:phrase ref="contact_number" />
+                        <li>call <epc:phrase ref="accessibility_contact_number" /></li>
                 </ul>
 
                 <p>We’ll consider your request and get back to you in <epc:phrase ref="accessibility_no_response_days"/> days.</p>
 
-                <p>If you cannot view the map on our <a href="$config{contact_page}">‘contact us’</a> page, call or email us for directions.</p>
+                <p>If you cannot view the map on our <a href="{$config{contact_page}}">‘contact us’</a> page, call or email us for directions.</p>
 
                 <h3 id="reporting-accessibility-problems-with-this-website">Reporting accessibility problems with this website</h3>
 
@@ -78,7 +78,7 @@
                 <h3 id="non-compliance-with-the-accessibility-regulations">Non compliance with the accessibility regulations</h3>
 
                 <p>[List accessibilty problems below]</p>
-                <p>[List plans for resolving these issues]
+                <p>[List plans for resolving these issues]</p>
 
                 <h3 id="disproportionate-burden">Disproportionate burden</h3>
 
