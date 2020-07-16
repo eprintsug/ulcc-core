@@ -1235,24 +1235,24 @@ sub render_input_field_actual
 
 	my $frag = $session->make_doc_fragment;
 
-	my $table = $session->make_element( "table", border=>0, cellpadding=>0, cellspacing=>0, class=>"ep_form_input_grid" );
+	my $table = $session->make_element( "div", border=>0, cellpadding=>0, cellspacing=>0, class=>"ep_form_input_grid ep_table" );
 	$frag->appendChild ($table);
 
 	my $col_titles = $self->get_input_col_titles( $session, $staff );
 	if( defined $col_titles )
 	{
-		my $tr = $session->make_element( "tr" );
+		my $tr = $session->make_element( "div", class=>"ep_table_head" );
 		my $th;
 		my $x = 0;
 		if( $self->get_property( "multiple" ) && $self->{input_ordered})
 		{
-			$th = $session->make_element( "th", class=>"empty_heading", id=>$basename."_th_".$x++ );
+			$th = $session->make_element( "div", class=>"empty_heading ep_table_cell", id=>$basename."_th_".$x++ );
 			$tr->appendChild( $th );
 		}
 
 		foreach my $col_title ( @{$col_titles} )
 		{
-			$th = $session->make_element( "th", id=>$basename."_th_".$x++ );
+			$th = $session->make_element( "div", id=>$basename."_th_".$x++, class=>"ep_table_cell" );
 			$th->appendChild( $col_title );
 			$tr->appendChild( $th );
 		}
@@ -1264,7 +1264,7 @@ sub render_input_field_actual
 	foreach my $row ( @{$elements} )
 	{
 		my $x = 0;
-		my $tr = $session->make_element( "tr" );
+		my $tr = $session->make_element( "div", class=>"ep_table_row" );
 		foreach my $item ( @{$row} )
 		{
 			my %opts = ( valign=>"top", id=>$basename."_cell_".$x++."_".$y );
@@ -1273,7 +1273,7 @@ sub render_input_field_actual
 				next if( $prop eq "el" );
 				$opts{$prop} = $item->{$prop};
 			}	
-			my $td = $session->make_element( "td", %opts );
+			my $td = $session->make_element( "div", class=>"ep_table_cell", %opts );
 			if( defined $item->{el} )
 			{
 				$td->appendChild( $item->{el} );
@@ -1408,7 +1408,7 @@ sub get_input_elements
 						class => "epjs_ajax",
 						value=>"1" ));
 				}
-				$lastcol = { el=>$arrows, valign=>"middle", class=>"ep_form_input_grid_arrows" };
+				$lastcol = { el=>$arrows, valign=>"middle", class=>"ep_table_cell ep_form_input_grid_arrows" };
 				$row =  [ $col1, @{$section->[$n]}, $lastcol ];
 			}
 			push @{$rows}, $row;

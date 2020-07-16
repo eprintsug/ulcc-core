@@ -3259,8 +3259,7 @@ sub render_row_with_help
 		delete $parts{help};
 	}
 
-
-	my $tr = $self->make_element( "div", class=>$parts{class} . "ep_table_row" );
+	my $tr = $self->make_element( "div", class=>$parts{class} . " ep_table_row" );
 
 	#
 	# COL 1

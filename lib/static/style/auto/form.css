@@ -62,6 +62,13 @@ select, input.ep_form_text, textarea {
 	text-align: center;
 	font-size: 80%;
 }
+
+.ep_form_input_grid .ep_table_head .ep_table_cell{ 
+	vertical-align: middle;
+	text-align: center;
+	font-size: 80%;
+}
+
 .ep_form_input_grid td {
 	vertical-align: middle;
 }
@@ -69,12 +76,18 @@ select, input.ep_form_text, textarea {
 td.ep_form_input_grid_pos {
 	padding-right: 4px;
 }
+
 td.ep_form_input_grid_arrows {
 	white-space: nowrap;
 	padding-top: 2px;
 	padding-bottom: 2px;
 }
 
+div.ep_table_cell.ep_form_input_grid_arrows {
+	white-space: nowrap;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
 
 td.ep_form_input_grid_wide {
 	text-align: left;
@@ -91,9 +104,7 @@ td.ep_form_input_grid_wide {
 }
 
 .ep_multi_heading {
-    border-right: dashed #bbf 1px;
     font-weight: bold;
-    text-align: right;
 }
 
 .ep_login_form_table {

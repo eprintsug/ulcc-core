@@ -38,6 +38,11 @@ td.ep_multi_input
 	border-left: dashed #bbf 1px;
 }
 
+div.ep_multi_help
+{
+    text-align: right;
+}
+
 td.ep_multi_help
 {
 	white-space: nowrap;

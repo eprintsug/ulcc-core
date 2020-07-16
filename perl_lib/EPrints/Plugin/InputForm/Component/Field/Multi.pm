@@ -141,14 +141,10 @@ sub has_help
 sub render_content
 {
 	my( $self, $surround ) = @_;
-
 	my $frag = $self->{session}->make_doc_fragment;
-
-	my $table = $self->{session}->make_element( "table", class => "ep_multi" );
+	my $table = $self->{session}->make_element( "div", class => "ep_multi ep_table full_width" );
 	$frag->appendChild( $table );
 
-	my $tbody = $self->{session}->make_element( "tbody" );
-	$table->appendChild( $tbody );
 	my $first = 1;
 	foreach my $field ( @{$self->{config}->{fields}} )
 	{
@@ -202,7 +198,7 @@ sub render_content
 		@parts{qw( no_help no_toggle )} = @$self{qw( no_help no_toggle )};
 
 		$parts{help_prefix} = $self->{prefix}."_help_".$field->get_name;
-
+        
 		$table->appendChild( $self->{session}->render_row_with_help( %parts ) );
 	}
 
