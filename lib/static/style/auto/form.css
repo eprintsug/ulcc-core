@@ -105,6 +105,7 @@ td.ep_form_input_grid_wide {
 
 .ep_multi_heading {
     font-weight: bold;
+    vertical-align: middle;
 }
 
 .ep_login_form_table {

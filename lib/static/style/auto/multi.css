@@ -41,6 +41,8 @@ td.ep_multi_input
 div.ep_multi_help
 {
     text-align: right;
+    display: table-cell;
+    vertical-align: top;
 }
 
 td.ep_multi_help
