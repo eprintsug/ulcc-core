@@ -413,18 +413,18 @@ sub render
 
 	my $len = scalar @{$columns};
 
-	my $final_row = $session->make_element( "tr" );
+	my $final_row = $session->make_element( "div", class=>"ep_table_row" );
 	foreach my $i (0..$#$columns)
 	{
 		# Column headings
-		my $td = $session->make_element( "td", class=>"ep_columns_alter" );
+		my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_alter" );
 		$final_row->appendChild( $td );
 
-		my $acts_table = $session->make_element( "table", cellpadding=>0, cellspacing=>0, border=>0, width=>"100%" );
-		my $acts_row = $session->make_element( "tr" );
-		my $acts_td1 = $session->make_element( "td", align=>"left", width=>"14px" );
-		my $acts_td2 = $session->make_element( "td", align=>"center", width=>"100%");
-		my $acts_td3 = $session->make_element( "td", align=>"right", width=>"14px" );
+		my $acts_table = $session->make_element( "div", class=>"ep_table full_width" );
+		my $acts_row = $session->make_element( "div", class=>"ep_table_row" );
+		my $acts_td1 = $session->make_element( "div", class=>"ep_table_cell ep_col_left" );
+		my $acts_td2 = $session->make_element( "div", class=>"ep_table_cell ep_col_remove" );
+		my $acts_td3 = $session->make_element( "div", class=>"ep_table_cell ep_col_right" );
 		$acts_table->appendChild( $acts_row );
 		$acts_row->appendChild( $acts_td1 );
 		$acts_row->appendChild( $acts_td2 );
@@ -483,7 +483,7 @@ sub render
 			$acts_td3->appendChild( $session->make_element("img",src=>"$imagesurl/noicon.png",alt=>"")  );
 		}
 	}
-	my $td = $session->make_element( "td", class=>"ep_columns_alter ep_columns_alter_last" );
+	my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_alter ep_columns_alter_last" );
 	$final_row->appendChild( $td );
 
 	# Paginate list
@@ -503,18 +503,18 @@ sub render
 			local $self->{processor}->{dataobj} = $dataobj;
 			my $class = "row_".($row % 2 ? "b" : "a");
 
-			my $tr = $session->make_element( "tr", class=>$class );
+			my $tr = $session->make_element( "div", class=>"ep_table_row $class" );
 
 			my $first = 1;
 			for( map { $_->name } @$columns )
 			{
-				my $td = $session->make_element( "td", class=>"ep_columns_cell".($first?" ep_columns_cell_first":"")." ep_columns_cell_$_"  );
+				my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_cell".($first?" ep_columns_cell_first":"")." ep_columns_cell_$_"  );
 				$first = 0;
 				$tr->appendChild( $td );
 				$td->appendChild( $dataobj->render_value( $_ ) );
 			}
 
-			my $td = $session->make_element( "td", class=>"ep_columns_cell ep_columns_cell_last", align=>"left" );
+			my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_cell ep_columns_cell_last", align=>"left" );
 			$tr->appendChild( $td );
 			$td->appendChild( $self->render_dataobj_actions( $dataobj ) );
 
@@ -654,7 +654,7 @@ sub render_search_form
 	my $form = $self->render_form;
 	$form->setAttribute( method => "get" );
 
-	my $table = $self->{session}->make_element( "table", class=>"ep_search_fields" );
+	my $table = $self->{session}->make_element( "div", class=>"ep_table ep_search_fields" );
 	$form->appendChild( $table );
 
 	$table->appendChild( $self->render_search_fields );

@@ -118,5 +118,13 @@ td.ep_form_input_grid_wide {
 }
 
 .ep_login_form_table > div > div, .ep_login_form_table > div > label {
-        display: table-cell;
+    display: table-cell;
+}
+
+.ep_table.import_section {
+    width: 100%;
+}
+
+.ep_table.import_section label {
+    padding-right: 4px;
 }

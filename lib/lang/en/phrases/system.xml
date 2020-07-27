@@ -2609,6 +2609,8 @@ Titles and Help for the System Fields
 <tr><th style='padding: 4px;'><img title="Move Right" src="{$config{rel_path}}/style/images/right.png" alt="&lt;" align="absmiddle" /></th><td>Move column right</td></tr>
 </table>
 </epp:phrase>
+
+    <epp:phrase id="Plugin/Screen/Items:select_col">Select Column</epp:phrase>
     <epp:phrase id="Plugin/Screen/Items:add">Add Column</epp:phrase>
 
     <epp:phrase id="Plugin/Screen/Review:title">Review</epp:phrase>
@@ -2715,15 +2717,17 @@ Titles and Help for the System Fields
 	<epp:phrase id="Plugin/Screen/Import:warning">Unhandled warning in <epc:pin name="plugin" />: <epc:pin name="warning" /></epp:phrase>
     <epp:phrase id="Plugin/Screen/Import:intro">To import items from an external source enter the required data below. To test whether the data to import is correctly formatted click <em><epc:phrase ref="Plugin/Screen/Import:action:test:title"/></em>, otherwise click <em><epc:phrase ref="Plugin/Screen/Import:action:import:title"/></em> to import.</epp:phrase>
     <epp:phrase id="Plugin/Screen/Import:import_section">
-<table width="100%"><tr>
-  <td align="center">Import from <epc:pin name="menu"/><epc:pin name="button"/></td>
-</tr>
-<tr>
-  <td align="center">
-    <epc:pin name="tools"/>
-  </td>
-</tr>
-</table></epp:phrase>
+        <div class="ep_table import_section">
+            <div class="ep_table_row">
+                <div class="ep_table_cell" align="center"><label for="format">Import from</label><epc:pin name="menu"/><epc:pin name="button"/></div>
+            </div>
+            <div class="ep_table_row">
+                <div class="ep_table_cell" align="center">
+                    <epc:pin name="tools"/>
+                </div>
+            </div>
+        </div>
+    </epp:phrase>
 
     <epp:phrase id="Plugin/Import/ExplodeArchive:input:form">Select an archive from your system: <epc:pin name="input_file_upload"/> e.g. my_photos.zip<br />
 Each file inside this archive will be created as an <b>individual</b> document inside the resulting eprint.</epp:phrase>

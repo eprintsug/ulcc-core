@@ -54,10 +54,10 @@ h1, h2, h3, h4 {
 .ep_tm_menu a, .ep_tm_menu a:visited {
 	color: white;
 }
-.ep_tm_searchbar, .ep_columns_title, td.ep_columns_alter, .ep_toolbox_title {
+.ep_tm_searchbar, .ep_columns_title, div.ep_table_cell.ep_columns_alter, .ep_toolbox_title {
 	color: #555;
 }
-.ep_tm_searchbar, .ep_columns_title, td.ep_columns_alter {
+.ep_tm_searchbar, .ep_columns_title, div.ep_table_cell.ep_columns_alter {
 	background-color: #ccc;
 	background-image: url(images/bar_24px.png);
 	background-repeat: repeat-x;
@@ -151,7 +151,7 @@ h1, h2, h3, h4 {
 
 /* general.css */
 
-th.ep_title_row
+div.ep_table_cell.ep_title_row
 {
 	border-color: #808080;
 	background-image: url(images/bar_24px.png);
@@ -159,13 +159,13 @@ th.ep_title_row
 	color: #333;
 }
 
-th.ep_row, td.ep_row {
+div.ep_table_cell.ep_row {
 	border-color: #bbb;
 }
-th.ep_row, td.ep_row {
+div.ep_table_cell.ep_row {
 	border-bottom-style: dashed;
 }
-td.ep_row {
+div.ep_tabe_cell.ep_row {
 	border-left-style: dashed;
 }
 
@@ -197,10 +197,10 @@ td.ep_row {
 
 /* columns.css */
 
-th.ep_columns_title, td.ep_columns_alter {
+div.ep_table_cell.ep_columns_title, div.ep_table_cell.ep_columns_alter {
 	border-color: #888;
 }
-td.ep_columns_cell {
+div.ep_table_cell.ep_columns_cell {
 	border-color: #888 #ccc;
 }
 

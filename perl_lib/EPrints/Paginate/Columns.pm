@@ -101,8 +101,8 @@ sub paginate_list
 	my $imagesurl = $session->config( "rel_path" )."/style/images";
 
 	# Container for list
-	my $table = $session->make_element( "table", border=>0, cellpadding=>4, cellspacing=>0, class=>"ep_columns" );
-	my $tr = $session->make_element( "tr", class=>"header_plain" );
+	my $table = $session->make_element( "div", class=>"ep_table ep_columns" );
+	my $tr = $session->make_element( "div", class=>"ep_table_row header_plain" );
 	$table->appendChild( $tr );
 
 	my $len = scalar(@{$opts{columns}});
@@ -112,7 +112,7 @@ sub paginate_list
 		my $col = $opts{columns}->[$i];
 		my $last = ($i == $len-1);
 		# Column headings
-		my $th = $session->make_element( "th", style=>"padding:0px", class=>"ep_columns_title".($last?" ep_columns_title_last":"") );
+		my $th = $session->make_element( "div", style=>"padding:0px", class=>"ep_table_cell ep_columns_title".($last?" ep_columns_title_last":"") );
 		$tr->appendChild( $th );
 		next if !defined $col;
 	
@@ -130,11 +130,11 @@ sub paginate_list
 				$linkurl = "$url&${basename}order=$col";
 			}
 		}
-		my $itable = $session->make_element( "table", cellpadding=>0, border=>0, cellspacing=>0, width=>"100%" );
+		my $itable = $session->make_element( "div", class=>"ep_table full_width" );
 		$th->appendChild( $itable );
-		my $itr = $session->make_element( "tr" );
+		my $itr = $session->make_element( "div", class=>"ep_table_row" );
 		$itable->appendChild( $itr );
-		my $itd1 = $session->make_element( "td" );
+		my $itd1 = $session->make_element( "div", class=>"ep_table_cell" );
 		$itr->appendChild( $itd1 );
 		my $link = $session->make_element( "a", href=>$linkurl, style=>'display:block;padding:4px' );
 		$link->appendChild( $list->get_dataset->get_field( $col )->render_name( $session ) );
@@ -144,7 +144,7 @@ sub paginate_list
 
 		if( $sort_order eq $col || $sort_order eq "-$col")
 		{
-			my $itd2 = $session->make_element( "td", style=>"width:22px; text-align: right" );
+			my $itd2 = $session->make_element( "div", class=>"ep_table_cell", style=>"width:22px; text-align: right; vertical-align: middle;" );
 			$itr->appendChild( $itd2 );
 			my $link2 = $session->render_link( $linkurl );
 			$itd2->appendChild( $link2 );
@@ -179,11 +179,11 @@ sub paginate_list
 	$newopts{render_result} = sub {
 		my( $session, $e, $info ) = @_;
 
-		my $tr = $session->make_element( "tr" );
+		my $tr = $session->make_element( "div", class=>"ep_table_row" );
 		my $first = 1;
 		foreach my $column ( @{ $info->{columns} } )
 		{
-			my $td = $session->make_element( "td", class=>"ep_columns_cell".($first?" ep_columns_cell_first":"") );
+			my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_cell".($first?" ep_columns_cell_first":"") );
 			$first = 0;
 			$tr->appendChild( $td );
 			$td->appendChild( $e->render_value( $column ) );
@@ -193,8 +193,8 @@ sub paginate_list
 
 	$newopts{render_no_results} = sub {
 		my( $session, $info, $phrase ) = @_;
-		my $tr = $session->make_element( "tr" );
-		my $td = $session->make_element( "td", class=>"ep_columns_no_items", colspan => scalar @{ $opts{columns} } );
+		my $tr = $session->make_element( "div", class=>"ep_table_row" );
+		my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_no_items", colspan => scalar @{ $opts{columns} } );
 		$td->appendChild( $phrase ); 
 		$tr->appendChild( $td );
 		return $tr;

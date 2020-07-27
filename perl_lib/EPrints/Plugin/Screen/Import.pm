@@ -629,7 +629,7 @@ sub render_import_bar
 		}
 	}
 
-	my $select = $session->make_element( "select", name=>"format" );
+	my $select = $session->make_element( "select", id=>"format", name=>"format" );
 	foreach my $optname ( sort keys %{$options} )
 	{
 		$select->appendChild( $options->{$optname} );
