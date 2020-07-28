@@ -3,6 +3,7 @@
 
 .ep_table.ep_columns {
 	margin: auto;
+    border-spacing: 0px;
 }
 
 .ep_table.ep_columns > .ep_table_row > .ep_table_cell {
