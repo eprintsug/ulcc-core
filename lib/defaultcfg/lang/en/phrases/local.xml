@@ -22,7 +22,7 @@ To completely replace one phrase with another:
 Phrases in this file will be over-ridden by zz_webcfg.xml which is modified via the web-based phrase editor.
 
 -->
-	<epp:phrase id="Plugin/Screen/EPrint/View:title">Edit Item</epp:phrase>
+	<epp:phrase id="Plugin/Screen/EPrint/View:title">View Item</epp:phrase>
 	<epp:phrase id="eprint:workflow:stage:type:title">Type</epp:phrase>
 	<epp:phrase id="eprint:workflow:stage:files:title">Upload</epp:phrase>
 	<epp:phrase id="eprint:workflow:stage:core:title">Details</epp:phrase>

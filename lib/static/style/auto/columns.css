@@ -37,6 +37,13 @@ div.ep_table_cell.ep_columns_title a {
 	font-weight: normal;
 }
 
+div.ep_table_cell.ep_columns_title span, div.ep_table_cell.ep_columns_title img {
+	vertical-align: middle;
+}
+
+div.ep_table_cell.ep_columns_title img {
+    padding-left: 4px;
+}
 
 div.ep_table_cell.ep_columns_no_items {
 	border-bottom: 1px solid #ccc;

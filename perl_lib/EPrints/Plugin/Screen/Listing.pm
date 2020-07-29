@@ -552,12 +552,17 @@ sub render
 
 	my @tags = sort { $fieldnames->{$a} cmp $fieldnames->{$b} } keys %$fieldnames;
 
+    my $label = $session->make_element( "label", id=>"add_col_label" );
+    $form_add->appendChild( $label );
+    $label->appendChild( $self->html_phrase( "select_col" ) );
+
 	$form_add->appendChild( $session->render_option_list( 
 		name => 'column',
 		height => 1,
 		multiple => 0,
 		'values' => \@tags,
-		labels => $fieldnames ) );
+		labels => $fieldnames,
+        'aria-labelledby' => "add_col_label" ) );
 		
 	$form_add->appendChild( 
 			$session->render_button(

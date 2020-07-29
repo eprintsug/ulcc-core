@@ -137,32 +137,29 @@ sub paginate_list
 		my $itd1 = $session->make_element( "div", class=>"ep_table_cell" );
 		$itr->appendChild( $itd1 );
 		my $link = $session->make_element( "a", href=>$linkurl, style=>'display:block;padding:4px' );
-		$link->appendChild( $list->get_dataset->get_field( $col )->render_name( $session ) );
-		$itd1->appendChild( $link );
+        
+        my $link_text = $session->make_element( "span" );
+        $link->appendChild( $link_text);
+		$link_text->appendChild( $list->get_dataset->get_field( $col )->render_name( $session ) );
+		
+        $itd1->appendChild( $link );
 
 		# Sort controls
-
 		if( $sort_order eq $col || $sort_order eq "-$col")
 		{
-			my $itd2 = $session->make_element( "div", class=>"ep_table_cell", style=>"width:22px; text-align: right; vertical-align: middle;" );
-			$itr->appendChild( $itd2 );
-			my $link2 = $session->render_link( $linkurl );
-			$itd2->appendChild( $link2 );
 			if( $sort_order eq $col )
 			{
-				$link2->appendChild( $session->make_element(
+				$link->appendChild( $session->make_element(
 					"img",
 					alt=>"Up",
-					style=>"border:0px;padding:4px",
 					border=>0,
 					src=> "$imagesurl/sorting_up_arrow.gif" ));
 			}
 			if( $sort_order eq "-$col" )
 			{
-				$link2->appendChild( $session->make_element(
+				$link->appendChild( $session->make_element(
 					"img",
 					alt=>"Down",
-					style=>"border:0px;padding:4px",
 					border=>0,
 					src=> "$imagesurl/sorting_down_arrow.gif" ));
 			}

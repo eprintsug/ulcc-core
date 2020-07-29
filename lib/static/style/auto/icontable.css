@@ -1,13 +1,13 @@
 
-table.ep_icontable {
+div.ep_table.ep_icontable {
 	border-collapse: collapse;
 }
-table.ep_icontable th {
+div.ep_table.ep_icontable div.ep_table_row div.ep_table_cell:first-child {
 	border: solid 1px #999;
 	background-color: #fff;
 	text-align: center;
 }
-table.ep_icontable td {
-	padding-left: 4px;
+div.ep_table.ep_icontable div.ep_table_cell {
+	padding: 4px;
 	border: solid 1px #999;
 }
