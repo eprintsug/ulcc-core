@@ -609,8 +609,12 @@ sub paginate_opts
 	my $order_div = $self->{session}->make_element( "div", class=>"ep_search_reorder" );
 	my $form = $self->{session}->render_form( "GET" );
 	$order_div->appendChild( $form );
-	$form->appendChild( $self->{session}->html_phrase( "lib/searchexpression:order_results" ) );
-	$form->appendChild( $self->{session}->make_text( ": " ) );
+
+    my $order_span = $self->{session}->make_element( "span", id=>"ep_order_results" );
+    $order_span->appendChild( $self->{session}->html_phrase( "lib/searchexpression:order_results" ) );
+	$form->appendChild( $order_span );
+        
+    $form->appendChild( $self->{session}->make_text( ": " ) );
 	$form->appendChild( $self->render_order_menu );
 
 	$form->appendChild( $self->{session}->render_button(
@@ -825,10 +829,12 @@ sub render_order_field
 {
 	my( $self ) = @_;
 
+    my $label = $self->{session}->make_element( "span", id=>"ep_order_results" );
+    $label->appendChild( $self->{session}->html_phrase( "lib/searchexpression:order_results" ) );
+
 	return $self->{session}->render_row_with_help( 
 			no_help => 1,
-			label => $self->{session}->html_phrase( 
-				"lib/searchexpression:order_results" ),  
+			label => $label,
 			field => $self->render_order_menu,
 	);
 }
@@ -856,7 +862,8 @@ sub render_order_menu
 		name=>"order",
 		values=>[values %{$methods}],
 		default=>$order,
-		labels=>\%labels );
+		labels=>\%labels,
+        'aria-labelledby'=>"ep_order_results");
 }
 
 # redirecting from a POST will lose all our parameters, although we always use

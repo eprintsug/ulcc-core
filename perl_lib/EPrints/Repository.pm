@@ -3526,7 +3526,7 @@ sub render_option_list
 			my $div = $self->make_element( "div" );
 			my $label = $self->make_element( "label" );
 			$div->appendChild( $label );
-			my $box = $self->render_input_field( type=>"checkbox", name=>$params{name}, value=>$pair->[0], class=>"ep_form_checkbox", 'aria-describedby'=>"all_".$params{name} );
+			my $box = $self->render_input_field( type=>"checkbox", name=>$params{name}, value=>$pair->[0], class=>"ep_form_checkbox" );
 			$label->appendChild( $box );
 			$label->appendChild( $self->make_text( " ".$pair->[1] ) );
 			if( $defaults{$pair->[0]} )
@@ -3554,6 +3554,10 @@ sub render_option_list
     if( defined $params{"aria-labelledby"} )
     {
         $element->setAttribute( "aria-labelledby" , $params{"aria-labelledby"} );
+    }
+    if( defined $params{"aria-label"} )
+    {
+        $element->setAttribute( "aria-label", $params{"aria-label"} );
     }
 	my $size = 0;
 	foreach my $pair ( @{$pairs} )

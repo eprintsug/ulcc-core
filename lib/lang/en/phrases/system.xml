@@ -2168,7 +2168,7 @@ Public CGI Scripts
 <!-- advsearch -->
 
     <epp:phrase id="cgi/advsearch:adv_search">Advanced Search</epp:phrase>
-    <epp:phrase id="cgi/advsearch:preamble"><p>Don't panic! Just leave the fields you don't want to search blank. <a href="simple">Click here for a simple search.</a></p></epp:phrase>
+    <epp:phrase id="cgi/advsearch:preamble"><p>Don't panic! Just leave the fields you don't want to search blank. Alternatively, try the <a href="simple">simple search</a>.</p></epp:phrase>
 
 <!-- handle_http_error -->
 
