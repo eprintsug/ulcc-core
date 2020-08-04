@@ -219,10 +219,15 @@ sub render_set_input
 	}
 
 
-	my( $list );
+	my( $list, $fieldset );
 	if( $input_style eq "long" )
 	{
+        $fieldset = $session->make_element( "fieldset", style=>"display: table; border: 0;" );
+        my $legend = $session->make_element( "legend", id=> "all_".$self->name, class=>"ep_field_legend sr-only" );
+        $legend->appendChild( $session->make_text( $self->render_name ) );
+        $fieldset->appendChild( $legend );
 		$list = $session->make_element( "dl", class=>"ep_field_set_long" );
+        $fieldset->appendChild( $list );
 	}	
 	else
 	{
@@ -259,25 +264,41 @@ sub render_set_input
 				$checked = "checked";
 			}
 		}
-		$label1->appendChild( $session->render_noenter_input_field(
-			type => $type,
+
+        my %opts = (
+		    type => $type,
 			name => $basename,
 			id => $basename."_".$opt,
 			value => $opt,
-			checked => $checked ) );
+			checked => $checked
+        );
+
+        if( $input_style eq "long" )
+        {
+            $opts{'aria-describedby'} = $basename."_".$opt."_description";
+        }
+
+		$label1->appendChild( $session->render_noenter_input_field( %opts ) );
 		$label1->appendChild( $session->make_text( " ".$labels->{$opt} ));
 		$list->appendChild( $row );
 
 		next unless( $input_style eq "long" );
 
 		my $dd = $session->make_element( "dd" );
-		my $label2 = $session->make_element( "label", for=>$basename."_".$opt );
+		my $label2 = $session->make_element( "span", id=>$basename."_".$opt."_description" );
 		$dd->appendChild( $label2 );
 		my $phrasename = $self->{confid}."_optdetails_".$self->{name}."_".$opt;
 		$label2->appendChild( $session->html_phrase( $phrasename ));
 		$list->appendChild( $dd );
 	}
-	return $list;
+    if( $input_style eq "long" )
+    {
+        return $fieldset;
+    }
+    else
+    {
+	    return $list;
+    }
 }
 
 sub form_value_actual

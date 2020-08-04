@@ -165,7 +165,7 @@ sub input_field
 		{
 			(undef, $noenter) = splice(@opts,$i,2);
 		}
-        if ( $opts[$i] eq 'type' && $opts[$i+1] eq 'checkbox' )
+        if ( $opts[$i] eq 'type' && ( $opts[$i+1] eq 'checkbox' || $opts[$i+1] eq 'radio' ) )
         {
             $noid = 1;
         }
