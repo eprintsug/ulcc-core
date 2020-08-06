@@ -153,14 +153,17 @@ sub render_content
 		$parts{class} = "ep_first" if $first;
 		$first = 0;
 
-		$parts{label} = $field->render_name( $self->{session} );
+        my $label = $self->{session}->make_element( "label", id=>$self->{prefix}."_".$field->{name}."_label" );
+        my $label_content = $field->render_name( $self->{session} );
 
 		if( $field->{required} ) # moj: Handle for_archive
 		{
-			$parts{label} = $self->{session}->html_phrase( 
+			$label_content = $self->{session}->html_phrase( 
 				"sys:ep_form_required",
-				label=>$parts{label} );
+				label=>$label_content );
 		}
+        $label->appendChild( $label_content );
+		$parts{label} = $label;
 
 		# customisation for type specific help on the eprint workflow
 		# phrase IDs should be (e.g. eprint_fieldhelp_title.article)
@@ -192,7 +195,6 @@ sub render_content
 			undef,
 			$self->{dataobj},
 			$self->{prefix},
-			
 		  );
 
 		@parts{qw( no_help no_toggle )} = @$self{qw( no_help no_toggle )};

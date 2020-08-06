@@ -404,9 +404,10 @@ sub get_input_col_titles
 		my $fieldname = $field->get_name;
 		my $sub_r = $field->get_input_col_titles( $session, $staff );
 
+        # return hash of sub field name and title so we can build a label with an appropriate id
 		if( !defined $sub_r )
 		{
-			$sub_r = [ $field->render_name( $session ) ];
+			$sub_r = [ { $field->{sub_name} => $field->render_name( $session ) } ];
 		}
 
 		push @r, @{$sub_r};
@@ -418,19 +419,32 @@ sub get_input_col_titles
 # assumes all basic input elements are 1 high, x wide.
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $object ) = @_;
+	my( $self, $session, $value, $basename, $staff, $object, $prefix, $row_no ) = @_;
 
-	my $grid_row = [];
-
+    my $grid_row = [];
+   
 	foreach my $field (@{$self->{fields_cache}})
 	{
+        # create the start of a label chain
+        my $label = $prefix."_".$self->name."_label"; # the parent field label
+
 		my $alias = $field->property( "sub_name" );
+        $label .= " " . $prefix."_".$self->name."_".$alias."_label"; # sub field label, i.e. column header
+
+        if( $self->get_property( "multiple" ) ) # we need to chain some aria-labels
+        {
+            $label .=  " " . $prefix."_".$self->name."_cell_0_".$row_no; # the row label
+        }
+
 		my $part_grid = $field->get_basic_input_elements( 
 					$session, 
 					$value->{$alias}, 
 					$basename."_".$alias, 
 					$staff, 
-					$object );
+					$object,
+                    $prefix,
+                    $row_no,
+                    $label );
 		my $top_row = $part_grid->[0];
 		push @{$grid_row}, @{$top_row};
 	}

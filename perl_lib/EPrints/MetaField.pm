@@ -527,7 +527,8 @@ sub render_input_field
 			$staff,
 			$hidden_fields,
 			$obj,
-			$basename );
+			$basename,
+            $prefix );
 }
 
 
@@ -1207,7 +1208,7 @@ sub render_single_value
 
 =begin InternalDoc
 
-=item $xhtml = $field->render_input_field_actual( $session, $value, [$dataset], [$staff], [$hidden_fields], [$obj], [$basename] )
+=item $xhtml = $field->render_input_field_actual( $session, $value, [$dataset], [$staff], [$hidden_fields], [$obj], [$basename], [$prefix] )
 
 Return the XHTML of the fields for an form which will allow a user
 to input metadata to this field. $value is the default value for
@@ -1226,12 +1227,12 @@ with, if any.
 
 sub render_input_field_actual
 {
-	my( $self, $session, $value, $dataset, $staff, $hidden_fields, $obj, $basename ) = @_;
+	my( $self, $session, $value, $dataset, $staff, $hidden_fields, $obj, $basename, $prefix ) = @_;
 
 	# Note: if there is only one element we still need the table to
 	# centre-align the input
 
-	my $elements = $self->get_input_elements( $session, $value, $staff, $obj, $basename );
+	my $elements = $self->get_input_elements( $session, $value, $staff, $obj, $basename, $prefix );
 
 	my $frag = $session->make_doc_fragment;
 
@@ -1251,9 +1252,15 @@ sub render_input_field_actual
 		}
 
 		foreach my $col_title ( @{$col_titles} )
-		{
+   		{    
+            # get field name and title for the column
+            my $col_field = (keys %{$col_title})[0];
+            $col_title = $col_title->{$col_field};
 			$th = $session->make_element( "div", id=>$basename."_th_".$x++, class=>"ep_table_cell" );
-			$th->appendChild( $col_title );
+
+            my $label = $session->make_element( "label", id=>$basename."_".$col_field."_label" );
+            $label->appendChild( $col_title );
+			$th->appendChild( $label );
 			$tr->appendChild( $th );
 		}
 
@@ -1323,7 +1330,7 @@ sub get_input_col_titles
 
 sub get_input_elements
 {
-	my( $self, $session, $value, $staff, $obj, $basename ) = @_;	
+	my( $self, $session, $value, $staff, $obj, $basename, $prefix ) = @_;	
 
 	my $n = length( $basename) - length( $self->{name}) - 1;
 	my $componentid = substr( $basename, 0, $n );
@@ -1335,7 +1342,8 @@ sub get_input_elements
 				$value,
 				$basename,
 				$staff,
-				$obj );
+				$obj,
+                $prefix );
 	}
 
 	# multiple field...
@@ -1375,7 +1383,9 @@ sub get_input_elements
 				$value->[$i-1], 
 				$basename."_".$i,
 				$staff,
-				$obj );
+				$obj,
+                $prefix,
+                $i-1 );
 		my $first = 1;
 		for my $n (0..(scalar @{$section})-1)
 		{
@@ -1498,29 +1508,30 @@ sub get_state_params
 
 sub get_input_elements_single
 {
-	my( $self, $session, $value, $basename, $staff, $obj ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no ) = @_;
 
 	return $self->get_basic_input_elements( 
 			$session, 
 			$value, 
 			$basename, 
 			$staff,
-			$obj );
+			$obj,
+            $prefix,
+            $row_no );
 }	
 
 
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no, $label ) = @_;
 
 	my $maxlength = $self->get_max_input_size;
 	my $size = ( $maxlength > $self->{input_cols} ?
 					$self->{input_cols} : 
 					$maxlength );
 
-
-	my $input;
+    my $input;
 	if( defined $self->{render_input} )
 	{
 		$input = $self->call_property( "render_input",
@@ -1543,13 +1554,28 @@ sub get_basic_input_elements
 			push @classes,
 				join('_', 'ep', $self->{dataset}->base_id, $self->name);
 		}
+
+        if( !defined $label ) # we haven't been given a label, so lets create one for the input
+        {
+            $label = $basename."_label"; # a default label
+
+            if( $self->get_property( "multiple" ) ) # we need to chain some aria-labels
+            {
+                $label = $prefix."_".$self->name."_label"; # the field label
+                $label .= " " . $prefix."_".$self->name."_cell_0_".$row_no; # the row label
+            }
+        }
+
+        # create the input component with the given label
 		$input = $session->render_noenter_input_field(
 			class=> join(' ', @classes),
 			name => $basename,
 			id => $basename,
 			value => $value,
 			size => $size,
-			maxlength => $maxlength );
+			maxlength => $maxlength,
+            'aria-labelledby' => $label,
+        );
 	}
 
 	return [ [ { el=>$input } ] ];

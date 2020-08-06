@@ -34,8 +34,14 @@ sub render
 
 	my $comp_name = $component->get_name();
 
+    my $class = "ep_sr_component";
+    if( defined $comp_name )
+    {
+        $class = $class . " ep_field_component_$comp_name";
+    }
+
 	my $surround = $self->{session}->make_element( "div",
-		class => "ep_sr_component",
+		class => $class,
 		id => $component->{prefix} );
 
 	$surround->appendChild( $self->{session}->make_element( "a", name=>$component->{prefix} ) );
@@ -52,9 +58,15 @@ sub render
 		$title_bar_class = "ep_no_js";
 		$content_class = "ep_no_js";
 	}
-		
-	my $title_bar = $self->{session}->make_element( "div", class=>"ep_sr_title_bar $title_bar_class", id=>$barid );
-	my $title_div = $self->{session}->make_element( "div", class=>"ep_sr_title" );
+	
+    my $titleid = $barid."_label";
+    if( defined $comp_name )
+    {
+        $titleid = $component->{prefix}."_".$comp_name."_label";
+    }
+
+    my $title_bar = $self->{session}->make_element( "div", class=>"ep_sr_title_bar $title_bar_class", id=>$barid );
+	my $title_div = $self->{session}->make_element( "div", class=>"ep_sr_title", id=>$titleid );
 
 	my $content = $self->{session}->make_element( "div", id => $component->{prefix}."_content", class=>"$content_class ep_sr_content" );
 	my $content_inner = $self->{session}->make_element( "div", id => $component->{prefix}."_content_inner" );
@@ -144,14 +156,10 @@ sub _render_help
 	}
 
 	# construct a table with left/right columns
-	my $table = $session->make_element( "table",
-		cellpadding=>"0",
-		border=>"0",
-		cellspacing=>"0",
-		width=>"100%" );
-	my $tr = $session->make_element( "tr" );
-	my $left = $session->make_element( "td" );
-	my $right = $session->make_element( "td", align=>"right" );
+	my $table = $session->make_element( "div", class=>"ep_table full_width" );
+	my $tr = $session->make_element( "div", class=>"ep_table_row" );
+	my $left = $session->make_element( "div", class=>"ep_table_cell" );
+	my $right = $session->make_element( "div", class=>"ep_table_cell", align=>"right" );
 	$table->appendChild( $tr );
 	$tr->appendChild( $left );
 	$tr->appendChild( $right );

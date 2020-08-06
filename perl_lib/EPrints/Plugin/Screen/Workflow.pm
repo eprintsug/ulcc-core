@@ -230,8 +230,8 @@ sub render_blister
 	my $session = $self->{session};
 
 	my $workflow = $self->workflow();
-	my $table = $session->make_element( "table", cellpadding=>0, cellspacing=>0, class=>"ep_blister_bar" );
-	my $tr = $session->make_element( "tr" );
+	my $table = $session->make_element( "div", class=>"ep_table ep_blister_bar" );
+	my $tr = $session->make_element( "div", class=>"ep_table_row" );
 	$table->appendChild( $tr );
 	my $first = 1;
 	my @stages = $workflow->get_stage_ids;
@@ -241,12 +241,12 @@ sub render_blister
 
 		if( !$first )  
 		{ 
-			my $td = $session->make_element( "td", class=>"ep_blister_join" );
+			my $td = $session->make_element( "div", class=>"ep_table_cell ep_blister_join" );
 			$tr->appendChild( $td );
 		}
 		
 		my $td;
-		$td = $session->make_element( "td" );
+		$td = $session->make_element( "div", class=>"ep_table_cell" );
 		my $class = "ep_blister_node";
 		if( $stage_id eq $sel_stage_id ) 
 		{ 

@@ -70,7 +70,9 @@ sub get_basic_input_elements
 		class => join(' ', @classes),
 		rows => $self->{input_rows},
 		cols => $self->{input_cols},
-		wrap => "virtual" );
+		wrap => "virtual",
+        'aria-labelledby' => $basename."_label",
+    );
 	$textarea->appendChild( $session->make_text( $value ) );
 
 	return [ [ { el=>$textarea } ] ];
