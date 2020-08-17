@@ -1396,27 +1396,33 @@ sub get_input_elements
 			{
 				$col1 = { el=>$session->make_text( $i.". " ), class=>"ep_form_input_grid_pos" };
 				my $arrows = $session->make_doc_fragment;
-				$arrows->appendChild( $session->make_element(
-					"input",
-					type=>"image",
+                my $down_btn = $session->make_element(
+                    "button",
+                    title=>"Move down",
+                    name=>"_internal_".$basename."_down_$i",
+                    class=>"ep_up_down_button epjs_ajax",
+                );
+                $down_btn->appendChild( $session->make_element(
+					"img",
+                    alt=>"Move down",
 					src=> "$imagesurl/multi_down.png",
-					alt=>"down",
-					title=>"move down",
-               		name=>"_internal_".$basename."_down_$i",
-					class => "epjs_ajax",
-					value=>"1" ));
+				) );
+                $arrows->appendChild( $down_btn );
 				if( $i > 1 )
 				{
 					$arrows->appendChild( $session->make_text( " " ) );
-					$arrows->appendChild( $session->make_element(
-						"input",
-						type=>"image",
-						alt=>"up",
-						title=>"move up",
-						src=> "$imagesurl/multi_up.png",
-                		name=>"_internal_".$basename."_up_$i",
-						class => "epjs_ajax",
-						value=>"1" ));
+                    my $up_btn = $session->make_element(
+                        "button",
+                        title=>"Move up",
+                        name=>"_internal_".$basename."_up_$i",
+                        class=>"ep_up_down_button epjs_ajax",
+                    );
+                    $up_btn->appendChild( $session->make_element(
+						"img",
+						alt=>"Move up",
+						src=> "$imagesurl/multi_up.png"
+                    ) );
+                    $arrows->appendChild( $up_btn );
 				}
 				$lastcol = { el=>$arrows, valign=>"middle", class=>"ep_table_cell ep_form_input_grid_arrows" };
 				$row =  [ $col1, @{$section->[$n]}, $lastcol ];

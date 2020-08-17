@@ -124,3 +124,13 @@ th.ep_title_row {
 .ep_table_cell {
     display: table-cell;
 }
+
+.ep_up_down_button {
+    border: none;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.ep_up_down_button img{
+    cursor: pointer;
+}

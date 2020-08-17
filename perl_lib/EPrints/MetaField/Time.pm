@@ -131,7 +131,7 @@ sub get_basic_input_ids
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no ) = @_;
 
 	my $frag = $session->make_doc_fragment;
 		
@@ -166,9 +166,11 @@ sub get_basic_input_elements
  	my $minuteid = $basename."_minute";
  	my $secondid = $basename."_second";
 
-	$div->appendChild( 
+    my $year_label = $session->make_element( "label", id=>$yearid."_label", for=>$yearid );
+	$year_label->appendChild( 
 		$session->html_phrase( "lib/metafield:year" ) );
-	$div->appendChild( $session->make_text(" ") );
+	$year_label->appendChild( $session->make_text(" ") );
+    $div->appendChild( $year_label );
 
 	$div->appendChild( $session->render_noenter_input_field(
 		class => "ep_form_text",
@@ -176,29 +178,38 @@ sub get_basic_input_elements
 		id => $yearid,
 		value => $year,
 		size => 4,
-		maxlength => 4 ) );
+		maxlength => 4,
+        'aria-labelledby' => $basename."_label ".$yearid."_label",
+    ) );
 
 	##############################################
 	$div->appendChild( $session->make_text(" ") );
 	##############################################
 
-	$div->appendChild( 
+    my $month_label = $session->make_element( "label", id=>$monthid."_label", for=>$monthid );
+	$month_label->appendChild( 
 		$session->html_phrase( "lib/metafield:month" ) );
-	$div->appendChild( $session->make_text(" ") );
+	$month_label->appendChild( $session->make_text(" ") );
+    $div->appendChild( $month_label );
+
 	$div->appendChild( $session->render_option_list(
 		name => $monthid,
 		id => $monthid,
 		values => \@EPrints::MetaField::Date::MONTHKEYS,
 		default => $month,
-		labels => $self->_month_names( $session ) ) );
+		labels => $self->_month_names( $session ),
+        'aria-labelledby' => $basename."_label ".$monthid."_label",
+    ) );
 
 	##############################################
 	$div->appendChild( $session->make_text(" ") );
 	##############################################
 
-	$div->appendChild( 
+    my $day_label = $session->make_element( "label", id=>$dayid."_label", for=>$dayid );
+	$day_label->appendChild( 
 		$session->html_phrase( "lib/metafield:day" ) );
-	$div->appendChild( $session->make_text(" ") );
+	$day_label->appendChild( $session->make_text(" ") );
+    $div->appendChild( $day_label );
 
 	my @daykeys = ();
 	my %daylabels = ();
@@ -213,15 +224,19 @@ sub get_basic_input_elements
 		id => $dayid,
 		values => \@daykeys,
 		default => $day,
-		labels => \%daylabels ) );
+		labels => \%daylabels,
+        'aria-labelledby' => $basename."_label ".$dayid."_label",
+    ) );
 
 	##############################################
 	$div->appendChild( $session->make_text(" ") );
 	##############################################
 
-	$div->appendChild( 
+    my $hour_label = $session->make_element( "label", id=>$hourid."_label", for=>$hourid );
+	$hour_label->appendChild( 
 		$session->html_phrase( "lib/metafield:hour" ) );
-	$div->appendChild( $session->make_text(" ") );
+	$hour_label->appendChild( $session->make_text(" ") );
+    $div->appendChild( $hour_label );
 
 	my @hourkeys = ( "" );
 	my %hourlabels = ( ""=>"?" );
@@ -236,15 +251,19 @@ sub get_basic_input_elements
 		id => $hourid,
 		values => \@hourkeys,
 		default => $hour,
-		labels => \%hourlabels ) );
+		labels => \%hourlabels,
+        'aria-labelledby' => $basename."_label ".$hourid."_label",
+    ) );
 
 	##############################################
 	$div->appendChild( $session->make_text(" ") );
 	##############################################
 
-	$div->appendChild( 
+    my $minute_label = $session->make_element( "label", id=>$minuteid."_label", for=>$minuteid );
+	$minute_label->appendChild( 
 		$session->html_phrase( "lib/metafield:minute" ) );
-	$div->appendChild( $session->make_text(" ") );
+	$minute_label->appendChild( $session->make_text(" ") );
+    $div->appendChild( $minute_label );
 
 	my @minutekeys = ( "" );
 	my %minutelabels = ( ""=>"?" );
@@ -259,15 +278,19 @@ sub get_basic_input_elements
 		id => $minuteid,
 		values => \@minutekeys,
 		default => $minute,
-		labels => \%minutelabels ) );
+		labels => \%minutelabels,
+        'aria-labelledby' => $basename."_label ".$minuteid."_label",
+    ) );
 
 	##############################################
 	$div->appendChild( $session->make_text(" ") );
 	##############################################
 
-	$div->appendChild( 
+    my $second_label = $session->make_element( "label", id=>$secondid."_label", for=>$secondid );
+	$second_label->appendChild( 
 		$session->html_phrase( "lib/metafield:second" ) );
-	$div->appendChild( $session->make_text(" ") );
+	$second_label->appendChild( $session->make_text(" ") );
+    $div->appendChild( $second_label );
 
 	my @secondkeys = ( "" );
 	my %secondlabels = ( ""=>"?" );
@@ -282,7 +305,9 @@ sub get_basic_input_elements
 		id => $secondid,
 		values => \@secondkeys,
 		default => $second,
-		labels => \%secondlabels ) );
+		labels => \%secondlabels,
+        'aria-labelledby' => $basename."_label ".$secondid."_label",
+    ) );
 
 	##############################################
 	##############################################
