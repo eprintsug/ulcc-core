@@ -1,0 +1,334 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE page SYSTEM "entities.dtd" >
+<xpage:page xmlns="http://www.w3.org/1999/xhtml" xmlns:xpage="http://eprints.org/ep3/xpage" xmlns:epc="http://eprints.org/ep3/control">
+        <xpage:title>Accessibility roadmap for <epc:phrase ref="archive_name"/></xpage:title>
+<xpage:body>
+        <p>This page details all of the known accessibility issues affecting <epc:phrase ref="accessibility_institution" />, the method that was used to find issues, and the plans in place to fix them.</p>
+        <br />
+
+        <h2>Plans for fixing known accessibility issues</h2>
+        <p> All of the issues that have been highlighted in this review will be fixed in a planned upgrade to this repository</p>
+        <br />
+
+        <h2>Method for testing accessibility</h2>
+        <p><epc:phrase ref="accessibility_testing_method" /></p>
+        <br />
+
+        <h2>Known accessibility issues, listed by page</h2>
+        <p>These issues are listed by page. Pages that are publicly accessible are listed first, and those for repository administrators can be found lower down. The number in brackets following the description represents the number of instances of that issue on the page. Below is a list of all the accessibility issues known to affect <epc:phrase ref="accessibility_institution"/> with an explanation of what they mean.</p>
+        <ul>
+          <li><b>Document language missing:</b>  The language that the document is written in is not declared. This may cause issues with screen readers and with automatic translation.</li>
+          <li><b>No page regions:</b> There are no page regions or ARIA landmarks defined. These identify significant page areas and help users navigate pages.</li>
+          <li><b>Missing alternative text:</b>There is no alternative text given for an image included in the page. This means that those using screen readers will not be able to access this content.</li>
+          <li><b>Linked image missing alternative text:</b> There is no alternative text given for an image that is linked to from this page. This means that a screen reader has no content to present to the user regarding the function of a link.</li>
+          <li><b>Missing form label:</b> A form control does not have a properly associated text label. This means that the function of the form control may not be presented to those using screen readers. The lack of visible description may also make the page harder to navigate for all users.</li>
+          <li><b>Empty link:</b> A link does not contain any explanatory text. This means that the purpose of the link is not presented to the user, which may cause confusion for those using screen readers.</li>
+          <li><b>Very low contrast:</b> There is very low contrast between foreground and background colours. This may make reading text on this page difficult for users, particular those with low vision.</li>
+          <li><b>Redundant link:</b> Adjacent links go to the same location. This creates additional navigation and repetition for those using keyboard and screen readers.</li>
+          <li><b>Very small text:</b> Text is very small. This may make reading text on this page difficult for users, particular those with low vision.</li>
+          <li><b>Layout table:</b> Layout tables are being used to position content visually, for example, to create columns or align content neatly for sighted users. These can introduce reading and navigation order issues especially for those using screen readers.</li>
+          <li><b>Skipped heading level:</b> A heading level is skipped. This may cause confusion or difficulty for those using keyboard navigation or screen readers.</li>
+          <li><b>Redundant title text:</b> The title attribute is the same as text or alternative text.</li>
+          <li><b>Missing fieldset:</b> A group of check boxes or radio buttons is not enclosed in a fieldset. This may make it difficult for those using screen readers to identify the purpose of check boxes or radio buttons.</li>
+          <li><b>Suspicious link text:</b> A link contains extraneous text or may not make sense out of context. This may cause confusion about the purpose of the link.</li>
+          <li><b>Nearby image has same alternative text:</b> Two images near each other have the same alternative text. This means that those using screen readers will not be able to distinguish the difference between the images.</li>
+          <li><b>Javascript jump menu:</b> A javascript jump menu is a select element that triggers a new web page with the onchange event handler. This may cause difficulty for users navigating the page with a keyboard as the page will change with each change in the select menu. </li>
+          <li><b>Device dependent event handler:</b> Event handlers may not be accessible for both keyboard and mouse users.</li>
+        </ul>
+        <br />
+
+        <h3>All pages</h3>
+        <p>The following issues affect all pages on <epc:phrase ref="accessibility_institution" /></p>
+        <ul>
+                <li>Document language missing</li>
+                <li>No page regions</li>
+        </ul>
+        <br />
+
+        <h3>Publicly accessible pages</h3>
+
+        <h4>Homepage</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="homepage_link" />: </p>
+
+        <ul>
+                <li>Missing alternative text (1)</li>
+                <li>Linked image missing alternative text (2)</li>
+                <li>Missing form label (1)</li>
+                <li>Empty link (2) </li>
+                <li>Very low contrast (5)</li>
+                <li>Redundant link (4)</li>
+                <li>Very small text (1)</li>
+                <li>Layout table (1)</li>
+        </ul>
+        <br />
+
+        <h4>About</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="about_link" />: </p>
+
+        <ul>
+                <li>Missing form label (1)</li>
+                <li>Very low contrast (1)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (1)</li>
+        </ul>
+        <br />
+
+        <h4>Browse</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="browse_link" />: </p>
+
+        <ul>
+                <li>Linked image missing alternative text (1)</li>
+                <li>Missing form label (1)</li>
+                <li>Very low contrast (1)</li>
+                <li>Redundant link (4)</li>
+        </ul>
+        <br />
+
+        <h4>Summary page</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="summary_link" />: </p>
+
+        <ul>
+                <li>Missing form label (1)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (2)</li>
+                <li>Skipped heading level (1)</li>
+                <li>Redundant title text (1)</li>
+        </ul>
+        <br />
+
+        <h4>Item detail</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="item_detail_link" />: </p>
+
+        <ul>
+                <li>Missing form label (1)</li>
+                <li>Very low contrast (1)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (2)</li>
+                <li>Skipped heading level (1)</li>
+                <li>Redundant title text (1)</li>
+        </ul>
+        <br />
+
+        <h4>Deposit workflow - item type</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="workflow_type_link" />: </p>
+
+        <ul>
+                <li>Missing form label (1)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (3)</li>
+                <li>Missing fieldset (1)</li>
+        </ul>
+        <br />
+
+
+        <h4>Deposit workflow - upload</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="workflow_upload_link" />: </p>
+
+        <ul>
+                <li>Missing form label (18)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (3)</li>
+        </ul>
+        <br />
+
+        <h4>Deposit workflow - details</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="workflow_detail_link" />: </p>
+
+        <ul>
+                <li>Linked image missing alternative text (21)</li>
+                <li>Missing form label (53)</li>
+                <li>Empty table header (2)</li>
+                <li>Redundant link (21)</li>
+                <li>Very small text (9)</li>
+                <li>Layout table (35)</li>
+                <li>Missing fieldset (2)</li>
+        </ul>
+        <br />
+
+        <h4>Deposit workflow - subject</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="workflow_subject_link" />: </p>
+
+        <ul>
+                <li>Missing form label (3)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (4)</li>
+        </ul>
+        <br />
+
+        <h4>Deposit workflow - deposit</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="workflow_deposit_link" />: </p>
+
+        <ul>
+                <li>Missing form label (1)</li>
+                <li>Layout table (4)</li>
+        </ul>
+        <br />
+
+        <h4>Search</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="search_link" />: </p>
+
+        <ul>
+                <li>Missing form label (3)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (2)</li>
+        </ul>
+        <br />
+
+        <h4>Advanced search</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="advanced_search_link" />: </p>
+
+        <ul>
+                <li>Missing form label (1)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (2)</li>
+        </ul>
+        <br />
+
+        <h4>Login</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="login_link" />: </p>
+
+        <ul>
+                <li>Missing form label (3)</li>
+                <li>Layout table (2)</li>
+        </ul>
+        <br />
+
+        <h4>Profile</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="profile_link" />: </p>
+
+        <ul>
+                <li>Missing form label (1)</li>
+                <li>Skipped heading level (3)</li>
+                <li>Suspicious link text (1)</li>
+        </ul>
+        <br />
+        <br />
+
+        <h3>Pages for repository administrators</h3>
+
+        <h4>Manage deposits</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="manage_deposits_link" />: </p>
+
+        <ul>
+                <li>Missing form label (3)</li>
+                <li>Very low contrast (1)</li>
+                <li>Empty table header (5)</li>
+                <li>Redundant link (2)</li>
+                <li>Layout table (10)</li>
+                <li>Redundant title text (3)</li>
+                <li>Nearby image has same alternative text (1)</li>
+                <li>Possible table caption (1)</li>
+        </ul>
+        <br />
+
+        <h4>Review</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="review_link" />: </p>
+
+        <ul>
+                <li>Missing form label (5)</li>
+                <li>Very low contrast (1)</li>
+                <li>Empty table header (6)</li>
+                <li>Redundant link (2)</li>
+                <li>Layout table (11)</li>
+                <li>Possible table caption (1)</li>
+                <li>Missing fieldset (1)</li>
+        </ul>
+        <br />
+
+        <h4>Admin</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="admin_link" />: </p>
+
+        <ul>
+                <li>Missing form label (1)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (1)</li>
+        </ul>
+        <br />
+
+        <h4>IR stats</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="ir_stats_link" />: </p>
+
+        <ul>
+                <li>Missing alternative text (3) </li>
+                <li>Linked image missing alternative text (5)</li>
+                <li>Missing form label (7)</li>
+                <li>Empty link (4)</li>
+                <li>Very low contrast (2)</li>
+                <li>Empty table header (1)</li>
+                <li>Redundant link (1)</li>
+                <li>Very small text (79)</li>
+                <li>Layout table (8)</li>
+                <li>Javascript jump menu (1)</li>
+        </ul>
+        <br />
+
+        <h4>Reports</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="reports_link" />: </p>
+
+        <ul>
+                <li>Missing alternative text (1)</li>
+                <li>Linked image missing alternative text (2)</li>
+                <li>Missing form label (14)</li>
+                <li>Empty link (2)</li>
+                <li>Very low contrast (2)</li>
+                <li>Redundant link (1)</li>
+                <li>Very small text (1)</li>
+                <li>Layout table (4)</li>
+                <li>Missing fieldset (2)</li>
+        </ul>
+        <br />
+
+        <h4>History</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="history_link" />: </p>
+
+        <ul>
+                <li>Missing form label (2)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (1)</li>
+        </ul>
+        <br />
+
+        <h4>Page phrase editor</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="phrase_editor_link" />: </p>
+
+        <ul>
+                <li>Missing form label (2)</li>
+                <li>Redundant link (1)</li>
+                <li>Layout table (1)</li>
+                <li>Device dependent event handler (2906)</li>
+        </ul>
+        <br />
+
+        <h4>Subject editor</h4>
+
+      <p>The following accessibility issues are known to affect the <epc:phrase ref="subject_editor_link" />: </p>
+
+        <ul>
+                <li>Missing form label (3)</li>
+                <li>Empty table header (1)</li>
+                <li>Layout table (1)</li>
+        </ul>
+
+        </xpage:body>
+        </xpage:page>
