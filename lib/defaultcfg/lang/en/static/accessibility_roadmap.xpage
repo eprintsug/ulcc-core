@@ -10,7 +10,7 @@
         <p> All of the issues that have been highlighted in this review will be fixed in a planned upgrade to this repository</p>
         <br />
 
-        <h2>Method for testing accessibility</h2>
+        <h2 id="method_for_testing_accessibility">Method for testing accessibility</h2>
         <p><epc:phrase ref="accessibility_testing_method" /></p>
         <br />
 

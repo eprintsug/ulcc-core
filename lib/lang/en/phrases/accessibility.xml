@@ -10,7 +10,7 @@
 <epp:phrase id="accessibility_statement_first_prepared_date">[date]</epp:phrase>
 <epp:phrase id="accessibility_statement_last_updated_date">[date]</epp:phrase>
 <epp:phrase id="accessibility_test_org">CoSector, University of London</epp:phrase>
-<epp:phrase id="accessibility_explanation_link">[testing approach]</epp:phrase>
+<epp:phrase id="accessibility_explanation_link"><a href="/accessibility_roadmap.html#method_for_testing_accessibility">method</a></epp:phrase>
 <epp:phrase id="accessibility_roadmap_link"><a href="/accessibility_roadmap.html">Accessibility Roadmap</a></epp:phrase>
 <epp:phrase id="accessibility_last_tested_date">[date]</epp:phrase>
 <epp:phrase id="steps_to_request">[steps to request]</epp:phrase>
