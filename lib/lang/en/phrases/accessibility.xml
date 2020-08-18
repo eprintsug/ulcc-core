@@ -1,22 +1,48 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE phrases SYSTEM "entities.dtd">
-
 <epp:phrases xmlns="http://www.w3.org/1999/xhtml" xmlns:epp="http://eprints.org/ep3/phrase" xmlns:epc="http://eprints.org/ep3/control">
 
-    <epp:phrase id="accessibility_institution">[name of organisation]</epp:phrase>
+<epp:phrase id="accessibility_institution">[name of organisation]</epp:phrase>
+<epp:phrase id="archive_name">[repository name]</epp:phrase>
+<epp:phrase id="contact_number">[contact number]</epp:phrase>
+<epp:phrase id="reports_contact">[reports contact email]</epp:phrase>
+<epp:phrase id="accessibility_no_response_days">[number]</epp:phrase>
+<epp:phrase id="accessibility_email">[accessibility email]</epp:phrase>
+<epp:phrase id="accessibility_statement_first_prepared_date">[date]</epp:phrase>
+<epp:phrase id="accessibility_statement_last_updated_date">[date]</epp:phrase>
+<epp:phrase id="accessibility_test_org">CoSector, University of London</epp:phrase>
+<epp:phrase id="accessibility_explanation_link">[testing approach]</epp:phrase>
+<epp:phrase id="accessibility_roadmap_link">[accessibility roadmap]</epp:phrase>
+<epp:phrase id="accessibility_last_tested_date">[date]</epp:phrase>
+<epp:phrase id="steps_to_request">If you find any problems not listed on this page or need information in a different format like accessible pdf, large print, easy read, audio recording or braille, please contact: comms@lshtm.ac.uk</epp:phrase>
+<epp:phrase id="responsible_person">Communication and Engagement team at LSHTM</epp:phrase>
+<epp:phrase id="text_relay">[text relay response]</epp:phrase>
+<epp:phrase id="how_to_contact">Information about contacting the team can be found at on the [link to contact page] contact us page</a>.</epp:phrase>
 
-    <epp:phrase id="accessibility_no_response_days">[number]</epp:phrase>
+<epp:phrase id="homepage_link"> [<a rel ="external" href="[repo address]">homepage</a>]</epp:phrase>
+<epp:phrase id="about_link"> <a rel ="external" href="[about page link]">about page</a></epp:phrase>
+<epp:phrase id="browse_link"> <a rel ="external" href="[browse link]">browse items page</a></epp:phrase>
+<epp:phrase id="summary_link"> item summary page</epp:phrase>
+<epp:phrase id="item_detail_link"> item details page</epp:phrase>
+<epp:phrase id="workflow_type_link"> 'type' stage of the deposit workflow</epp:phrase>
+<epp:phrase id="workflow_upload_link"> 'upload' stage of the deposit workflow</epp:phrase>
+<epp:phrase id="workflow_detail_link"> 'details' stage of the deposit workflow</epp:phrase>
+<epp:phrase id="workflow_subject_link"> 'subjects' stage of the deposit workflow</epp:phrase>
+<epp:phrase id="workflow_deposit_link"> 'deposit' stage of the deposit workflow</epp:phrase>
+<epp:phrase id="search_link"> <a rel ="external" href="[repo base url] /cgi/search/simple">search page</a></epp:phrase>
+<epp:phrase id="advanced_search_link"> <a rel ="external" href="[repo base url] /cgi/search/advanced">advanced search page</a></epp:phrase>
+<epp:phrase id="login_link"> <a rel ="external" href="[repo base url] /cgi/users/login">user login and logout page</a></epp:phrase>
+<epp:phrase id="profile_link"> user profile page</epp:phrase>
+<epp:phrase id="manage_deposits_link"> <a rel ="external" href="[repo base url] /cgi/users/home?screen=Items">manage deposits page</a></epp:phrase>
+<epp:phrase id="review_link"> <a rel ="external" href="[repo base url] /cgi/users/home?screen=Review">review page</a></epp:phrase>
+<epp:phrase id="admin_link"> <a rel ="external" href="[repo base url] /cgi/users/home?screen=Admin">admin page</a></epp:phrase>
+<epp:phrase id="ir_stats_link"> <a rel ="external" href="[repo base url] /cgi/stats/report">IR stats reports page</a></epp:phrase>
+<epp:phrase id="reports_link"> <a rel ="external" href="[repo base url] /cgi/users/home?screen=Report">reports page</a></epp:phrase>
+<epp:phrase id="history_link"> <a rel ="external" href="[repo base url] /cgi/users/home?screen=Staff%3A%3AHistorySearch">search history page</a></epp:phrase>
+<epp:phrase id="phrase_editor_link"> <a rel ="external" href="[repo base url] /cgi/users/home?screen=Admin%3A%3APhrases">page phrase editor</a></epp:phrase>
+<epp:phrase id="subject_editor_link"> <a rel ="external" href="[repo base url] /cgi/users/home?screen=Subject%3A%3AEdit">subject editor</a></epp:phrase>
 
-    <epp:phrase id="accessibility_last_tested_date">[date]</epp:phrase>
 
-    <epp:phrase id="accessibility_test_org">[add name of organisation that carried out test, or indicate that you did your own testing]</epp:phrase>
-
-    <epp:phrase id="accessibility_explanation_link">[add link to explanation of how you decided which pages to test]</epp:phrase>
-
-    <epp:phrase id="accessibility_roadmap_link">[add link to roadmap]</epp:phrase>
-
-    <epp:phrase id="accessibility_statement_first_prepared_date">[date when it was first published]</epp:phrase>
-
-    <epp:phrase id="accessibility_statement_last_updated_date">[date when it was first published]</epp:phrase>
+<epp:phrase id="accessibility_testing_method">This repository was tested using WAVE's <a rel="external" href="https://wave.webaim.org">web accessibility tool</a>. This tool returns a comprehensive list of features that may limit the ability of users to access a website, especially those using assistive technology such as screen readers. We ran this tool on a version of the repository without branding customisation, covering the pages that users most frequently interact with. </epp:phrase>
 
 </epp:phrases>
