@@ -1397,6 +1397,7 @@ For more information see <a href="http://eprints.org/d/?keyword=MetaFields">Meta
     <epp:phrase id="lib/metafield:hour">Hour:</epp:phrase>
     <epp:phrase id="lib/metafield:minute">Minute:</epp:phrase>
     <epp:phrase id="lib/metafield:second">Second:</epp:phrase>
+    <epp:phrase id="lib/metafield:from">from</epp:phrase>
     <epp:phrase id="lib/metafield:to">to</epp:phrase>
     <epp:phrase id="lib/metafield:family_names">Family Name</epp:phrase>
     <epp:phrase id="lib/metafield:given_names">Given Name / Initials</epp:phrase>

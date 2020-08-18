@@ -75,13 +75,25 @@ sub render_single_value
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no, $label ) = @_;
 
 	my @pages = split /-/, $value if( defined $value );
  	my $fromid = $basename."_from";
  	my $toid = $basename."_to";
-		
+
+    # check if we have inherited a label from a parent field or if we need to derive our own
+    if( !defined $label )
+    {
+        $label = $basename."_label";
+    }
+
 	my $frag = $session->make_doc_fragment;
+
+    my $from_label = $session->make_element( "label", id=>$fromid."_label", for=>$fromid );
+    $from_label->appendChild( $session->html_phrase( "lib/metafield:from" ) );
+    $frag->appendChild( $from_label );
+
+	$frag->appendChild( $session->make_text(" ") );
 
 	$frag->appendChild( $session->render_noenter_input_field(
 		class => "ep_form_text",
@@ -89,11 +101,17 @@ sub get_basic_input_elements
 		id => $fromid,
 		value => $pages[0],
 		size => 6,
-		maxlength => 120 ) );
+		maxlength => 120,
+        'aria-labelledby' => $label." ".$fromid."_label",
+    ) );
 
 	$frag->appendChild( $session->make_text(" ") );
-	$frag->appendChild( $session->html_phrase( 
+
+    my $to_label = $session->make_element( "label", id=>$toid."_label", for=>$toid );
+    $to_label->appendChild( $session->html_phrase( 
 		"lib/metafield:to" ) );
+    $frag->appendChild( $to_label );
+
 	$frag->appendChild( $session->make_text(" ") );
 
 	$frag->appendChild( $session->render_noenter_input_field(
@@ -102,7 +120,9 @@ sub get_basic_input_elements
 		id => $toid,
 		value => $pages[1],
 		size => 6,
-		maxlength => 120 ) );
+		maxlength => 120,
+        'aria-labelledby' => $label." ".$toid."_label",
+    ) );
 
 	return [ [ { el=>$frag } ] ];
 }

@@ -131,7 +131,7 @@ sub get_basic_input_ids
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no, $label ) = @_;
 
 	my $frag = $session->make_doc_fragment;
 		
@@ -159,12 +159,19 @@ sub get_basic_input_elements
 		$minute = "" if( !defined $minute );
 		$second = "" if( !defined $second );
 	}
+
  	my $dayid = $basename."_day";
  	my $monthid = $basename."_month";
  	my $yearid = $basename."_year";
  	my $hourid = $basename."_hour";
  	my $minuteid = $basename."_minute";
  	my $secondid = $basename."_second";
+
+    # check if we have inherited a label from a parent field or if we need to derive our own
+    if( !defined $label )
+    {
+        $label = $basename."_label";
+    }   
 
     my $year_label = $session->make_element( "label", id=>$yearid."_label", for=>$yearid );
 	$year_label->appendChild( 
@@ -179,7 +186,7 @@ sub get_basic_input_elements
 		value => $year,
 		size => 4,
 		maxlength => 4,
-        'aria-labelledby' => $basename."_label ".$yearid."_label",
+        'aria-labelledby' => $label." ".$yearid."_label",
     ) );
 
 	##############################################
@@ -198,7 +205,7 @@ sub get_basic_input_elements
 		values => \@EPrints::MetaField::Date::MONTHKEYS,
 		default => $month,
 		labels => $self->_month_names( $session ),
-        'aria-labelledby' => $basename."_label ".$monthid."_label",
+        'aria-labelledby' => $label." ".$monthid."_label",
     ) );
 
 	##############################################
@@ -225,7 +232,7 @@ sub get_basic_input_elements
 		values => \@daykeys,
 		default => $day,
 		labels => \%daylabels,
-        'aria-labelledby' => $basename."_label ".$dayid."_label",
+        'aria-labelledby' => $label." ".$dayid."_label",
     ) );
 
 	##############################################
@@ -252,7 +259,7 @@ sub get_basic_input_elements
 		values => \@hourkeys,
 		default => $hour,
 		labels => \%hourlabels,
-        'aria-labelledby' => $basename."_label ".$hourid."_label",
+        'aria-labelledby' => $label." ".$hourid."_label",
     ) );
 
 	##############################################
@@ -279,7 +286,7 @@ sub get_basic_input_elements
 		values => \@minutekeys,
 		default => $minute,
 		labels => \%minutelabels,
-        'aria-labelledby' => $basename."_label ".$minuteid."_label",
+        'aria-labelledby' => $label." ".$minuteid."_label",
     ) );
 
 	##############################################
@@ -306,7 +313,7 @@ sub get_basic_input_elements
 		values => \@secondkeys,
 		default => $second,
 		labels => \%secondlabels,
-        'aria-labelledby' => $basename."_label ".$secondid."_label",
+        'aria-labelledby' => $label." ".$secondid."_label",
     ) );
 
 	##############################################

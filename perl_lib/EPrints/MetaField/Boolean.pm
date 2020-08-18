@@ -70,7 +70,13 @@ sub render_single_value
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no, $label ) = @_;
+
+    # check if we have inherited a label from a parent field or if we need to derive our own
+    if( !defined $label )
+    {
+        $label = $basename."_label";
+    }
 
 	if( $self->{input_style} eq "menu" )
 	{
@@ -95,7 +101,8 @@ FALSE=> $session->phrase( $self->{confid}."_fieldopt_".$self->{name}."_FALSE"),
 			values=>\@values,
 			labels=>\%labels,
 			name=>$basename,
-			default=>$value
+			default=>$value,
+            'aria-labelledby'=>$label,
 		);
 		return [[{ el=>$session->render_option_list( %settings ) }]];
 	}
@@ -103,6 +110,17 @@ FALSE=> $session->phrase( $self->{confid}."_fieldopt_".$self->{name}."_FALSE"),
 	if( $self->{input_style} eq "radio" )
 	{
 		# render as radio buttons
+        my $fieldset = $session->make_element( "fieldset", style=>"display: table; border: 0; margin: 0; padding: 0;" );
+
+        # radio buttons need a legend, derive useful legend contents based on fieldname and parent name, row number if appropriate
+        my $legend = $session->make_element( "legend", id=>$basename."_legend", class=>"ep_field_legend sr-only" );
+        $legend->appendChild( $session->make_text( $self->{parent}->render_name." " ) ) if( defined $self->{parent_name} );
+        $legend->appendChild( $session->make_text( $self->render_name ) );
+        $legend->appendChild( $session->make_text( " ".($row_no+1) ) ) if( defined $row_no );
+        $fieldset->appendChild( $legend );
+        
+        my $f = $session->make_element( "div" );
+        $fieldset->appendChild( $f );
 
 		my $true = $session->render_noenter_input_field(
 			type => "radio",
@@ -118,7 +136,6 @@ FALSE=> $session->phrase( $self->{confid}."_fieldopt_".$self->{name}."_FALSE"),
 			name => $basename,
 			id => "${basename}_FALSE",
 			value => "FALSE" );
-		my $f = $session->make_doc_fragment;
 		my $phrase_id = $self->{confid}."_radio_".$self->{name};
 		if( !$session->get_lang->has_phrase( $phrase_id ) )
 		{
@@ -131,19 +148,19 @@ FALSE=> $session->phrase( $self->{confid}."_fieldopt_".$self->{name}."_FALSE"),
 				false=>$false ) );
 		if( !$self->get_property( "required" ) )
 		{
-			my $div = $session->make_element( "div" );
-			$div->appendChild( 
+			my $undef_label = $session->make_element( "label" );
+			$undef_label->appendChild( 
 				$session->render_noenter_input_field(
 					type => "radio",
 					checked=>( !EPrints::Utils::is_set($value) ? "checked" : undef ),
 					name => $basename,
 					id => "${basename}_UNDEF",
 					value => "" ) );
-			$f->appendChild( $div );
-			$div->appendChild( $session->html_phrase( 
+			$f->appendChild( $undef_label );
+			$undef_label->appendChild( $session->html_phrase( 
 				"lib/metafield:unspecified_selection" ) );
 		}
-		return [[{ el=>$f }]];
+		return [[{ el=>$fieldset }]];
 	}
 			
 	# render as checkbox (ugly)
@@ -152,7 +169,9 @@ FALSE=> $session->phrase( $self->{confid}."_fieldopt_".$self->{name}."_FALSE"),
 				checked=>( defined $value && $value eq 
 						"TRUE" ? "checked" : undef ),
 				name => $basename,
-				value => "TRUE" ) }]];
+				value => "TRUE",
+                'aria-labelledby' => $label,
+    ) }]];
 }
 
 sub form_value_basic

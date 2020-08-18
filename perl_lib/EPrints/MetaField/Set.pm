@@ -165,7 +165,13 @@ sub input_tags_and_labels
 # this is only called by the compound renderer
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no, $label ) = @_;
+
+    # check if we have inherited a label from a parent field or if we need to derive our own
+    if( !defined $label )
+    {
+        $label = $basename."_label";
+    }
 
 	my( $tags, $labels ) = $self->input_tags_and_labels( $session, $obj );
 
@@ -182,7 +188,9 @@ sub get_basic_input_elements
 			id => $basename,
 			default => $value,
 			multiple => 0,
-			height => 1 ) } ]] );
+			height => 1,
+            'aria-labelledby' => $label,
+    ) } ]] );
 }
 
 # basic input renderer for "set" type fields
@@ -215,9 +223,9 @@ sub render_set_input
 				id => $basename,
 				default => $default,
 				multiple => $self->{multiple},
-				height => $self->{input_rows}  ) );
+				height => $self->{input_rows},
+                'aria-labelledby' => $basename."_label" ) );
 	}
-
 
 	my( $list, $fieldset );
 	if( $input_style eq "long" )
@@ -231,7 +239,12 @@ sub render_set_input
 	}	
 	else
 	{
-		$list = $session->make_doc_fragment;
+        $fieldset = $session->make_element( "fieldset", style=>"display: table; border: 0; margin: 0; padding: 0;" );
+         my $legend = $session->make_element( "legend", id=>$basename."_legend", class=>"ep_field_legend sr-only" );
+        $legend->appendChild( $session->make_text( $self->render_name ) );
+        $fieldset->appendChild( $legend );
+		$list = $session->make_element( "div" );
+        $fieldset->appendChild( $list );
 	}
 	foreach my $opt ( @{$tags} )
 	{
@@ -291,14 +304,7 @@ sub render_set_input
 		$label2->appendChild( $session->html_phrase( $phrasename ));
 		$list->appendChild( $dd );
 	}
-    if( $input_style eq "long" )
-    {
-        return $fieldset;
-    }
-    else
-    {
-	    return $list;
-    }
+    return $fieldset;
 }
 
 sub form_value_actual

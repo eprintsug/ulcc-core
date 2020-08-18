@@ -148,7 +148,7 @@ sub _month_names
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no, $label ) = @_;
 
 	my( $frag, $div, $yearid, $monthid, $dayid );
 
@@ -177,6 +177,12 @@ sub get_basic_input_elements
  	$monthid = $basename."_month";
  	$yearid = $basename."_year";
 
+     # check if we have inherited a label from a parent field or if we need to derive our own
+     if( !defined $label )
+     {
+        $label = $basename."_label";
+     }
+
     my $year_label = $session->make_element( "label", id=>$yearid."_label", for=>$yearid );
 	$year_label->appendChild( 
 		$session->html_phrase( "lib/metafield:year" ) );
@@ -190,7 +196,7 @@ sub get_basic_input_elements
 		value => $year,
 		size => 4,
 		maxlength => 4,
-        'aria-labelledby' => $basename."_label ".$yearid."_label",
+        'aria-labelledby' => $label." ".$yearid."_label",
     ) );
 
 	$div->appendChild( $session->make_text(" ") );
@@ -207,7 +213,7 @@ sub get_basic_input_elements
 		values => \@EPrints::MetaField::Date::MONTHKEYS,
 		default => $month,
 		labels => $self->_month_names( $session ),
-        'aria-labelledby' => $basename."_label ".$monthid."_label",
+        'aria-labelledby' => $label." ".$monthid."_label",
     ) );
 
 	$div->appendChild( $session->make_text(" ") );
@@ -232,7 +238,7 @@ sub get_basic_input_elements
 		values => \@daykeys,
 		default => $day,
 		labels => \%daylabels,
-        'aria-labelledby' => $basename."_label ".$dayid."_label",
+        'aria-labelledby' => $label." ".$dayid."_label",
     ) );
 
 	$frag->appendChild( $div );
