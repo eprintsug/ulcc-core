@@ -1,3 +1,4 @@
+Algorithm::CheckDigits
 APR::Base64
 APR::Date
 APR::UUID
@@ -44,6 +45,7 @@ Pod::Coverage
 Pod::Html
 Pod::Parser
 Scalar::Util
+Spreadsheet::WriteExcel
 Storable 
 TeX::Encode
 Term::ANSIColor
