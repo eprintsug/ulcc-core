@@ -369,7 +369,7 @@ sub handler
 		#this will serve a document, static files(.include files) or abstract page. 
 		my $accept = EPrints::Apache::AnApache::header_in( $r, "Accept" );
 		my $method = eval {$r->method};
-		if (  $method eq "GET"  ## request method must be GET
+		if ( ( $method eq "HEAD" || $method eq "GET" )  # request method must be GET (or a HEAD if we're just doing some brief checks)
 			&&  (index(lc($accept), "text/html") != -1 || index(lc($accept),"*/*") != -1 || $accept eq ""  )   ## header must be text/html, or */*, or undef
 			&&  ($uri !~ m!^${urlpath}/id/eprint/0*[1-9][0-9]*/contents$! )   ## uri must not be id/eprint/XX/contents
 			&&  ($uri =~ s! ^${urlpath}/id/eprint/(0*)([1-9][0-9]*)\b !!x )     ## uri must be id/eprint/XX
@@ -404,6 +404,10 @@ sub handler
 						if( !defined $doc )
 						{
 							return NOT_FOUND;
+						}
+						elsif( $method eq "HEAD" ) # we want to skip doing any document processing, this is just a HEAD request
+						{
+							return 200; # the doc was found, so return a status code (but return OK doesn't work...)
 						}
 						if( !length($uri) )
 						{
