@@ -405,10 +405,6 @@ sub handler
 						{
 							return NOT_FOUND;
 						}
-						elsif( $method eq "HEAD" ) # we want to skip doing any document processing, this is just a HEAD request
-						{
-							return 200; # the doc was found, so return a status code (but return OK doesn't work...)
-						}
 						if( !length($uri) )
 						{
 							return redir( $r, "$urlpath/$eprintid/$pos/$args" );
@@ -439,6 +435,12 @@ sub handler
 						$r->set_handlers(PerlResponseHandler => \&EPrints::Apache::Storage::handler );
 
 						$r->pool->cleanup_register(\&EPrints::Apache::LogHandler::document, $r);
+
+						if( $method eq "HEAD" ) # we want to skip doing any document processing, this is just a HEAD request
+						{
+							return OK; # the doc was found so we're OK
+						}
+
 
 						my $rc = undef;
 						$repository->run_trigger( EPrints::Const::EP_TRIGGER_DOC_URL_REWRITE,
