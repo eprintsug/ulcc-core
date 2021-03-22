@@ -1228,6 +1228,14 @@ sub move_to_deletion
 	
 	my $success = $self->_transfer( "deletion" );
 
+	# fix visibility of succeeded item, ported from 3.3
+	if( $self->is_set( "succeeds" ) )
+	{
+		my $succeeds = $self->{session}->eprint( $self->value( "succeeds" ) );
+		my $field = $self->{dataset}->field( "succeeds" );
+		$succeeds->removed_from_thread( $field, $self ) if defined $succeeds;
+	}
+
 	return $success;
 }
 
