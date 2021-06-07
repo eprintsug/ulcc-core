@@ -752,12 +752,12 @@ sub _add_http_paths
 	}
 
 	$config->{"http_url"} ||= $self->get_url(
-		scheme => ($config->{host} ? "http" : "https"),
+		scheme => ($config->{securehost} ? "https" : "http"),
 		host => 1,
 		path => "static",
 	);
 	$config->{"http_cgiurl"} ||= $self->get_url(
-		scheme => ($config->{host} ? "http" : "https"),
+		scheme => ($config->{securehost} ? "https" : "http"),
 		host => 1,
 		path => "cgi",
 	);
