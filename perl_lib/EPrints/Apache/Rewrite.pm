@@ -84,13 +84,13 @@ sub handler
 		$uri = eval { Encode::decode_utf8( $uri ) };
 		$uri = Encode::decode( "iso-8859-1", $uri ) if $@; # utf-8 failed
 	}
-
+    
 	# Not an EPrints path (only applies if we're in a non-standard path)
 	if( $uri !~ /^(?:$urlpath)|(?:$cgipath)/ )
 	{
 		return DECLINED;
 	}
-
+    
 	# Non-EPrints paths within our tree
 	my $exceptions = $repository->config( 'rewrite_exceptions' );
 	$exceptions = [] if !defined $exceptions;
@@ -99,7 +99,7 @@ sub handler
 		next if $exppath eq '/cgi/'; # legacy
 		next if $exppath eq '/archive/'; # legacy
 		return DECLINED if( $uri =~ m/^$exppath/ );
-	}
+	}    
 
 	# database needs updating
 	if( $r->is_initial_req && !$repository->get_database->is_latest_version )
@@ -665,7 +665,7 @@ sub handler
 		$localpath.="index.html";
 	}
 	$r->filename( $repository->get_conf( "htdocs_path" )."/".$lang.$localpath );
-
+    
 	if( $uri =~ m! ^$urlpath/view(/|\$.*) !x )
 	{
 		$uri =~ s! ^$urlpath !!x;
@@ -706,6 +706,15 @@ sub handler
 
 		$r->filename( $filename );
 	}
+    elsif( $uri =~ m! ^$urlpath/document\/([0-9a-zA-Z]+)(.*)$ !x )
+    {        
+        # Document landing pages enabled?
+        return DECLINED unless( $repository->config( "doc_landing_pages_enabled" ) );
+
+        $r->handler('perl-script');
+        $r->set_handlers(PerlResponseHandler => [ 'EPrints::Apache::Document' ] );
+        return OK;
+    }
 	else
 	{
 		# redirect /foo to /foo/ if foo is a static directory
