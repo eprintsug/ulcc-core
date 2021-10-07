@@ -63,16 +63,9 @@ sub render
 
     my $page = $repo->make_doc_fragment;
 
-    my $div = $repo->make_element( "div", class => "datacite_doc_citation" );
+    my $div = $repo->make_element( "div", class => "doc_citation" );
     
-    my $table = $div->appendChild( $repo->make_element( "div", class => "ep_table" ) );
-    my $tr = $table->appendChild( $repo->make_element( "div", class => "ep_table_row" ) );
-
-    my $icon = $tr->appendChild( $repo->make_element( "div", class => "ep_table_cell" ) );
-    $icon->appendChild( $doc->render_icon_link );
-
-    my $citation = $tr->appendChild( $repo->make_element( "div", class => "ep_table_cell" ) );
-    $citation->appendChild( $doc->render_citation_link );
+    $div->appendChild( $doc->render_citation( "landing_page", eprint => $self->{processor}->{eprint} ) );   
 
     return( $div );
 }
