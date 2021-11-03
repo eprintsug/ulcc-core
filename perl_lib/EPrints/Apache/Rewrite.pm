@@ -706,15 +706,6 @@ sub handler
 
 		$r->filename( $filename );
 	}
-    elsif( $uri =~ m! ^$urlpath/document\/([0-9a-zA-Z]+)(.*)$ !x )
-    {        
-        # Document landing pages enabled?
-        return DECLINED unless( $repository->config( "doc_landing_pages_enabled" ) );
-
-        $r->handler('perl-script');
-        $r->set_handlers(PerlResponseHandler => [ 'EPrints::Apache::Document' ] );
-        return OK;
-    }
 	else
 	{
 		# redirect /foo to /foo/ if foo is a static directory
