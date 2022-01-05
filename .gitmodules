@@ -130,3 +130,9 @@
 [submodule "lib/epm/simply_advanced_searchbar"]
 	path = lib/epm/simply_advanced_searchbar
 	url = https://github.com/eprintsug/simply_advanced_searchbar
+[submodule "Simple-Portfolio"]
+	path = Simple-Portfolio
+	url = https://github.com/eprintsug/Simple-Portfolio
+[submodule "lib/epm/simple_portfolio"]
+	path = lib/epm/simple_portfolio
+	url = https://github.com/eprintsug/Simple-Portfolio
