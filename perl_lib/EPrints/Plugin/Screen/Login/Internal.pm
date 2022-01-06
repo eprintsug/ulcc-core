@@ -71,6 +71,7 @@ sub render
 
 	$bits{input_password} = $repo->render_input_field(
 			class => "ep_form_text",
+            id => "login_password",
 			name => 'login_password',
 			type => "password" );
 

@@ -103,3 +103,34 @@ th.ep_title_row {
 {
 	padding: 2px;
 }
+
+.ep_table {
+    display: table;
+}
+
+.ep_table.full_width{
+    width: 100%;
+}
+
+.ep_table_head{
+    display: table-header-group;
+    font-weight: bold;
+}
+
+.ep_table_row {
+    display: table-row;
+}
+
+.ep_table_cell {
+    display: table-cell;
+}
+
+.ep_up_down_button {
+    border: none;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.ep_up_down_button img{
+    cursor: pointer;
+}

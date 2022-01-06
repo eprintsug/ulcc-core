@@ -75,19 +75,10 @@
                 <p>
                   <li>Some images, including linked images, do not have any alternative texts associated with them.</li>
                   <li>Some form controls do not have associated names.</li>
-                  <li>The document language is missing from most pages.</li>
                   <li>Some links do not have explanatory text associated with them.</li>
-                  <li>The contrast in some parts of the website is very low.</li>
                   <li>Some tables do not have headers for columns or rows.</li>
-                  <li>Some pages do not have page regions, such as headers or banners, which help users navigate pages.</li>
-                  <li>Some pages contain several links to the same source.</li>
                   <li>Some pages contain very small text.</li>
                   <li>Some pages contain layout tables, which may be diffiult to navigate with screen readers.</li>
-                  <li>Heading levels are skipped on some pages, this might make navigating the page using a keyboard more difficult.</li>
-                  <li>The title attribute value (advisory information that appears when user hovers over an element) is the same as the title text in some instances.</li>
-                  <li>Some groups of check boxes are not enclosed in fieldsets, which may make them more difficult to navigate with screen readers.</li>
-                  <li>Some event handler links may only respond to either mouse or keyboard.</li>
-                  <li>The text of some links may not make sense out of context or may contain extraneous text.</li>
                   <li>Some pages contain javascript jump menus, which may make navigating the website by keyboard difficult.</li>
                 </p>
                 <p>These issues will be resolved in a planned upgrade to this repository.</p>

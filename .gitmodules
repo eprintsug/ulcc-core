@@ -108,7 +108,7 @@
 	url = https://github.com/eprintsug/ref2021.git
 [submodule "lib/epm/orcid_support_advance"]
 	path = lib/epm/orcid_support_advance
-	url = https://github.com/eprintsug/orcid_support_advance.git
+	url = https://github.com/eprints/orcid_support_advance.git
 [submodule "lib/epm/issues2"]
 	path = lib/epm/issues2
 	url = https://github.com/eprintsug/issues2.git
@@ -127,3 +127,12 @@
 [submodule "lib/epm/dorian"]
 	path = lib/epm/dorian
 	url = https://github.com/eprintsug/dorian.git
+[submodule "lib/epm/simply_advanced_searchbar"]
+	path = lib/epm/simply_advanced_searchbar
+	url = https://github.com/eprintsug/simply_advanced_searchbar
+[submodule "Simple-Portfolio"]
+	path = Simple-Portfolio
+	url = https://github.com/eprintsug/Simple-Portfolio
+[submodule "lib/epm/simple_portfolio"]
+	path = lib/epm/simple_portfolio
+	url = https://github.com/eprintsug/Simple-Portfolio

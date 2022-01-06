@@ -148,7 +148,7 @@ sub _month_names
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no, $label ) = @_;
 
 	my( $frag, $div, $yearid, $monthid, $dayid );
 
@@ -177,9 +177,17 @@ sub get_basic_input_elements
  	$monthid = $basename."_month";
  	$yearid = $basename."_year";
 
-	$div->appendChild( 
+     # check if we have inherited a label from a parent field or if we need to derive our own
+     if( !defined $label )
+     {
+        $label = $basename."_label";
+     }
+
+    my $year_label = $session->make_element( "label", id=>$yearid."_label", for=>$yearid );
+	$year_label->appendChild( 
 		$session->html_phrase( "lib/metafield:year" ) );
-	$div->appendChild( $session->make_text(" ") );
+	$year_label->appendChild( $session->make_text(" ") );
+    $div->appendChild( $year_label );
 
 	$div->appendChild( $session->render_noenter_input_field(
 		class=>"ep_form_text",
@@ -187,25 +195,35 @@ sub get_basic_input_elements
 		id => $yearid,
 		value => $year,
 		size => 4,
-		maxlength => 4 ) );
+		maxlength => 4,
+        'aria-labelledby' => $label." ".$yearid."_label",
+    ) );
 
 	$div->appendChild( $session->make_text(" ") );
 
-	$div->appendChild( 
+    my $month_label = $session->make_element( "label", id=>$monthid."_label", for=>$monthid );
+	$month_label->appendChild( 
 		$session->html_phrase( "lib/metafield:month" ) );
-	$div->appendChild( $session->make_text(" ") );
+	$month_label->appendChild( $session->make_text(" ") );
+    $div->appendChild( $month_label );
+
 	$div->appendChild( $session->render_option_list(
 		name => $monthid,
 		id => $monthid,
 		values => \@EPrints::MetaField::Date::MONTHKEYS,
 		default => $month,
-		labels => $self->_month_names( $session ) ) );
+		labels => $self->_month_names( $session ),
+        'aria-labelledby' => $label." ".$monthid."_label",
+    ) );
 
 	$div->appendChild( $session->make_text(" ") );
 
-	$div->appendChild( 
+    my $day_label = $session->make_element( "label", id=>$dayid."_label", for=>$dayid );
+	$day_label->appendChild( 
 		$session->html_phrase( "lib/metafield:day" ) );
-	$div->appendChild( $session->make_text(" ") );
+	$day_label->appendChild( $session->make_text(" ") );
+    $div->appendChild( $day_label );
+
 	my @daykeys = ();
 	my %daylabels = ();
 	for( 0..31 )
@@ -219,7 +237,9 @@ sub get_basic_input_elements
 		id => $dayid,
 		values => \@daykeys,
 		default => $day,
-		labels => \%daylabels ) );
+		labels => \%daylabels,
+        'aria-labelledby' => $label." ".$dayid."_label",
+    ) );
 
 	$frag->appendChild( $div );
 	
@@ -315,7 +335,8 @@ sub render_search_input
 				name => $searchfield->get_form_prefix,
 				value => $searchfield->get_value,
 				size => 21,
-				maxlength => 21 );
+				maxlength => 21,
+                'aria-labelledby' => $searchfield->get_form_prefix . "_label" );
 }
 
 

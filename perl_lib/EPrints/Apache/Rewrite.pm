@@ -84,13 +84,13 @@ sub handler
 		$uri = eval { Encode::decode_utf8( $uri ) };
 		$uri = Encode::decode( "iso-8859-1", $uri ) if $@; # utf-8 failed
 	}
-
+    
 	# Not an EPrints path (only applies if we're in a non-standard path)
 	if( $uri !~ /^(?:$urlpath)|(?:$cgipath)/ )
 	{
 		return DECLINED;
 	}
-
+    
 	# Non-EPrints paths within our tree
 	my $exceptions = $repository->config( 'rewrite_exceptions' );
 	$exceptions = [] if !defined $exceptions;
@@ -99,7 +99,7 @@ sub handler
 		next if $exppath eq '/cgi/'; # legacy
 		next if $exppath eq '/archive/'; # legacy
 		return DECLINED if( $uri =~ m/^$exppath/ );
-	}
+	}    
 
 	# database needs updating
 	if( $r->is_initial_req && !$repository->get_database->is_latest_version )
@@ -369,7 +369,7 @@ sub handler
 		#this will serve a document, static files(.include files) or abstract page. 
 		my $accept = EPrints::Apache::AnApache::header_in( $r, "Accept" );
 		my $method = eval {$r->method};
-		if (  $method eq "GET"  ## request method must be GET
+		if ( ( $method eq "HEAD" || $method eq "GET" )  # request method must be GET (or a HEAD if we're just doing some brief checks)
 			&&  (index(lc($accept), "text/html") != -1 || index(lc($accept),"*/*") != -1 || $accept eq ""  )   ## header must be text/html, or */*, or undef
 			&&  ($uri !~ m!^${urlpath}/id/eprint/0*[1-9][0-9]*/contents$! )   ## uri must not be id/eprint/XX/contents
 			&&  ($uri =~ s! ^${urlpath}/id/eprint/(0*)([1-9][0-9]*)\b !!x )     ## uri must be id/eprint/XX
@@ -435,6 +435,12 @@ sub handler
 						$r->set_handlers(PerlResponseHandler => \&EPrints::Apache::Storage::handler );
 
 						$r->pool->cleanup_register(\&EPrints::Apache::LogHandler::document, $r);
+
+						if( $method eq "HEAD" ) # we want to skip doing any document processing, this is just a HEAD request
+						{
+							return OK; # the doc was found so we're OK
+						}
+
 
 						my $rc = undef;
 						$repository->run_trigger( EPrints::Const::EP_TRIGGER_DOC_URL_REWRITE,
@@ -659,7 +665,7 @@ sub handler
 		$localpath.="index.html";
 	}
 	$r->filename( $repository->get_conf( "htdocs_path" )."/".$lang.$localpath );
-
+    
 	if( $uri =~ m! ^$urlpath/view(/|\$.*) !x )
 	{
 		$uri =~ s! ^$urlpath !!x;

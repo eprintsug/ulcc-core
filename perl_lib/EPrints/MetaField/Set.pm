@@ -165,7 +165,13 @@ sub input_tags_and_labels
 # this is only called by the compound renderer
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no, $label ) = @_;
+
+    # check if we have inherited a label from a parent field or if we need to derive our own
+    if( !defined $label )
+    {
+        $label = $basename."_label";
+    }
 
 	my( $tags, $labels ) = $self->input_tags_and_labels( $session, $obj );
 
@@ -182,7 +188,9 @@ sub get_basic_input_elements
 			id => $basename,
 			default => $value,
 			multiple => 0,
-			height => 1 ) } ]] );
+			height => 1,
+            'aria-labelledby' => $label,
+    ) } ]] );
 }
 
 # basic input renderer for "set" type fields
@@ -215,18 +223,28 @@ sub render_set_input
 				id => $basename,
 				default => $default,
 				multiple => $self->{multiple},
-				height => $self->{input_rows}  ) );
+				height => $self->{input_rows},
+                'aria-labelledby' => $basename."_label" ) );
 	}
 
-
-	my( $list );
+	my( $list, $fieldset );
 	if( $input_style eq "long" )
 	{
+        $fieldset = $session->make_element( "fieldset", style=>"display: table; border: 0;" );
+        my $legend = $session->make_element( "legend", id=> "all_".$self->name, class=>"ep_field_legend sr-only" );
+        $legend->appendChild( $session->make_text( $self->render_name ) );
+        $fieldset->appendChild( $legend );
 		$list = $session->make_element( "dl", class=>"ep_field_set_long" );
+        $fieldset->appendChild( $list );
 	}	
 	else
 	{
-		$list = $session->make_doc_fragment;
+        $fieldset = $session->make_element( "fieldset", style=>"display: table; border: 0; margin: 0; padding: 0;" );
+         my $legend = $session->make_element( "legend", id=>$basename."_legend", class=>"ep_field_legend sr-only" );
+        $legend->appendChild( $session->make_text( $self->render_name ) );
+        $fieldset->appendChild( $legend );
+		$list = $session->make_element( "div" );
+        $fieldset->appendChild( $list );
 	}
 	foreach my $opt ( @{$tags} )
 	{
@@ -259,25 +277,34 @@ sub render_set_input
 				$checked = "checked";
 			}
 		}
-		$label1->appendChild( $session->render_noenter_input_field(
-			type => $type,
+
+        my %opts = (
+		    type => $type,
 			name => $basename,
 			id => $basename."_".$opt,
 			value => $opt,
-			checked => $checked ) );
+			checked => $checked
+        );
+
+        if( $input_style eq "long" )
+        {
+            $opts{'aria-describedby'} = $basename."_".$opt."_description";
+        }
+
+		$label1->appendChild( $session->render_noenter_input_field( %opts ) );
 		$label1->appendChild( $session->make_text( " ".$labels->{$opt} ));
 		$list->appendChild( $row );
 
 		next unless( $input_style eq "long" );
 
 		my $dd = $session->make_element( "dd" );
-		my $label2 = $session->make_element( "label", for=>$basename."_".$opt );
+		my $label2 = $session->make_element( "span", id=>$basename."_".$opt."_description" );
 		$dd->appendChild( $label2 );
 		my $phrasename = $self->{confid}."_optdetails_".$self->{name}."_".$opt;
 		$label2->appendChild( $session->html_phrase( $phrasename ));
 		$list->appendChild( $dd );
 	}
-	return $list;
+    return $fieldset;
 }
 
 sub form_value_actual
@@ -333,13 +360,14 @@ sub split_search_value
 
 sub render_search_input
 {
-	my( $self, $session, $searchfield ) = @_;
+	my( $self, $session, $searchfield, %opts ) = @_;
 	
 	my $frag = $session->make_doc_fragment;
 	
 	$frag->appendChild( $self->render_search_set_input( 
 				$session,
-				$searchfield ) );
+				$searchfield,
+                %opts ) );
 
 	if( $self->get_property( "multiple" ) )
 	{
@@ -355,7 +383,8 @@ sub render_search_input
 				name=>$searchfield->get_form_prefix."_merge",
 				values=>\@set_tags,
 				default=>$searchfield->get_merge,
-				labels=>\%set_labels ) );
+				labels=>\%set_labels,
+                'aria-labelledby'=>$searchfield->get_form_prefix."_label" ) );
 	}
 	if( $searchfield->get_match ne $self->property( "match" ) )
 	{
@@ -371,7 +400,7 @@ sub render_search_input
 
 sub render_search_set_input
 {
-	my( $self, $session, $searchfield ) = @_;
+	my( $self, $session, $searchfield, %opts ) = @_;
 
 	my $prefix = $searchfield->get_form_prefix;
 	my $value = $searchfield->get_value;
@@ -412,11 +441,13 @@ sub render_search_set_input
 	return $session->render_option_list( 
 		checkbox => ($self->{search_input_style} eq "checkbox"?1:0),
 		name => $prefix,
+        legend => $opts{legend},
 		default => \@defaults,
 		multiple => 1,
 		labels => $labels,
 		values => $tags,
-		height => $height );
+		height => $height,
+        'aria-labelledby' => $prefix . "_label" );
 }	
 
 sub from_search_form

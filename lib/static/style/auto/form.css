@@ -62,6 +62,13 @@ select, input.ep_form_text, textarea {
 	text-align: center;
 	font-size: 80%;
 }
+
+.ep_form_input_grid .ep_table_head .ep_table_cell{ 
+	vertical-align: middle;
+	text-align: center;
+	font-size: 80%;
+}
+
 .ep_form_input_grid td {
 	vertical-align: middle;
 }
@@ -69,13 +76,55 @@ select, input.ep_form_text, textarea {
 td.ep_form_input_grid_pos {
 	padding-right: 4px;
 }
+
 td.ep_form_input_grid_arrows {
 	white-space: nowrap;
 	padding-top: 2px;
 	padding-bottom: 2px;
 }
 
+div.ep_table_cell.ep_form_input_grid_arrows {
+	white-space: nowrap;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
 
 td.ep_form_input_grid_wide {
 	text-align: left;
+}
+
+.ep_multi_heading::after {
+    content: ":";
+}
+
+.ep_search_fields > div > div {
+    border-top: dashed #bbf 1px;
+    vertical-align: top;
+    padding: 0.5em;
+}
+
+.ep_multi_heading {
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.ep_login_form_table {
+    margin:auto; 
+    display: table; 
+}
+
+.ep_login_form_table > div {
+    display: table-row;
+}
+
+.ep_login_form_table > div > div, .ep_login_form_table > div > label {
+    display: table-cell;
+}
+
+.ep_table.import_section {
+    width: 100%;
+}
+
+.ep_table.import_section label {
+    padding-right: 4px;
 }

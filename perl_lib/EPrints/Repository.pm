@@ -752,12 +752,12 @@ sub _add_http_paths
 	}
 
 	$config->{"http_url"} ||= $self->get_url(
-		scheme => ($config->{host} ? "http" : "https"),
+		scheme => ($config->{securehost} ? "https" : "http"),
 		host => 1,
 		path => "static",
 	);
 	$config->{"http_cgiurl"} ||= $self->get_url(
-		scheme => ($config->{host} ? "http" : "https"),
+		scheme => ($config->{securehost} ? "https" : "http"),
 		host => 1,
 		path => "cgi",
 	);
@@ -3259,22 +3259,25 @@ sub render_row_with_help
 		delete $parts{help};
 	}
 
-
-	my $tr = $self->make_element( "tr", class=>$parts{class} );
+	my $tr = $self->make_element( "div", class=>$parts{class} . " ep_table_row" );
 
 	#
 	# COL 1
 	#
-	my $th = $self->make_element( "th", class=>"ep_multi_heading" );
-	$th->appendChild( $parts{label} );
-	$th->appendChild( $self->make_text( ":" ) );
+	my $th = $self->make_element( "div", class=>"ep_multi_heading ep_table_cell" );
+    if ( ref $parts{label} ne "" ) 
+    {
+        $th->appendChild( $parts{label} );
+    }
 	$tr->appendChild( $th );
 
 	if( !defined $parts{help} || $parts{no_help} )
 	{
-		my $td = $self->make_element( "td", class=>"ep_multi_input", colspan=>"2" );
+		my $td = $self->make_element( "div", class=>"ep_multi_input ep_table_cell" );
 		$tr->appendChild( $td );
 		$td->appendChild( $parts{field} );
+        my $td2 = $self->make_element( "div", class=>"ep_table_cell" );
+        $tr->appendChild( $td2 );
 		return $tr;
 	}
 
@@ -3291,7 +3294,7 @@ sub render_row_with_help
 		$colspan = 1;
 	}
 
-	my $td = $self->make_element( "td", class=>"ep_multi_input", colspan=>$colspan, id=>$parts{help_prefix}."_outer" );
+	my $td = $self->make_element( "div", class=>"ep_multi_input ep_table_cell", colspan=>$colspan, id=>$parts{help_prefix}."_outer" );
 	$tr->appendChild( $td );
 
 	my $inline_help = $self->make_element( "div", id=>$parts{help_prefix}, class=>$inline_help_class );
@@ -3312,14 +3315,14 @@ sub render_row_with_help
 	# help toggle
 	#
 
-	my $td2 = $self->make_element( "td", class=>"ep_multi_help ep_only_js_table_cell ep_toggle" );
+	my $td2 = $self->make_element( "div", class=>"ep_multi_help ep_only_js_table_cell ep_toggle ep_table_cell" );
 	my $show_help = $self->make_element( "div", class=>"ep_sr_show_help ep_only_js", id=>$parts{help_prefix}."_show" );
-	my $helplink = $self->make_element( "a", onclick => "EPJS_blur(event); EPJS_toggleSlide('$parts{help_prefix}',false,'block');EPJS_toggle('$parts{help_prefix}_hide',false,'block');EPJS_toggle('$parts{help_prefix}_show',true,'block');return false", href=>"#" );
+	my $helplink = $self->make_element( "a", onclick => "EPJS_blur(event); EPJS_toggleSlide('$parts{help_prefix}',false,'block');EPJS_toggle('$parts{help_prefix}_hide',false,'block');EPJS_toggle('$parts{help_prefix}_show',true,'block');return false", href=>"#", 'aria-label'=>'Show help' );
 	$show_help->appendChild( $self->html_phrase( "lib/session:show_help",link=>$helplink ) );
 	$td2->appendChild( $show_help );
 
 	my $hide_help = $self->make_element( "div", class=>"ep_sr_hide_help ep_hide", id=>$parts{help_prefix}."_hide" );
-	my $helplink2 = $self->make_element( "a", onclick => "EPJS_blur(event); EPJS_toggleSlide('$parts{help_prefix}',false,'block');EPJS_toggle('$parts{help_prefix}_hide',false,'block');EPJS_toggle('$parts{help_prefix}_show',true,'block');return false", href=>"#" );
+	my $helplink2 = $self->make_element( "a", onclick => "EPJS_blur(event); EPJS_toggleSlide('$parts{help_prefix}',false,'block');EPJS_toggle('$parts{help_prefix}_hide',false,'block');EPJS_toggle('$parts{help_prefix}_show',true,'block');return false", href=>"#", 'aria-label'=>'Hide help' );
 	$hide_help->appendChild( $self->html_phrase( "lib/session:hide_help",link=>$helplink2 ) );
 	$td2->appendChild( $hide_help );
 	$tr->appendChild( $td2 );
@@ -3454,6 +3457,7 @@ sub render_option_list
 	# values   :
 	# labels   :
 	# name     :
+    # legend   :
 	# checkbox :
 	# defaults_at_top : move items already selected to top
 	# 			of list, so they are visible.
@@ -3507,11 +3511,14 @@ sub render_option_list
 
 	if( $params{checkbox} )
 	{
-		my $table = $self->make_element( "table", cellspacing=>"10", border=>"0", cellpadding=>"0" );
-		my $tr = $self->make_element( "tr" );
-		$table->appendChild( $tr );	
-		my $td = $self->make_element( "td", valign=>"top" );
-		$tr->appendChild( $td );	
+        my $fieldset = $self->make_element( "fieldset", style=>"display: table; border: 0;" );
+        my $legend = $self->make_element( "legend", id=> "all_".$params{name}, class=>"ep_field_legend sr-only" );
+        $legend->appendChild( $self->make_text( $params{legend} ) );
+        $fieldset->appendChild( $legend ); 
+        my $rowdiv = $self->make_element( "div", style=>"display: table-row;" );
+        $fieldset->appendChild( $rowdiv );  
+        my $celldiv = $self->make_element( "div", style=>"display: table-cell;" );
+        $rowdiv->appendChild( $celldiv );
 		my $i = 0;
 		my $len = scalar @$pairs;
 		foreach my $pair ( @{$pairs} )
@@ -3526,15 +3533,15 @@ sub render_option_list
 			{
 				$box->setAttribute( "checked" , "checked" );
 			}
-			$td->appendChild( $div );
+			$celldiv->appendChild( $div );
 			++$i;
 			if( $len > 5 && int($len / 2)==$i )
 			{
-				$td = $self->make_element( "td", valign=>"top" );
-				$tr->appendChild( $td );	
+				$celldiv = $self->make_element( "div", style=>"display: table-cell;" );
+				$rowdiv->appendChild( $celldiv );	
 			}
 		}
-		return $table;
+		return $fieldset;
 	}
 		
 
@@ -3544,6 +3551,14 @@ sub render_option_list
 	{
 		$element->setAttribute( "multiple" , "multiple" );
 	}
+    if( defined $params{"aria-labelledby"} )
+    {
+        $element->setAttribute( "aria-labelledby" , $params{"aria-labelledby"} );
+    }
+    if( defined $params{"aria-label"} )
+    {
+        $element->setAttribute( "aria-label", $params{"aria-label"} );
+    }
 	my $size = 0;
 	foreach my $pair ( @{$pairs} )
 	{
@@ -4297,18 +4312,18 @@ sub render_message
 
 	my $id = "m".$self->get_next_id;
 	my $div = $self->make_element( "div", class=>"ep_msg_".$type, id=>$id );
-	my $content_div = $self->make_element( "div", class=>"ep_msg_".$type."_content" );
-	my $table = $self->make_element( "table" );
-	my $tr = $self->make_element( "tr" );
+	my $content_div = $self->make_element( "div", class=>"ep_msg ep_msg_".$type."_content" );
+	my $table = $self->make_element( "div", class=>"table");
+	my $tr = $self->make_element( "div", class=>"table-row" );
 	$table->appendChild( $tr );
 	if( $show_icon )
 	{
-		my $td1 = $self->make_element( "td" );
+		my $td1 = $self->make_element( "div", class=>"table-cell msg-icon" );
 		my $imagesurl = $self->get_repository->get_conf( "rel_path" );
 		$td1->appendChild( $self->make_element( "img", class=>"ep_msg_".$type."_icon", src=>"$imagesurl/style/images/".$type.".png", alt=>$self->phrase( "Plugin/Screen:message_".$type ) ) );
 		$tr->appendChild( $td1 );
 	}
-	my $td2 = $self->make_element( "td" );
+	my $td2 = $self->make_element( "div", class=>"table-cell msg-content" );
 	$tr->appendChild( $td2 );
 	$td2->appendChild( $content );
 	$content_div->appendChild( $table );

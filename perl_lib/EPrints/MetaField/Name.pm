@@ -114,19 +114,41 @@ sub get_input_bits
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $object ) = @_;
+	my( $self, $session, $value, $basename, $staff, $object, $prefix, $row_no ) = @_;
 
 	my $grid_row = [];
 
+    my $field_name = $self->name;
+    # do we have a parent field
+    $field_name = $self->{parent_name} if defined $self->{parent_name};
+
 	foreach my $alias ($self->get_input_bits)
-	{
+	{  
+        # create the start of a label chain
+        my $label = $prefix."_".$field_name."_label"; # field title
+
+        my $bit = $alias;
+        $bit = "given_names" if( $alias eq "given" );
+        $bit = "family_names" if( $alias eq "family" );
+
+        # add to the column header and row number to the label chain
+        $label.= " ".$prefix."_".$field_name."_".$bit."_label"; # sub field label
+
+        if( $self->get_property( "multiple" ) ) # we need to chain some aria-labels
+        {
+            $label.= " ".$prefix."_".$field_name."_cell_0_".$row_no; # the row label
+        }
+
 		my $field = $self->{fields_index}->{$alias};
 		my $part_grid = $field->get_basic_input_elements( 
 					$session, 
 					$value->{$alias}, 
 					$basename."_".$alias, 
 					$staff, 
-					$object );
+					$object,
+                    $prefix,
+                    $row_no,
+                    $label );
 		my $top_row = $part_grid->[0];
 		push @{$grid_row}, @{$top_row};
 	}
@@ -153,7 +175,7 @@ sub get_input_col_titles
 		# deal with some legacy in the phrase id's
 		$bit = "given_names" if( $bit eq "given" );
 		$bit = "family_names" if( $bit eq "family" );
-		push @r, $session->html_phrase(	"lib/metafield:".$bit );
+		push @r, { $bit => $session->html_phrase(	"lib/metafield:".$bit ) };
 	}
 	return \@r;
 }

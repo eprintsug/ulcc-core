@@ -19,7 +19,23 @@ table.ep_multi tr:first-child td.ep_multi_help
 	border-top: none;
 }
 
+.ep_table.ep_multi .ep_table_row:first-child div.ep_multi_heading,
+.ep_table.ep_multi .ep_table_row:first-child div.ep_multi_input,
+.ep_table.ep_multi .ep_table_row:first-child div.ep_multi_help 
+{
+	border-top: none;
+}
+
 th.ep_multi_heading
+{
+	border-top: dashed #bbf 1px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-right: 0.5em;
+	text-align: right;
+}
+
+div.ep_multi_heading
 {
 	border-top: dashed #bbf 1px;
 	padding-top: 0.5em;
@@ -38,6 +54,17 @@ td.ep_multi_input
 	border-left: dashed #bbf 1px;
 }
 
+div.ep_multi_input
+{
+    box-sizing: border-box;
+	border-top: dashed #bbf 1px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	border-left: dashed #bbf 1px;
+}
+
 td.ep_multi_help
 {
 	white-space: nowrap;
@@ -48,6 +75,19 @@ td.ep_multi_help
 	vertical-align: top;
 	text-align: right;
 }
+
+div.ep_multi_help
+{
+    display: table-cell;
+	white-space: nowrap;
+	border-top: dashed #bbf 1px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-left: 0.5em;
+	vertical-align: top;
+	text-align: right;
+}
+
 
 /* help bits */
 

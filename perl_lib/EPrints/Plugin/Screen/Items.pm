@@ -281,20 +281,20 @@ sub render_items
 	my $final_row = undef;
 	if( $len > 1 )
 	{	
-		$final_row = $session->make_element( "tr" );
+		$final_row = $session->make_element( "div", class=>"ep_table_row" );
 		my $imagesurl = $session->config( "rel_path" )."/style/images";
 		for(my $i=0; $i<$len;++$i )
 		{
 			my $col = $columns->[$i];
 			# Column headings
-			my $td = $session->make_element( "td", class=>"ep_columns_alter" );
+			my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_alter" );
 			$final_row->appendChild( $td );
 	
-			my $acts_table = $session->make_element( "table", cellpadding=>0, cellspacing=>0, border=>0, width=>"100%" );
-			my $acts_row = $session->make_element( "tr" );
-			my $acts_td1 = $session->make_element( "td", align=>"left", width=>"14" );
-			my $acts_td2 = $session->make_element( "td", align=>"center", width=>"100%");
-			my $acts_td3 = $session->make_element( "td", align=>"right", width=>"14" );
+			my $acts_table = $session->make_element( "div", class=>"ep_table full_width", cellpadding=>0, cellspacing=>0, border=>0 );
+			my $acts_row = $session->make_element( "div", class=>"ep_table_row" );
+			my $acts_td1 = $session->make_element( "div", class=>"ep_table_cell ep_col_left" );
+			my $acts_td2 = $session->make_element( "div", class=>"ep_table_cell ep_col_remove" );
+			my $acts_td3 = $session->make_element( "div", class=>"ep_table_cell ep_col_right" );
 			$acts_table->appendChild( $acts_row );
 			$acts_row->appendChild( $acts_td1 );
 			$acts_row->appendChild( $acts_td2 );
@@ -362,7 +362,7 @@ sub render_items
 				$acts_td3->appendChild( $session->make_element("img",src=>"$imagesurl/noicon.png",alt=>"")  );
 			}
 		}
-		my $td = $session->make_element( "td", class=>"ep_columns_alter ep_columns_alter_last" );
+		my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_alter ep_columns_alter_last" );
 		$final_row->appendChild( $td );
 	}
 
@@ -391,14 +391,14 @@ sub render_items
 				}
 			}
 
-			my $tr = $session->make_element( "tr", class=>$class );
+			my $tr = $session->make_element( "div", class=>"ep_table_row $class" );
 
 			my $status = $e->get_value( "eprint_status" );
 
 			my $first = 1;
 			for( @$columns )
 			{
-				my $td = $session->make_element( "td", class=>"ep_columns_cell ep_columns_cell_$status".($first?" ep_columns_cell_first":"")." ep_columns_cell_$_"  );
+				my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_cell ep_columns_cell_$status".($first?" ep_columns_cell_first":"")." ep_columns_cell_$_"  );
 				$first = 0;
 				$tr->appendChild( $td );
 				$td->appendChild( $e->render_value( $_ ) );
@@ -406,7 +406,7 @@ sub render_items
 
 			$self->{processor}->{eprint} = $e;
 			$self->{processor}->{eprintid} = $e->get_id;
-			my $td = $session->make_element( "td", class=>"ep_columns_cell ep_columns_cell_last", align=>"left" );
+			my $td = $session->make_element( "div", class=>"ep_table_cell ep_columns_cell ep_columns_cell_last", align=>"left" );
 			$tr->appendChild( $td );
 			$td->appendChild( 
 				$self->render_action_list_icons( "eprint_item_actions", { 'eprintid' => $self->{processor}->{eprintid} } ) );
@@ -445,12 +445,18 @@ sub render_items
 
 	my @tags = sort { $fieldnames->{$a} cmp $fieldnames->{$b} } keys %$fieldnames;
 
+    my $label = $session->make_element( "label", id=>"add_col_label" );
+    $form_add->appendChild( $label );
+    $label->appendChild( $self->html_phrase( "select_col" ) );
+
 	$form_add->appendChild( $session->render_option_list( 
 		name => 'col',
+        id => 'col',
 		height => 1,
 		multiple => 0,
 		'values' => \@tags,
-		labels => $fieldnames ) );
+		labels => $fieldnames,
+        'aria-labelledby' => "add_col_label" ) );
 		
 	$form_add->appendChild( 
 			$session->render_button(

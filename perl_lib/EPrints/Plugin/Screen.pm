@@ -463,8 +463,7 @@ sub _render_action_aux
 		if( defined $icon && $asicon )
 		{
 			$frag->appendChild( $session->make_element( "img",
-				src=>$icon,
-				title=>$title,
+				src=>$icon,			
 				alt=>$title,
 				class=>"ep_form_action_icon",
 			) );

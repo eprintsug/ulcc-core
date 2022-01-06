@@ -62,7 +62,7 @@
 }
 .ep_search_feed a {
 	text-decoration: none;
-	color: #888;
+	color: #666;
 }
 
 .ep_search_results
@@ -104,4 +104,8 @@ input.ep_form_search_advanced_link, input.ep_form_search_advanced_link:hover {
 
 span.search_desc {
 	font-style: italic;
+}
+
+.ep_lbl_merge{
+    display: none;
 }

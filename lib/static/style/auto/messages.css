@@ -15,3 +15,19 @@
 	border-width: 1px;
 }
 
+.ep_msg .table{
+    display: table;
+}
+
+.ep_msg .table-row{
+    display: table-row
+}
+
+.ep_msg .table-cell{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.ep_msg .table-cell.msg-icon{
+    padding-right: 5px;
+}
