@@ -1497,7 +1497,7 @@ sub quote_int
 {
 	my( $self, $value ) = @_;
 
-	return "NULL" if !defined $value || $value =~ /\D/;
+	return "NULL" if !defined $value || $value =~ /\D/ || $value eq "";
 
 	return $value+0;
 }
