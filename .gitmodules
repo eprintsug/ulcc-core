@@ -136,3 +136,6 @@
 [submodule "lib/epm/simple_portfolio"]
 	path = lib/epm/simple_portfolio
 	url = https://github.com/eprintsug/Simple-Portfolio
+[submodule "lib/epm/funders_advanced"]
+	path = lib/epm/funders_advanced
+	url = https://github.com/eprintsug/funders_advanced.git
