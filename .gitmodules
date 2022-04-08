@@ -81,7 +81,7 @@
 	url = https://github.com/eprintsug/soundcloud.git
 [submodule "lib/epm/orcid_support"]
 	path = lib/epm/orcid_support
-	url = https://github.com/eprintsug/orcid_support.git
+	url = https://github.com/eprints/orcid_support.git
 [submodule "lib/epm/swordlegacy"]
 	path = lib/epm/swordlegacy
 	url = https://github.com/eprintsug/swordlegacy.git
