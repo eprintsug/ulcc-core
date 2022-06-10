@@ -33,7 +33,7 @@ EOJ
 	$head->appendChild( $repo->xml->create_element( "link",
 			rel => "stylesheet",
 			type => "text/css",
-			href => $repo->current_url( path => "static", "style/auto-".EPrints->human_version.".css" ),
+			href => $repo->current_url( path => "static", "style/auto-".EPrints->human_version.".css" ) . "?ug-2022-q2",
 		) );
 	$head->appendChild( $repo->xml->create_text_node( "\n    " ) );
 	$head->appendChild( $repo->make_javascript( undef,
