@@ -715,10 +715,16 @@ sub mail
 		$email = $self->get_value( "email" );
 	}
 
+    my $to_name = undef;
+    if( $self->is_set( "name" ) )
+    {
+        $to_name = EPrints::Utils::tree_to_utf8( $self->render_description );
+    }
+
 	return EPrints::Email::send_mail(
 		session  => $self->{session},
 		langid   => $langid,
-		to_name  => EPrints::Utils::tree_to_utf8( $self->render_description ),
+		to_name  => $to_name,
 		to_email => $email,
 		subject  => EPrints::Utils::tree_to_utf8( $lang->phrase( $subjectid, {}, $self->{session} ) ),
 		message  => $message,
