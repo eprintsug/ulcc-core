@@ -3377,7 +3377,9 @@ PY = 2006 and OG = (Cambridge)<br />
     <epp:phrase id="saved_search_fieldname_public">Make search public?</epp:phrase>
     <epp:phrase id="saved_search_fieldhelp_public">Do you want to be able to link directly to this search via a public URL?</epp:phrase>
     <epp:phrase id="saved_search_radio_public"><label><epc:pin name="true"/>Yes, make this search available to anyone.</label><br/><label><epc:pin name="false"/>No. Only I will have access to this search.</label></epp:phrase>
-
+    <epp:phrase id="saved_search_fieldname_include_old_results">Include older results in saved search email</epp:phrase>
+    <epp:phrase id="saved_search_fieldhelp_include_old_results">Do you want to see all results matching this search or just those added since the last email was sent?</epp:phrase>
+    <epp:phrase id="saved_search_radio_include_old_results"><label><epc:pin name="true"/>Yes, include all results matching this search.</label><br/><label><epc:pin name="false"/>No, only include results added since the last saved search email was sent.</label></epp:phrase>
 
 <!-- Web-viewable version of email -->
 <epp:phrase id="mail_view">
