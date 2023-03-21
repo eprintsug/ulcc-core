@@ -90,7 +90,12 @@ sub render_single_value
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff, $obj ) = @_;
+	my( $self, $session, $value, $basename, $staff, $obj, $prefix, $row_no, $label ) = @_;
+
+    if( !defined $label ) # we haven't been given a label, so lets create one for the input
+    {
+        $label = $basename."_label"; # a default label
+    }
 
 	my $maxlength = $self->get_property( "maxlength" );
 	my $size = $self->{input_cols};
@@ -100,12 +105,15 @@ sub get_basic_input_elements
 		name => $basename,
 		id => $basename,
 		size => $size,
-		maxlength => $maxlength );
+		maxlength => $maxlength,
+        'aria-labelledby' => $label );
 
 	if( !$self->get_property( "repeat_secret" ) )
 	{
 		return [ [ { el=>$password } ] ];
 	}
+ 
+    my $confirm_label = $basename."confirm_label"; # a default label
 
 	my $confirm = $session->render_noenter_input_field(
 		class => "ep_form_text",
@@ -113,14 +121,16 @@ sub get_basic_input_elements
 		name => $basename."_confirm",
 		id => $basename."_confirm",
 		size => $size,
-		maxlength => $maxlength );
+		maxlength => $maxlength,
+        'aria-labelledby' => $confirm_label
+    );
 
-	my $label1 = $session->make_element( "div", style=>"margin-right: 4px;" );
+	my $label1 = $session->make_element( "div", style=>"margin-right: 4px;", 'aria-label' => $label );
 	$label1->appendChild( $session->html_phrase(
 		$self->{dataset}->confid."_fieldname_".$self->get_name
 	) );
 	$label1->appendChild( $session->make_text( ":" ) );
-	my $label2 = $session->make_element( "div", style=>"margin-right: 4px;" );
+	my $label2 = $session->make_element( "div", style=>"margin-right: 4px;", 'aria-label' => $confirm_label );
 	$label2->appendChild( $session->html_phrase(
 		$self->{dataset}->confid."_fieldname_".$self->get_name."_confirm"
 	) );
@@ -173,7 +183,18 @@ sub validate
 		if( !length($password) || $password ne $confirm )
 		{
 			push @probs, $session->html_phrase( "validate:secret_mismatch" );
+            return @probs;
 		}
+
+        # run through any extra checks
+        if( defined $session->config( "user_password_validation" ) )
+        {
+            foreach my $password_check ( values $session->config( "user_password_validation" ) )
+            {
+                my $result = &{$password_check}( $session, $password, $confirm );                
+                push @probs, $result if $result;
+            }
+        }
 	}
 
 	return @probs;

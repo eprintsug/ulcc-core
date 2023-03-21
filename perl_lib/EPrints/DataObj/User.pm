@@ -160,7 +160,7 @@ sub get_system_field_info
 	
 		{ name=>"newemail", type=>"email", show_in_html=>0 },
 	
-		{ name=>"newpassword", type=>"secret", show_in_html=>0, 
+		{ name=>"newpassword", type=>"secret", repeat_secret=>1, show_in_html=>0, 
 			fromform=>\&EPrints::Utils::crypt_password },
 
 		{ name=>"pin", type=>"text", show_in_html=>0 },
