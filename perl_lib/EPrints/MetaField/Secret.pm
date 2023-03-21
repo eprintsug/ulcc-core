@@ -189,7 +189,7 @@ sub validate
         # run through any extra checks
         if( defined $session->config( "user_password_validation" ) )
         {
-            foreach my $password_check ( values $session->config( "user_password_validation" ) )
+            foreach my $password_check ( values %{$session->config( "user_password_validation" )} )
             {
                 my $result = &{$password_check}( $session, $password, $confirm );                
                 push @probs, $result if $result;
