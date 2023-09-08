@@ -4703,6 +4703,9 @@ sub redirect
 
 	my $status = delete $opts{status_code} || 302;
 	
+	# Remove CR/LF from URL before redirect to prevent header injection
+	$url =~ s/[\x0A\x0D]//g; 
+
 	EPrints::Apache::AnApache::send_status_line( $self->request, $status );
 	EPrints::Apache::AnApache::header_out( 
 		$self->request,
