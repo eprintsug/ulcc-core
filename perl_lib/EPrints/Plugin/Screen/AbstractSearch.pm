@@ -184,7 +184,7 @@ sub from
 		%{$self->{processor}->{sconf}} );
 
 
-	if( 	$self->{processor}->{action} eq "search" || 
+	if( $self->{processor}->{action} eq "search" || 
 	 	$self->{processor}->{action} eq "update" || 
 	 	$self->{processor}->{action} eq "export" || 
 	 	$self->{processor}->{action} eq "export_redir"  )
@@ -912,7 +912,6 @@ sub export
 	my( $self ) = @_;
 
 	my $results = $self->{processor}->{results};
-
 	my $offset = $self->{processor}->{export_offset};
 	my $n = $self->{processor}->{export_n};
 
@@ -937,6 +936,16 @@ sub export
 	} $plugin->arguments;
 
 	$plugin->initialise_fh( *STDOUT );
+	
+	if( defined $self->{processor}->{sconf}->{"force_download"} && $self->{processor}->{sconf}->{"force_download"} )
+	{
+		my $filename = $results->{dataset}->id . "_export" . $plugin->{suffix}||".txt";
+		EPrints::Apache::AnApache::header_out(
+			$plugin->repository->get_request,
+			"Content-Disposition" => "attachment; filename=$filename"
+		);
+	}
+
 	$plugin->output_list(
 		list => $results,
 		fh => *STDOUT,
