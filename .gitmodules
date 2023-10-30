@@ -142,3 +142,6 @@
 [submodule "lib/epm/arkivum_v6"]
 	path = lib/epm/arkivum_v6
 	url = https://github.com/eprintsug/arkivum_v6
+[submodule "lib/epm/sd_goals"]
+	path = lib/epm/sd_goals
+	url = https://github.com/eprintsug/sd_goals.git
