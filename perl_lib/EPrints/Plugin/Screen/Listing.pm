@@ -552,7 +552,7 @@ sub render
 
 	my @tags = sort { $fieldnames->{$a} cmp $fieldnames->{$b} } keys %$fieldnames;
 
-    my $label = $session->make_element( "label", id=>"add_col_label" );
+    my $label = $session->make_element( "span", id=>"add_col_label" );
     $form_add->appendChild( $label );
     $label->appendChild( $self->html_phrase( "select_col" ) );
 

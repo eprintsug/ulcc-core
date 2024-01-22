@@ -43,6 +43,8 @@ sub can_be_viewed
 {
 	my( $self ) = @_;
 
+	return 0; # this is a barely used screen (if at all), need to revisit how it may be used
+
 	return $self->allow( "storage/manager" );
 }
 

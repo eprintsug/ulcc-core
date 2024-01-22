@@ -1258,7 +1258,7 @@ sub render_input_field_actual
             $col_title = $col_title->{$col_field};
 			$th = $session->make_element( "div", id=>$basename."_th_".$x++, class=>"ep_table_cell" );
 
-            my $label = $session->make_element( "label", id=>$basename."_".$col_field."_label" );
+            my $label = $session->make_element( "span", id=>$basename."_".$col_field."_label" );
             $label->appendChild( $col_title );
 			$th->appendChild( $label );
 			$tr->appendChild( $th );

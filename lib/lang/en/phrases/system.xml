@@ -1873,11 +1873,12 @@ User Area CGI Scripts
     <epp:phrase id="cgi/users/status:diskspace"><h2>Disk Space</h2></epp:phrase>
     <epp:phrase id="cgi/users/status:saved_searches"><h2>Saved Searches and Alerts</h2></epp:phrase>
     <epp:phrase id="cgi/users/status:cache_tables"><h2>Cache Tables</h2></epp:phrase>
+    <epp:phrase id="cache_table_name">Cache Table</epp:phrase>
     <epp:phrase id="cgi/users/status:cachedate">Created at</epp:phrase>
     <epp:phrase id="cgi/users/status:cachesize">Size</epp:phrase>
     <epp:phrase id="cgi/users/status:database_tables"><h2>Database Tables</h2></epp:phrase>
-    <epp:phrase id="cgi/users/status:dataset_tables"><h4>Dataset Tables</h4></epp:phrase>
-    <epp:phrase id="cgi/users/status:misc_tables"><h4>Misc. Tables</h4></epp:phrase>
+    <epp:phrase id="cgi/users/status:dataset_tables"><h3>Dataset Tables</h3></epp:phrase>
+    <epp:phrase id="cgi/users/status:misc_tables"><h3>Misc. Tables</h3></epp:phrase>
     <epp:phrase id="cgi/users/status:subsent">Last completed alert mailing</epp:phrase>
     <epp:phrase id="cgi/users/status:subcount">Total Number</epp:phrase>
     <epp:phrase id="cgi/users/status:set_archive">Repository</epp:phrase>
@@ -1916,7 +1917,7 @@ User Area CGI Scripts
 <epp:phrase id="Plugin/Screen/Admin/Backup:action:backup_repository:title">Backup Repository</epp:phrase>
 
     <epp:phrase id="Plugin/Screen/Admin/Backup:action:backup_repository:description">Exports a single compressed file of EPrints system, archive data and database files for this repository.</epp:phrase>
-    <epp:phrase id="Plugin/Screen/Admin/Restore:title">Restore Repository</epp:phrase>
+    <epp:phrase id="Plugin/Screen/Admin/Restore:tit3e">Restore Repository</epp:phrase>
 
     <epp:phrase id="Plugin/Screen/Admin/Restore:description">Restores a complete repository, including all eprints system files..</epp:phrase>
     <epp:phrase id="Plugin/Screen/Admin/Restore:backup_archive">Backup archive file:</epp:phrase>
@@ -2354,7 +2355,7 @@ Views
     <epp:phrase id="Update/Views:no_grouping_title">Nothing</epp:phrase>
     <epp:phrase id="Update/Views:jump_to"><div class="ep_view_jump_to">Jump to: <epc:pin name="jumps" /></div></epp:phrase>
     <epp:phrase id="Update/Views:jump_seperator"> | </epp:phrase>
-    <epp:phrase id="Update/Views:up_a_level"><table><tr><td><epc:pin name="url"><img src="{$config{rel_path}}/style/images/multi_up.png" border='0' /></epc:pin></td><td><epc:pin name="url">Up a level</epc:pin></td></tr></table></epp:phrase>
+    <epp:phrase id="Update/Views:up_a_level"><epc:pin name="url"><img src="{$config{rel_path}}/style/images/multi_up.png" border='0' />Up a level</epc:pin></epp:phrase>
     <epp:phrase id="Update/Views:no_items"><p>No items in this section.</p></epp:phrase>
     <epp:phrase id="Update/Views:no_value">NULL</epp:phrase>
     <epp:phrase id="Update/Views:export_section">
@@ -2734,6 +2735,8 @@ Titles and Help for the System Fields
         </div>
     </epp:phrase>
 
+    <epp:phrase id="Plugin/Screen/Import:choose_file">Choose file</epp:phrase>
+
     <epp:phrase id="Plugin/Import/ExplodeArchive:input:form">Select an archive from your system: <epc:pin name="input_file_upload"/> e.g. my_photos.zip<br />
 Each file inside this archive will be created as an <b>individual</b> document inside the resulting eprint.</epp:phrase>
 	<epp:phrase id="Plugin/Screen/Import/DOI:help">Enter a DOI or DOIs, one per line e.g. doi:10.1006/jmbi.1998.2354</epp:phrase>
@@ -2983,6 +2986,7 @@ PY = 2006 and OG = (Cambridge)<br />
     <epp:phrase id="Plugin/Screen/Subject/Edit:problem_ancestor">New child is an ancestor of this subject (This would cause a loop)</epp:phrase>
     <epp:phrase id="Plugin/Screen/Subject/Edit:problem_noid">No ID given for new child</epp:phrase>
     <epp:phrase id="Plugin/Screen/Subject/Edit:eprints" ref="datasetname_eprint"></epp:phrase>
+    <epp:phrase id="Plugin/Screen/Subject/Edit:unlink">Unlink</epp:phrase>
     <epp:phrase id="Plugin/Screen/Subject/Edit:action_delete">Delete</epp:phrase>
     <epp:phrase id="Plugin/Screen/Subject/Edit:action_unlink">Unlink</epp:phrase>
     <epp:phrase id="Plugin/Screen/Subject/Edit:children">Children</epp:phrase>
@@ -3021,7 +3025,11 @@ PY = 2006 and OG = (Cambridge)<br />
 	<!-- Upload component -->
 	
 	<epp:phrase id="Plugin/InputForm/Component/Upload:title">Add a new document</epp:phrase>
-        <epp:phrase id="Plugin/InputForm/Component/Upload:help"><p style="margin-top: 0px">To upload a document to this repository, click the Browse button below to select the file and the Upload button to upload it to the archive. You may then add additional files to the document (such as images for HTML files) or upload more files to create additional documents.</p><p style="margin-bottom: 0px">You may wish to use the <a href="http://www.sherpa.ac.uk/romeo.php" target="_blank">SHERPA RoMEO</a> tool to verify publisher policies before depositing.</p></epp:phrase>
+    <epp:phrase id="Plugin/InputForm/Component/Upload:help"><p style="margin-top: 0px">To upload a document to this repository, click the Browse button below to select the file and the Upload button to upload it to the archive. You may then add additional files to the document (such as images for HTML files) or upload more files to create additional documents.</p><p style="margin-bottom: 0px">You may wish to use the <a href="http://www.sherpa.ac.uk/romeo.php" target="_blank">SHERPA RoMEO</a> tool to verify publisher policies before depositing.</p></epp:phrase>
+
+    <epp:phrase id="Plugin/InputForm/Component/Upload:choose_file">Choose file</epp:phrase>
+    <epp:phrase id="Plugin/Screen/Import:file_encoding">File encoding: </epp:phrase>
+
 	<epp:phrase id="Plugin/InputForm/Component/Documents:convert_document">Convert Document Format</epp:phrase>
 	<epp:phrase id="Plugin/InputForm/Component/Documents:convert_document_button">Convert</epp:phrase>
 	<epp:phrase id="Plugin/InputForm/Component/Documents:convert_document_help">To convert this document to another format select the format you wish to convert it to and click 'Convert'. The conversion will create a <b>new</b> document - your old document will not be lost.</epp:phrase>

@@ -230,6 +230,7 @@ sub render
 		name => $ffname,
 		id => $ffname,
 		type => "file",
+		'aria-label' => $session->html_phrase( "Plugin/InputForm/Component/Upload:choose_file" ),
 		onchange => "UploadMethod_file_change(this,'$self->{parent}->{prefix}','$self->{prefix}')",
 		) );
 
@@ -245,7 +246,7 @@ sub render
 
 	$container->appendChild( $xml->create_element( "table",
 			id => join('_', $self->{prefix}, "progress_table"),
-			class => "UploadMethod_file_progress_table",
+			lass => "UploadMethod_file_progress_table",
 		) );
 
 	$container->appendChild( $session->make_javascript( <<EOJ ) );

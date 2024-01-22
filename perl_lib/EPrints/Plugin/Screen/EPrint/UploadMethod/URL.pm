@@ -67,10 +67,12 @@ sub render
 
 	my $f = $self->{session}->make_doc_fragment;
 
-	$f->appendChild( $self->{session}->html_phrase( "Plugin/InputForm/Component/Upload:new_from_url" ) );
-
 	my $ffname = join('_', $self->{prefix}, "url");
-	my $file_button = $self->{session}->make_element( "input",
+
+    my $label = $self->{session}->make_element( "label" );
+    $label->appendChild( $self->{session}->html_phrase( "Plugin/InputForm/Component/Upload:new_from_url" ) );
+    
+    my $file_button = $self->{session}->make_element( "input",
 		name => $ffname,
 		size => "30",
 		id => $ffname,
@@ -79,7 +81,8 @@ sub render
 		value => $self->{session}->phrase( "Plugin/InputForm/Component/Upload:add_format" ), 
 		class => "ep_form_internal_button",
 		name => "_internal_".$self->{prefix}."_add_format" );
-	$f->appendChild( $file_button );
+	$label->appendChild( $file_button );
+    $f->appendChild( $label );
 	$f->appendChild( $self->{session}->make_text( " " ) );
 	$f->appendChild( $add_format_button );
 	

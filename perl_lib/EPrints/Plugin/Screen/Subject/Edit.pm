@@ -298,7 +298,8 @@ sub render_children
 		class => "ep_columns_title",
 	) );
 
-	$tr->appendChild( $xml->create_element( "th",
+	$tr->appendChild( $xml->create_data_element( "th",
+        $self->phrase( "unlink" ),
 		class => "ep_columns_title",
 	) );
 
@@ -344,9 +345,11 @@ sub render_children
 			colspan => 3,
 		) );
 		my $form = $td->appendChild( $self->render_form );
-		$form->appendChild( $dataset->field( "subjectid" )->render_name );
-		$form->appendChild( $xml->create_text_node( ": " ) );
-		$form->appendChild( $xhtml->input_field( childid => undef ) );
+        my $label = $xml->create_element( "label" );
+        $label->appendChild( $dataset->field( "subjectid" )->render_name );
+		$label->appendChild( $xml->create_text_node( ": " ) );
+		$label->appendChild( $xhtml->input_field( childid => undef ) );
+        $form->appendChild( $label );
 		$form->appendChild( $xhtml->action_button(
 			create => $repo->phrase( "lib/submissionform:action_create" )
 		) );
@@ -362,9 +365,10 @@ sub render_children
 			colspan => 3,
 		) );
 		my $form = $td->appendChild( $self->render_form );
-		$form->appendChild( $self->html_phrase( "existing" ) );
-		$form->appendChild( $xml->create_text_node( ": " ) );
-		my $select = $form->appendChild( $xml->create_element( "select",
+        my $label = $xml->create_element( "label" );
+		$label->appendChild( $self->html_phrase( "existing" ) );
+		$label->appendChild( $xml->create_text_node( ": " ) );
+		my $select = $label->appendChild( $xml->create_element( "select",
 			name => "childid",
 		) );
 		$subject->get_dataset->search->map(sub {
@@ -375,6 +379,7 @@ sub render_children
 				value => $child->id,
 			) );
 		});
+        $form->appendChild( $label );
 		$form->appendChild( $xhtml->action_button(
 			link => $self->phrase( "action_link" )
 		) );

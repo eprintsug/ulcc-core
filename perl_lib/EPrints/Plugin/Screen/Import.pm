@@ -530,9 +530,13 @@ sub render_upload_form
 	my $form = $div->appendChild( $self->{processor}->screen->render_form );
 	$form->appendChild( $xhtml->input_field(
 		file => undef,
-		type => "file"
+		type => "file",
+        'aria-label' => $repo->html_phrase( "Plugin/Screen/Import:choose_file" ),
 		) );
-	$form->appendChild( $repo->render_option_list(
+    
+    my $encoding_label = $xml->create_element( "label", class => "ep_import_encoding" );
+    $encoding_label->appendChild( $repo->html_phrase( "Plugin/Screen/Import:file_encoding" ) );
+	$encoding_label->appendChild( $repo->render_option_list(
 		name => "encoding",
 		default => ($repo->param( "encoding" ) || $self->param( "default_encoding" )),
 		values => $self->param( "encodings" ),
@@ -540,6 +544,8 @@ sub render_upload_form
 			map { $_ => $_ } @{$self->param( "encodings" )},
 		},
 	) );
+    $form->appendChild( $encoding_label );
+
 	$form->appendChild( $self->render_actions );
 	$form->appendChild( $repo->render_action_buttons(
 		test_upload => $repo->phrase( "Plugin/Screen/Import:action_test_upload" ),

@@ -1724,11 +1724,9 @@ sub render_export_bar
 			my $a1 = $repo->render_link( $url );
 			my $icon = $repo->make_element( "img", src=>$plugin->icon_url(), alt=>"[$type]", border=>0 );
 			$a1->appendChild( $icon );
-			my $a2 = $repo->render_link( $url );
-			$a2->appendChild( $plugin->render_name );
+			$a1->appendChild( $repo->make_text( " " ) );
+			$a1->appendChild( $plugin->render_name );
 			$span->appendChild( $a1 );
-			$span->appendChild( $repo->make_text( " " ) );
-			$span->appendChild( $a2 );
 
 			if( $type eq "tool" )
 			{
