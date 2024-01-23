@@ -583,13 +583,16 @@ sub _render_doc_metadata
 	my $first = 1;
 	foreach my $field ( @fields )
 	{
-		my $label = $field->render_name($session);
+        my $label = $self->{session}->make_element( "span", id=>$doc_prefix."_".$field->{name}."_label" );
+        my $label_content = $field->render_name( $self->{session} );
+                
 		if( $field->{required} ) # moj: Handle for_archive
 		{
-			$label = $self->{session}->html_phrase( 
+			$label_content = $self->{session}->html_phrase( 
 				"sys:ep_form_required",
-				label=>$label );
+				label=>$label_content );
 		}
+        $label->appendChild( $label_content );
 
 		$table->appendChild( $session->render_row_with_help(
 			label=>$label,
