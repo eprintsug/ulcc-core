@@ -39,9 +39,9 @@ sub get_property_defaults
 
 sub get_basic_input_elements
 {
-	my( $self, $session, $value, $basename, $staff ) = @_;
+	my( $self, $session, $value, $basename, $staff, $object, $prefix, $row_no ) = @_;
 
-	my $ex = $self->SUPER::get_basic_input_elements( $session, $value, $basename, $staff );
+	my $ex = $self->SUPER::get_basic_input_elements( $session, $value, $basename, $staff, $object, $prefix, $row_no );
 
 	my $desc = $self->render_single_value( $session, $value );
 
@@ -86,9 +86,9 @@ sub get_item
 
 sub get_input_elements
 {   
-	my( $self, $session, $value, $staff, $obj, $basename ) = @_;
+	my( $self, $session, $value, $staff, $obj, $basename, $prefix ) = @_;
 
-	my $input = $self->SUPER::get_input_elements( $session, $value, $staff, $obj, $basename );
+	my $input = $self->SUPER::get_input_elements( $session, $value, $staff, $obj, $basename, $prefix );
 
 	my $buttons = $session->make_doc_fragment;
 	$buttons->appendChild( 

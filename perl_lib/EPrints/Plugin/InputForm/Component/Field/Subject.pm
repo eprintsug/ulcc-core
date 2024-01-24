@@ -359,7 +359,7 @@ sub _render_search
 	my $session = $self->{session};
 	my $field = $self->{config}->{field};
 
-    my $label = $session->make_element( "span", id => $prefix."_label" );
+    my $label = $session->make_element( "span", id => $prefix.$self->{search_q_style}."_label" );
     $label->appendChild($self->html_phrase( $field->get_name."_search_label" ) );
 
 	my $bar = $self->html_phrase(
