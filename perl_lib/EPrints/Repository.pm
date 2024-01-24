@@ -4242,7 +4242,8 @@ sub _render_input_form_field
 		# special case for booleans - even if they're required it
 		# dosn't make much sense to highlight them.	
 
-		my $label = $field->render_name( $self );
+		my $label = $self->make_element( "span", id => $field->get_name . "_label" );
+        $label->appendChild( $field->render_name( $self ) );
 		if( $req && !$field->is_type( "boolean" ) )
 		{
 			$label = $self->html_phrase( "sys:ep_form_required",
