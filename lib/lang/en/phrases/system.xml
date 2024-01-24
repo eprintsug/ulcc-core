@@ -3097,7 +3097,8 @@ PY = 2006 and OG = (Cambridge)<br />
 	<epp:phrase id="Plugin/InputForm/Component/Field/Subject:selections">Current selections:</epp:phrase>
 	
     <epp:phrase id="Plugin/InputForm/Component/Field/Subject:search_no_matches"><p>No matches</p></epp:phrase>
-    <epp:phrase id="Plugin/InputForm/Component/Field/Subject:subjects_search_bar"><div class="ep_subjectinput_searchbar">Search for subject: <epc:pin name="input"/> <epc:pin name="search_button"/> <epc:pin name="clear_button"/></div></epp:phrase>
+    <epp:phrase id="Plugin/InputForm/Component/Field/Subject:subjects_search_label">Search for subject</epp:phrase>
+    <epp:phrase id="Plugin/InputForm/Component/Field/Subject:subjects_search_bar"><div class="ep_subjectinput_searchbar"><epc:pin name="label"/>: <epc:pin name="input"/> <epc:pin name="search_button"/> <epc:pin name="clear_button"/></div></epp:phrase>
     <epp:phrase id="Plugin/InputForm/Component/Field/Subject:search_search_button">Search</epp:phrase>
     <epp:phrase id="Plugin/InputForm/Component/Field/Subject:search_clear_button">Clear</epp:phrase>
     <epp:phrase id="Plugin/InputForm/Component/Field/Subject:add">Add</epp:phrase>

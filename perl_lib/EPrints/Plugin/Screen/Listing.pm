@@ -680,11 +680,15 @@ sub render_search_fields
 
 	foreach my $sf ( $self->{processor}->{search}->get_non_filter_searchfields )
 	{
+        print STDERR "sf...$sf\n";
+        my $label = $self->{session}->make_element( "span", id => $sf->get_form_prefix."_label" );
+        $label->appendChild( $sf->render_name );
+
 		$frag->appendChild( 
 			$self->{session}->render_row_with_help( 
 				help_prefix => $sf->get_form_prefix."_help",
 				help => $sf->render_help,
-				label => $sf->render_name,
+				label => $label,
 				field => $sf->render,
 				no_toggle => ( $sf->{show_help} eq "always" ),
 				no_help => ( $sf->{show_help} eq "never" ),

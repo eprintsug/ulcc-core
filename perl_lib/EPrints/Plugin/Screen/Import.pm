@@ -437,7 +437,10 @@ sub render
 	my @labels;
 	my @panels;
 
-	push @labels, $self->html_phrase( "data" );
+    my $paste_label = $self->{session}->make_element( "span", id => "data_label" );
+    $paste_label->appendChild( $self->html_phrase( "data" ) );
+
+	push @labels, $paste_label;
 	push @panels, $self->render_import_form;
 
 	push @labels, $self->html_phrase( "upload" );

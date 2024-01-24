@@ -2186,7 +2186,7 @@ sub render_search_input
 				values=>\@text_tags,
 				default=>$searchfield->get_merge,
 				labels=>\%text_labels,
-                'aria-label' => $searchfield->get_form_prefix . " merge options" ) );
+                'aria-label' => $searchfield->render_name . " merge options" ) );
 		$frag->appendChild( $session->make_text(" ") );
 	}
 	$frag->appendChild(
