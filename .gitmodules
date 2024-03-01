@@ -145,3 +145,6 @@
 [submodule "lib/epm/sd_goals"]
 	path = lib/epm/sd_goals
 	url = https://github.com/eprintsug/sd_goals.git
+[submodule "lib/epm/hidden_documents"]
+	path = lib/epm/hidden_documents
+	url = https://github.com/eprintsug/hidden_documents.git
