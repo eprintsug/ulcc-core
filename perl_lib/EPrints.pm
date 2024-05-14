@@ -328,6 +328,7 @@ use EPrints::XML::EPC;
 use EPrints::XHTML;
 use EPrints::Utils;
 use EPrints::EPM::Source;
+use EPrints::Signposting;
 
 # SAX utilities
 use EPrints::XML::SAX::Builder;
