@@ -148,3 +148,7 @@
 [submodule "lib/epm/hidden_documents"]
 	path = lib/epm/hidden_documents
 	url = https://github.com/eprintsug/hidden_documents.git
+[submodule "lib/epm/EPrintsOpenAIRE"]
+	path = lib/epm/EPrintsOpenAIRE
+    url = https://github.com/eprintsug/EPrintsOpenAIRE.git
+    branch = bazaar
