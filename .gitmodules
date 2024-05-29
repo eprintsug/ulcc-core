@@ -145,3 +145,7 @@
 [submodule "lib/epm/sd_goals"]
 	path = lib/epm/sd_goals
 	url = https://github.com/eprintsug/sd_goals.git
+[submodule "lib/epm/EPrintsOpenAIRE"]
+	path = lib/epm/EPrintsOpenAIRE
+    url = git@github.com:eprintsug/EPrintsOpenAIRE.git
+    branch = 3_4
