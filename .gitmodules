@@ -147,8 +147,7 @@
 	url = https://github.com/eprintsug/sd_goals.git
 [submodule "lib/epm/hidden_documents"]
 	path = lib/epm/hidden_documents
-	url = https://github.com/eprintsug/hidden_documents.git
-[submodule "lib/epm/EPrintsOpenAIRE"]
-	path = lib/epm/EPrintsOpenAIRE
-    url = https://github.com/eprintsug/EPrintsOpenAIRE.git
-    branch = bazaar
+        url = https://github.com/eprintsug/hidden_documents.git
+[submodule "lib/epm/OpenAIRELit4"]
+	path = lib/epm/OpenAIRELit4
+	url = https://github.com/eprintsug/EPrintsOpenAIRE.git
