@@ -1624,6 +1624,7 @@ sub render_navigation_aids
 	{
 		my $url = '../';
 		my $maxdepth = scalar( @{$view->{menus}} );
+        print STDERR "maxdepth: $maxdepth\n";
 		my $depth = scalar( @{$path_values} );
 		if( $depth == $maxdepth ) 
 		{
@@ -1653,12 +1654,37 @@ sub render_navigation_aids
 		{
 			EPrints->abort( "Weird, no subject match for: '".$path_values->[-1]."'" );
 		}
-		my @ids= @{$subject->get_value( "ancestors" )};
-		foreach my $sub_subject ( $subject->get_children() )
-		{
-			push @ids, $sub_subject->get_value( "subjectid" );
-		}
-	
+		
+        my @ids= @{$subject->get_value( "ancestors" )};
+
+        # render the subject tree to specified number of children generations
+        my $current_generation = 0;
+        my $no_generations = $view->{subject_generations} || 1;
+        my @subjects = ();
+
+        # set up our initial array of subjects (i.e. the view's subject)
+        push @subjects, $subject;
+          
+        while( $current_generation <= $no_generations )
+        {
+            my @new_subjects;
+            foreach my $s ( @subjects ) 
+            {
+                # first track the IDs for these subjects
+                push @ids, $s->get_value( "subjectid" );
+
+                # and then compile a list of children subjects
+                foreach my $child ( $s->get_children() )
+                {
+                    push @new_subjects, $child;
+                }
+            }
+
+            # count the generation and repeat with the children
+            $current_generation++;
+            @subjects = @new_subjects;
+        }       
+
 		# strip empty subjects if needed
 		my $menu = $view->{menus}->[$menu_level-1];
 		if( $menu->{hideempty} )
