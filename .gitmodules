@@ -21,7 +21,8 @@
 	url = https://github.com/eprintsug/irus.git
 [submodule "lib/epm/irstats2"]
 	path = lib/epm/irstats2
-	url = https://github.com/eprintsug/irstats2.git
+    url = https://github.com/eprintsug/irstats2.git
+    branch = eprint_cache_stats
 [submodule "lib/epm/altmetric"]
 	path = lib/epm/altmetric
 	url = https://github.com/eprintsug/altmetric.git
