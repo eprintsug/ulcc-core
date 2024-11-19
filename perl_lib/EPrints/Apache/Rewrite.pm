@@ -672,6 +672,15 @@ sub handler
 		}
 	} ##if long url format is not enabled
 
+    # we need to advertise the Linked Data Notification Inbox when enabled
+    if( $repository->get_conf( "ldn_inbox") )
+    {
+        if( $uri =~ m! ^/$ !x ) # advertise on the homepage
+        {
+            EPrints::Apache::AnApache::header_out( $r, "Link", "<".$repository->config( 'base_url')."/coar_notify/inbox>; rel=\"http://www.w3.org/ns/ldp#inbox\"" );
+        }
+    }
+
 	# apache 2 does not automatically look for index.html so we have to do it ourselves
 	my $localpath = $uri;
 	$localpath =~ s! ^$urlpath !!x;
