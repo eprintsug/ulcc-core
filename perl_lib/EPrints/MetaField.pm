@@ -1145,12 +1145,9 @@ sub create_ordervalues_field
 {
 	my( $self, $session, $langid ) = @_;
 
-    my $type = "text";
-    $type = "longtext" if( $self->type eq "longtext" );
-
 	return EPrints::MetaField->new(
 		repository => $session->get_repository,
-		type => $type,
+		type => "longtext",
 		name => $self->get_name,
 		sql_sorted => 1,
 		sql_langid => $langid,
