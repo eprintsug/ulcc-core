@@ -2,7 +2,7 @@
 
 {
 	my $uri = URI->new( "http://" );
-	if( EPrints::Utils::is_set( $c->{host} ) )
+	if( ! EPrints::Utils::is_set( $c->{securehost} ) )
 	{
 		$uri->scheme( "http" );
 		$uri->host( $c->{host} );
@@ -17,6 +17,8 @@
 		$uri->port( $c->{secureport} );
 		$uri = $uri->canonical;
 		$uri->path( $c->{https_root} );
+		# Force https
+                $c->{http_url}=$uri;
 	}
 
 # EPrints base URL without trailing slash
