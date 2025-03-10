@@ -256,7 +256,7 @@ sub load_repository_config_module
 
 	foreach my $dir ( $libcfgd, $defaultcfg_cfgd, $site_lib_cfgd, $repcfgd )
 	{
-		next if( ! -e $dir );
+		next if( !defined $dir || ! -e $dir );
 		opendir( my $dh, $dir ) || EPrints::abort( "Can't read cfg.d config files from $dir: $!" );
 		while( my $file = readdir( $dh ) )
 		{
