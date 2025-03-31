@@ -1624,7 +1624,6 @@ sub render_navigation_aids
 	{
 		my $url = '../';
 		my $maxdepth = scalar( @{$view->{menus}} );
-        print STDERR "maxdepth: $maxdepth\n";
 		my $depth = scalar( @{$path_values} );
 		if( $depth == $maxdepth ) 
 		{
