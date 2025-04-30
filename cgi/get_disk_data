@@ -31,8 +31,6 @@ my $query = $cgi->param('query') || '';
 if( $query eq "current" )
 {
     my $app_mount_point = "/var/www/eprints";
-    $app_mount_point = "/";
-
 
     my $app_output = `df -k '$app_mount_point'`;
     if( $app_output eq "" )
