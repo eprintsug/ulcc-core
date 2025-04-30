@@ -33,9 +33,10 @@ if( $query eq "current" )
     my $mount_point = "/var/www/eprints";
     
     my $output = `df -k '$mount_point'`;
-    if( !defined $output )
+    if( $output eq "" )
     {
         print to_json({ error => 'Failed to retrieve current data' });
+        exit;
     }
 
     # Parse df output
