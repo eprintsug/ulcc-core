@@ -27,10 +27,47 @@ my $repo_id = $session->id;
 my $cgi = CGI->new;
 print $cgi->header('application/json');
 
-my $date = $cgi->param('month') || '';
+my $query = $cgi->param('query') || '';
+if( $query eq "current" )
+{
+    my $mount_point = "/var/www/eprints";
+    
+    my $output = `df -k '$mount_point'`;
+    if( !defined $output )
+    {
+        print to_json({ error => 'Failed to retrieve current data' });
+    }
+
+    # Parse df output
+    my @lines = split /\n/, $output;
+    shift @lines; # skip header line
+    
+    my ($filesystem, $size, $used, $available, $use, $mount) = split /\s+/, $lines[0];
+    
+    # Convert KB to GB
+    my $allocated_gb = sprintf("%.2f", $size / 1024 / 1024);
+    my $used_gb   = sprintf("%.2f", $used   / 1024 / 1024);
+    my $available_gb = sprintf("%.2f", $available / 1024 / 1024);
+
+    # knock percent symbol off the end
+    $use = substr( $use, 0, -1 );
+
+    my $status = $use <= 75 ? "success" : $use <= 90 ? "warning" : "danger";
+
+    print to_json({
+        use_percent => $use,
+        allocated_gb => $allocated_gb,
+        used_gb => $used_gb,
+        available_gb => $available_gb,
+        status => $status
+    });
+
+    exit;
+}
+
 my $year;
 my $month;
-if( $date =~ /^([0-9]{4})-([0-9]{2})$/ )
+if( $query =~ /^([0-9]{4})-([0-9]{2})$/ )
 {
     $year = $1;
     $month = $2;
