@@ -237,7 +237,6 @@ elsif( $legacy_data )
     while( my $fields = $csv->getline_hr( $fh ) )
     {
         my $domain = $session->config( "host" );
-        $domain = "eprints.leedsbeckett.ac.uk";
         if( $fields->{Service} eq $domain )
         {
             $app_allocated_gb = sprintf("%.2f", $fields->{'Storage Allocation GB'});
