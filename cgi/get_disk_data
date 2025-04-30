@@ -1,0 +1,151 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use CGI;
+use JSON;
+use Text::CSV_XS;
+use Data::Dumper;
+
+# New session
+my $session = new EPrints::Session();
+exit( 0 ) unless( defined $session );
+
+if( !$session->current_user )
+{
+    $session->terminate;
+    exit( 0 );
+}
+
+if( !$session->current_user->has_role( 'admin' ) )
+{
+    $session->terminate;
+    exit( 0 );
+}
+
+my $repo_id = $session->id;
+
+my $cgi = CGI->new;
+print $cgi->header('application/json');
+
+my $date = $cgi->param('month') || '';
+my $year;
+my $month;
+if( $date =~ /^([0-9]{4})-([0-9]{2})$/ )
+{
+    $year = $1;
+    $month = $2;
+}
+else
+{
+    print to_json({ error => 'Invalid month format' });
+    exit;
+}
+
+# is this older data
+my $legacy_data = 0;
+if( $year < 2025 || ($year == 2025 && $month == "01" ) )
+{
+    $legacy_data = 1;
+}
+
+# now work out the filename
+my $filename;
+if( $legacy_data )
+{
+    $filename = "/home/vagrant/monthly-reports/data/$year-$month/services.csv";
+    if( !-e $filename )
+    {
+        print to_json({ error => "Data not found" });
+        exit;
+    }
+}
+else
+{
+    $filename = "/home/vagrant/monthly-reports/data/$year-$month/$repo_id"."_disk_usage";
+    if( !-e $filename )
+    {
+        print to_json({ error => "Data not found" });
+        exit;
+    }
+}
+
+my @labels;
+my @usage;
+
+my $filesystem;
+my $size;
+my $used;
+my $available;
+my $use;
+my $mount;
+
+my $allocated_gb;
+my $used_gb;
+my $available_gb;
+
+my $status = "success";
+
+my $found_data = 0;
+if( !$legacy_data )
+{
+    open( my $fh, '<', $filename ) or die to_json({ error => "File not found" });
+    while( my $line = <$fh> )
+    {
+        chomp $line;
+
+        # new format
+        if( $line =~ /^.*? (\d+)%/ )
+        {
+            $found_data = 1;
+
+            ($filesystem, $size, $used, $available, $use, $mount) = split /\s+/, $line;
+    
+            # Convert KB to GB
+            $allocated_gb = sprintf("%.2f", $size / 1024 / 1024);
+            $used_gb   = sprintf("%.2f", $used   / 1024 / 1024);
+            $available_gb = sprintf("%.2f", $available / 1024 / 1024);
+
+            # knock percent symbol off the end
+            $use = substr( $use, 0, -1 );
+        }
+    }
+    close($fh);
+}
+elsif( $legacy_data )
+{
+    my $csv = Text::CSV_XS->new ({ binary => 1, auto_diag => 1 });
+    open my $fh, "<:encoding(utf-8)", $filename or die "...";
+    $csv->column_names( $csv->getline( $fh ) );
+    while( my $fields = $csv->getline_hr( $fh ) )
+    {
+        my $domain = $session->config( "host" );
+        if( $fields->{Service} eq $domain )
+        {
+            $allocated_gb = sprintf("%.2f", $fields->{'Storage Allocation GB'});
+            $used_gb = $fields->{'Storage Used GB'};
+            $use = int( ( $used_gb / $allocated_gb ) * 100 );
+            $available_gb = $allocated_gb - $used_gb;
+            $found_data = 1;
+            last;
+        }              
+    }   
+    close($fh);
+}
+ 
+if( !$found_data )
+{
+    print to_json({ error => "Could not find data" });
+    exit;
+}
+  
+
+# final calculations
+$status = $use <= 75 ? "success" : $use <= 90 ? "warning" : "danger";
+
+print to_json({
+    use_percent => $use,
+    allocated_gb => $allocated_gb,
+    used_gb => $used_gb,
+    available_gb => $available_gb,
+    status => $status
+});
