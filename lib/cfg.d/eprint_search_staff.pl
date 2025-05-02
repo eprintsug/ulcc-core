@@ -28,4 +28,5 @@ $c->{datasets}->{eprint}->{search}->{staff} =
 	default_order => "byyear",
 	show_zero_results => 1,
 	staff => 1,
+    force_download => 1,
 };

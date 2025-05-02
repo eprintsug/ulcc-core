@@ -38,7 +38,7 @@ B<eprintid>
 
 =item misc B<other>
 
-=item phdthesis B<thesis>, B<thesis_type>=phd
+=item phdthesis B<thesis>, B<thesis_type>=doctoral
 
 =item proceedings B<book>
 
@@ -350,7 +350,8 @@ sub convert_input
 	if( $type eq "PHDTHESIS" )
 	{
 		$epdata->{type} = "thesis";
-		$epdata->{thesis_type} = "phd";
+		$epdata->{thesis_type} = "doctoral";
+        $epdata->{thesis_name} = "phd";
 	}
 	if( $type eq "UNPUBLISHED" )
 	{

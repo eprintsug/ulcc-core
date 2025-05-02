@@ -49,6 +49,8 @@ sub can_be_viewed
 {
 	my( $self ) = @_;
 
+	return 0; # this is a dangerous screen, no real need to access it!
+
 	return $self->allow( "config/view" );
 }
 

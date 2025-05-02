@@ -21,7 +21,8 @@
 	url = https://github.com/eprintsug/irus.git
 [submodule "lib/epm/irstats2"]
 	path = lib/epm/irstats2
-	url = https://github.com/eprintsug/irstats2.git
+    url = https://github.com/eprintsug/irstats2.git
+    branch = eprint_cache_stats
 [submodule "lib/epm/altmetric"]
 	path = lib/epm/altmetric
 	url = https://github.com/eprintsug/altmetric.git
@@ -139,3 +140,15 @@
 [submodule "lib/epm/funders_advanced"]
 	path = lib/epm/funders_advanced
 	url = https://github.com/eprintsug/funders_advanced.git
+[submodule "lib/epm/arkivum_v6"]
+	path = lib/epm/arkivum_v6
+	url = https://github.com/eprintsug/arkivum_v6
+[submodule "lib/epm/sd_goals"]
+	path = lib/epm/sd_goals
+	url = https://github.com/eprintsug/sd_goals.git
+[submodule "lib/epm/hidden_documents"]
+	path = lib/epm/hidden_documents
+        url = https://github.com/eprintsug/hidden_documents.git
+[submodule "lib/epm/OpenAIRELit4"]
+	path = lib/epm/OpenAIRELit4
+	url = https://github.com/eprintsug/EPrintsOpenAIRE.git

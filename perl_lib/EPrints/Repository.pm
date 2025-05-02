@@ -4242,7 +4242,8 @@ sub _render_input_form_field
 		# special case for booleans - even if they're required it
 		# dosn't make much sense to highlight them.	
 
-		my $label = $field->render_name( $self );
+		my $label = $self->make_element( "span", id => $field->get_name . "_label" );
+        $label->appendChild( $field->render_name( $self ) );
 		if( $req && !$field->is_type( "boolean" ) )
 		{
 			$label = $self->html_phrase( "sys:ep_form_required",
@@ -4703,6 +4704,9 @@ sub redirect
 
 	my $status = delete $opts{status_code} || 302;
 	
+	# Remove CR/LF from URL before redirect to prevent header injection
+	$url =~ s/[\x0A\x0D]//g; 
+
 	EPrints::Apache::AnApache::send_status_line( $self->request, $status );
 	EPrints::Apache::AnApache::header_out( 
 		$self->request,
@@ -5314,7 +5318,7 @@ sub mail_administrator
 		langid => $langid,
 		to_email => $self->get_conf( "adminemail" ),
 		to_name => $self->phrase( "lib/session:archive_admin" ),	
-		from_email => $self->get_conf( "adminemail" ),
+        from_email => $self->get_conf( "senderemail" ) ? $self->get_conf( "senderemail" ) : $self->get_conf( "adminemail" ),
 		from_name => $self->phrase( "lib/session:archive_admin" ),	
 		subject =>  EPrints::Utils::tree_to_utf8(
 			$self->html_phrase( $subjectid ) ),

@@ -20,6 +20,7 @@
       <title><epc:phrase ref="saved_search_mail" /></title>
       <field ref="frequency"/>
       <field ref="mailempty"/>
+      <field ref="include_old_results"/>
     </component>
 
     <component><field ref="public"/></component>

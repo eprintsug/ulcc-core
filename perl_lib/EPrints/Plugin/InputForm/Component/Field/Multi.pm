@@ -153,7 +153,7 @@ sub render_content
 		$parts{class} = "ep_first" if $first;
 		$first = 0;
 
-        my $label = $self->{session}->make_element( "label", id=>$self->{prefix}."_".$field->{name}."_label" );
+        my $label = $self->{session}->make_element( "span", id=>$self->{prefix}."_".$field->{name}."_label" );
         my $label_content = $field->render_name( $self->{session} );
 
 		if( $field->{required} ) # moj: Handle for_archive

@@ -631,8 +631,8 @@ sub run_index
 
 			# give the next code $timeout secs to complete
 			eval {
-				local $SIG{ALRM} = sub { die "alarm\n" };
-				alarm($self->get_timeout);
+#				local $SIG{ALRM} = sub { die "alarm\n" };
+#				alarm($self->get_timeout);
 				my $indexer_did_something = $self->_run_index( $repo, {
 					loglevel => $self->{loglevel},
 				});
@@ -697,6 +697,18 @@ sub _run_index
 	$self->log( 5, "** Empty task list" ) if !@events;
 	EVENT: foreach my $event (@events)
 	{
+		# Let the plugin specify it's own timeout, not a global timeout for all repos!
+		my $plugin = $session->plugin( $event->value( "pluginid" ) );
+		local $SIG{ALRM} = sub { die "alarm: exceeded either default or plugin bespoke timeout\n" };
+		if( defined $plugin && $plugin->param("timeout") )
+		{        
+			alarm($plugin->param("timeout"));
+		}
+		else
+		{
+			alarm($self->get_timeout);
+		}
+
 		# reset events on interruption
 		if( $self->interrupted )
 		{
