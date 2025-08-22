@@ -146,8 +146,8 @@ sub action_search
             # in case of network problems
             $repo->log( "Error contacting recaptcha: ".$r->code." ".$r->message );
         }
-        $self->run_search;
     }
+    $self->run_search;
 }
 
 sub allow_update { return 1; }
