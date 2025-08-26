@@ -107,11 +107,10 @@ sub action_search
  
         my $url = URI->new( "https://www.google.com/recaptcha/api/siteverify" );
 
-
         my $ua = LWP::UserAgent->new();
         $ua->env_proxy;
         $ua->timeout( $timeout ); #LWP default timeout is 180 seconds.
-       
+
         my $r = $ua->post( $url, [
             secret => $private_key,
             response => $response
@@ -122,7 +121,6 @@ sub action_search
         if( $r->is_success )
         {
             my $hash = decode_json( $r->content );
-
             if( !$hash->{success} )
             {
                 my $recaptcha_error = 'unknown-error';
@@ -799,7 +797,7 @@ sub render_captcha
 
     $frag->appendChild( $self->{session}->make_element( "input",
         type => "hidden",
-        id => "g-recaptcha-response",
+        id => "search-g-recaptcha-response",
         name => "g-recaptcha-response",
     ) );
 
@@ -820,7 +818,8 @@ sub render_captcha
                 e.preventDefault();
                 grecaptcha.ready(function() {
                     grecaptcha.execute('$captcha_public', {action: 'SEARCH'}).then(function(token) {
-                        document.getElementById('g-recaptcha-response').value = token;
+                        console.log(token);                        
+                        document.getElementById('search-g-recaptcha-response').value = token;
                         e.target.form.submit();
                     });
                 });
