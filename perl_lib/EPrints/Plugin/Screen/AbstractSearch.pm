@@ -129,10 +129,12 @@ sub action_search
                 {
                     $recaptcha_error = join '+', @{$codes};
                 }
+                $repo->log( "ReCaptcha: $recaptcha_error" );
                 return $recaptcha_error;
             }
             elsif ( $hash->{score} < $min_score )
             {
+                $repo->log( "ReCaptcha: Score too low!" );
                 return 'score-too-low';
             }
 
