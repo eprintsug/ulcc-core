@@ -334,11 +334,6 @@ sub render_simple_form
 
 	$form->appendChild( $self->render_dataset );
 
-    if( defined $session->config( "recaptcha3", "public_key" ) )
-    {
-        $form->appendChild( $self->render_captcha );
-    }
-
 	return( $div );
 }
 

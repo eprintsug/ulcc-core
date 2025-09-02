@@ -10,8 +10,6 @@ package EPrints::Plugin::Screen::AbstractSearch;
 
 use strict;
 use URI::Escape;
-use JSON qw(encode_json decode_json);
-
 sub new
 {
 	my( $class, %params ) = @_;
@@ -94,60 +92,8 @@ sub action_search
 	my( $self ) = @_;
 
 	$self->{processor}->{search_subscreen} = "results";
-    
-    my $repo = $self->{repository};
 
-    if( defined $self->{session}->config( "recaptcha3", "public_key" ) )
-    {
-    	my $response = $self->{session}->param( "g-recaptcha-response" );
-        
-        my $private_key = $self->{session}->config( "recaptcha3", "private_key" );
-        my $timeout = $repo->config( "recaptcha3", "timeout" ) || 5;
-        my $min_score = $repo->config( "recaptcha3", "min_score" ) || 0.8;
- 
-        my $url = URI->new( "https://www.google.com/recaptcha/api/siteverify" );
-
-        my $ua = LWP::UserAgent->new();
-        $ua->env_proxy;
-        $ua->timeout( $timeout ); #LWP default timeout is 180 seconds.
-
-        my $r = $ua->post( $url, [
-            secret => $private_key,
-            response => $response
-        ]);
-
-        # the request returned a response - but we have to check whether the human (or otherwise)
-        # passed the Captcha 
-        if( $r->is_success )
-        {
-            my $hash = decode_json( $r->content );
-            if( !$hash->{success} )
-            {
-                my $recaptcha_error = 'unknown-error';
-                my $codes = $hash->{'error-codes'};
-                if( $codes && scalar @{$codes} )
-                {
-                    $recaptcha_error = join '+', @{$codes};
-                }
-                $repo->log( "ReCaptcha: $recaptcha_error" );
-                return $recaptcha_error;
-            }
-            elsif ( $hash->{score} < $min_score )
-            {
-                $repo->log( "ReCaptcha: Score too low!" );
-                return 'score-too-low';
-            }
-
-            # success!!!!
-        }
-        else
-        {
-            # error talking to recaptcha, so lets continue to avoid blocking the user
-            # in case of network problems
-            $repo->log( "Error contacting recaptcha: ".$r->code." ".$r->message );
-        }
-    }
-    $self->run_search;
+	$self->run_search;
 }
 
 sub allow_update { return 1; }
@@ -173,6 +119,7 @@ sub action_newsearch
 sub run_search
 {
 	my( $self ) = @_;
+
 	my $list = $self->{processor}->{search}->perform_search();
 
 	my $error = $self->{processor}->{search}->{error};
@@ -775,62 +722,7 @@ sub render_search_form
 
 	$form->appendChild( $self->render_controls );
 
-    if( defined $self->{session}->config( "recaptcha3", "public_key" ) )
-    {
-        $form->appendChild( $self->render_captcha );
-    }
-
 	return( $form );
-}
-
-sub render_captcha
-{
-    my( $self ) = @_;
-
-    my $frag = $self->{session}->make_doc_fragment;
-    my $captcha_public = $self->{session}->config( "recaptcha3", "public_key" );
-    my $url = "https://www.google.com/recaptcha/api.js?render=$captcha_public";
-
-    $frag->appendChild( $self->{session}->make_javascript( undef,
-        src => $url,
-        async => 'async',
-        defer => 'defer'
-    ) );
-
-    $frag->appendChild( $self->{session}->make_element( "input",
-        type => "hidden",
-        id => "search-g-recaptcha-response",
-        name => "g-recaptcha-response",
-    ) );
-
-    $frag->appendChild( $self->{session}->make_element( "input",
-        type => "hidden",
-        name => "_action_search",
-        value => "1",
-    ) );
-
-    $frag->appendChild( $self->{session}->make_javascript( <<EOJ ) );
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    document.addEventListener("DOMContentLoaded", function(){
-        const buttons = document.querySelectorAll('[name="_action_search"]');
-        buttons.forEach((button) => {
-            button.addEventListener('click', e => {
-                e.preventDefault();
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('$captcha_public', {action: 'SEARCH'}).then(function(token) {
-                        console.log(token);                        
-                        document.getElementById('search-g-recaptcha-response').value = token;
-                        e.target.form.submit();
-                    });
-                });
-            });
-        });
-    });
-EOJ
-
-    return $frag;
 }
 
 sub render_preamble
