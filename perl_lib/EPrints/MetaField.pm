@@ -1258,7 +1258,7 @@ sub render_input_field_actual
             $col_title = $col_title->{$col_field};
 			$th = $session->make_element( "div", id=>$basename."_th_".$x++, class=>"ep_table_cell" );
 
-            my $label = $session->make_element( "label", id=>$basename."_".$col_field."_label" );
+            my $label = $session->make_element( "span", id=>$basename."_".$col_field."_label" );
             $label->appendChild( $col_title );
 			$th->appendChild( $label );
 			$tr->appendChild( $th );
@@ -2186,7 +2186,7 @@ sub render_search_input
 				values=>\@text_tags,
 				default=>$searchfield->get_merge,
 				labels=>\%text_labels,
-                'aria-label' => $searchfield->get_form_prefix . " merge options" ) );
+                'aria-label' => $searchfield->render_name . " merge options" ) );
 		$frag->appendChild( $session->make_text(" ") );
 	}
 	$frag->appendChild(

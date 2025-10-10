@@ -1774,6 +1774,10 @@ sub render_icon_link
 			$self->file_path
 		);
 	}
+
+    # override above stuff with simpler...
+    $aopts{href} = $self->get_url;
+
 	my $preview_id = "doc_preview_".$self->get_id;
 	my $preview_url;
 	if( $opts{preview} )

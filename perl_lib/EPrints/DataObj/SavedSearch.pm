@@ -78,6 +78,9 @@ sub get_system_field_info
 
 		{ name=>"public", type=>"boolean", input_style=>"radio",
 			default_value=>"FALSE" },
+
+        { name=>"include_old_results", type=>"boolean", input_style=>"radio",
+            default_value=>"FALSE" },
 	);
 }
 
@@ -263,56 +266,59 @@ sub send_out_alert
 	# get the description before we fiddle with searchexp
  	my $searchdesc = $searchexp->render_description,
 
-	my $datestamp_field = $self->{session}->get_repository->get_dataset( 
-		"archive" )->get_field( "datestamp" );
+    my $datestamp_field = $self->{session}->get_repository->get_dataset( 
+	    "archive" )->get_field( "datestamp" );
 
-	if( $freq eq "daily" )
-	{
-		# Get the date for yesterday
-		my $yesterday = EPrints::Time::get_iso_date( 
-			time - (24*60*60) );
-		# Get from the last day
-		$searchexp->add_field( 
-			$datestamp_field,
-			$yesterday."-" );
-	}
-	elsif( $freq eq "weekly" )
-	{
-		# Work out date a week ago
-		my $last_week = EPrints::Time::get_iso_date( 
-			time - (7*24*60*60) );
+   if( $self->is_set( 'include_old_results' ) && $self->value( 'include_old_results' ) eq "FALSE" )
+    {
 
-		# Get from the last week
-		$searchexp->add_field( 
-			$datestamp_field,
-			$last_week."-" );
-	}
-	elsif( $freq eq "monthly" )
-	{
-		# Get today's date
-		my( $year, $month, $day ) = EPrints::Time::get_date_array( time );
-		# Subtract a month
-		$month--;
+	    if( $freq eq "daily" )
+	    {
+		    # Get the date for yesterday
+    		my $yesterday = EPrints::Time::get_iso_date( 
+	    		time - (24*60*60) );
+		    # Get from the last day
+    		$searchexp->add_field( 
+	    		$datestamp_field,
+		    	$yesterday."-" );
+    	}
+	    elsif( $freq eq "weekly" )
+    	{
+	    	# Work out date a week ago
+		    my $last_week = EPrints::Time::get_iso_date( 
+			    time - (7*24*60*60) );
 
-		# Check for year "wrap"
-		if( $month==0 )
-		{
-			$month = 12;
-			$year--;
-		}
+    		# Get from the last week
+	    	$searchexp->add_field( 
+		    	$datestamp_field,
+			    $last_week."-" );
+    	}
+	    elsif( $freq eq "monthly" )
+    	{
+	    	# Get today's date
+		    my( $year, $month, $day ) = EPrints::Time::get_date_array( time );
+    		# Subtract a month
+	    	$month--;
+
+		    # Check for year "wrap"
+    		if( $month==0 )
+	    	{
+		    	$month = 12;
+			    $year--;
+    		}
 		
-		# Ensure two digits in month
-		while( length $month < 2 )
-		{
-			$month = "0".$month;
-		}
-		my $last_month = $year."-".$month."-".$day;
-		# Add the field searching for stuff from a month onwards
-		$searchexp->add_field( 
-			$datestamp_field,
-			$last_month."-" );
-	}
-
+	    	# Ensure two digits in month
+		    while( length $month < 2 )
+    		{
+	    		$month = "0".$month;
+    		}
+	    	my $last_month = $year."-".$month."-".$day;
+		    # Add the field searching for stuff from a month onwards
+    		$searchexp->add_field( 
+	    		$datestamp_field,
+    			$last_month."-" );
+    	}
+    }
 	my $settings_url = $self->{session}->get_repository->get_conf( "http_cgiurl" ).
 		"/users/home?screen=Workflow::Edit&dataset=saved_search&dataobj=".$self->get_id;
 	my $freqphrase = $self->{session}->html_phrase(

@@ -1653,12 +1653,37 @@ sub render_navigation_aids
 		{
 			EPrints->abort( "Weird, no subject match for: '".$path_values->[-1]."'" );
 		}
-		my @ids= @{$subject->get_value( "ancestors" )};
-		foreach my $sub_subject ( $subject->get_children() )
-		{
-			push @ids, $sub_subject->get_value( "subjectid" );
-		}
-	
+		
+        my @ids= @{$subject->get_value( "ancestors" )};
+
+        # render the subject tree to specified number of children generations
+        my $current_generation = 0;
+        my $no_generations = $view->{subject_generations} || 1;
+        my @subjects = ();
+
+        # set up our initial array of subjects (i.e. the view's subject)
+        push @subjects, $subject;
+          
+        while( $current_generation <= $no_generations )
+        {
+            my @new_subjects;
+            foreach my $s ( @subjects ) 
+            {
+                # first track the IDs for these subjects
+                push @ids, $s->get_value( "subjectid" );
+
+                # and then compile a list of children subjects
+                foreach my $child ( $s->get_children() )
+                {
+                    push @new_subjects, $child;
+                }
+            }
+
+            # count the generation and repeat with the children
+            $current_generation++;
+            @subjects = @new_subjects;
+        }       
+
 		# strip empty subjects if needed
 		my $menu = $view->{menus}->[$menu_level-1];
 		if( $menu->{hideempty} )
@@ -1724,11 +1749,9 @@ sub render_export_bar
 			my $a1 = $repo->render_link( $url );
 			my $icon = $repo->make_element( "img", src=>$plugin->icon_url(), alt=>"[$type]", border=>0 );
 			$a1->appendChild( $icon );
-			my $a2 = $repo->render_link( $url );
-			$a2->appendChild( $plugin->render_name );
+			$a1->appendChild( $repo->make_text( " " ) );
+			$a1->appendChild( $plugin->render_name );
 			$span->appendChild( $a1 );
-			$span->appendChild( $repo->make_text( " " ) );
-			$span->appendChild( $a2 );
 
 			if( $type eq "tool" )
 			{

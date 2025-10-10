@@ -358,8 +358,13 @@ sub _render_search
 	my $prefix = $self->{prefix};
 	my $session = $self->{session};
 	my $field = $self->{config}->{field};
+
+    my $label = $session->make_element( "span", id => $prefix.$self->{search_q_style}."_label" );
+    $label->appendChild($self->html_phrase( $field->get_name."_search_label" ) );
+
 	my $bar = $self->html_phrase(
 		$field->get_name."_search_bar",
+        label => $label,
 		input => $self->{search}->render_simple_fields(
 			noenter => 0,
 			size => 40,

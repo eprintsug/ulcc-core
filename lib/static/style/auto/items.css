@@ -30,6 +30,7 @@ div.ep_columns_cell_deletion {
 	background-color: #ccc;
 }
 
-.ep_columns_add label {
+.ep_columns_add span {
     padding-right: 4px;
+    font-weight: 700;
 }

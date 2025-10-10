@@ -33,6 +33,8 @@ sub can_be_viewed
 {
 	my( $self ) = @_;
 
+	return 0; # should be no need to do this via the admin interface
+
 	return $self->allow( "config/edit/perl" );
 }
 sub allow_action { shift->can_be_viewed }

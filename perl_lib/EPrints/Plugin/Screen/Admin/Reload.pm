@@ -33,6 +33,8 @@ sub allow_reload_config
 {
 	my( $self ) = @_;
 
+	return 0; # no need for this from the admin interface   
+
 	return $self->allow( "config/reload" );
 }
 

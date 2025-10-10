@@ -130,10 +130,11 @@ sub render
 	my $ds = $session->dataset( "user" );
 	my $username_field = $ds->get_field( "username" );
 	my $usertype_field = $ds->get_field( "usertype" );
-	my $div = $session->make_element( "div", style=>"margin-bottom: 1em" );
-	$div->appendChild( $username_field->render_name( $session ) );
-	$div->appendChild( $session->make_text( ": " ) );
-	$div->appendChild( 
+    #my $div = $session->make_element( "div", style=>"margin-bottom: 1em" );
+    my $label = $self->{session}->make_element( "label" );
+    $label->appendChild( $username_field->render_name( $session ) );
+	$label->appendChild( $session->make_text( ": " ) );
+	$label->appendChild( 
 		$session->make_element( 
 			"input",
 			"maxlength"=>"255",
@@ -141,7 +142,7 @@ sub render
 			"id"=>"username",
 			"class"=>"ep_form_text",
 			"size"=>"20", ));
-	$form->appendChild( $div );
+	$form->appendChild( $label );
 	$form->appendChild( $session->render_action_buttons( %buttons ) );
 	
 	$page->appendChild( $form );

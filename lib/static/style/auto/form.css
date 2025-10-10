@@ -128,3 +128,7 @@ td.ep_form_input_grid_wide {
 .ep_table.import_section label {
     padding-right: 4px;
 }
+
+label select, label input {
+    font-weight: normal;
+}
