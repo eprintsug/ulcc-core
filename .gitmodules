@@ -152,3 +152,15 @@
 [submodule "lib/epm/OpenAIRELit4"]
 	path = lib/epm/OpenAIRELit4
 	url = https://github.com/eprintsug/EPrintsOpenAIRE.git
+[submodule "lib/epm/creators_roles"]
+	path = lib/epm/creators_roles
+    url = https://github.com/eprintsug/creators_roles
+    branch = epm
+[submodule "lib/epm/coar_notify"]
+	path = lib/epm/coar_notify
+    url = https://github.com/eprintsug/coar_notify.git
+    branch = epm
+[submodule "lib/epm/pci_review"]
+	path = lib/epm/pci_review
+    url = https://github.com/eprintsug/pci_review.git
+    branch = epm
