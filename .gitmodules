@@ -119,7 +119,6 @@
 [submodule "lib/epm/hefce_oa"]
 	path = lib/epm/hefce_oa
     url = https://github.com/eprintsug/hefce_oa.git
-    branch = ref2029_epm
 [submodule "lib/epm/ref_support"]
 	path = lib/epm/ref_support
 	url = https://github.com/eprints/ref_support.git
