@@ -165,3 +165,7 @@
 	path = lib/epm/pci_review
     url = https://github.com/eprintsug/pci_review.git
     branch = epm
+[submodule "lib/epm/ref2029"]
+	path = lib/epm/ref2029
+    url = https://github.com/eprintsug/ref2029
+    branch = epm
