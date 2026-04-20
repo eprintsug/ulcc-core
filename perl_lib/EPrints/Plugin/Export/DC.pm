@@ -175,12 +175,12 @@ sub convert_dataobj
 		EPrints::Utils::tree_to_utf8( $eprint->render_citation() ) ];
 
 	# Most commonly a DOI or journal link
-	push @dcdata, $plugin->simple_value( $eprint, official_url => "relation" );
+	push @dcdata, $plugin->simple_value( $eprint, official_url => "identifier" );
 	
 	# Probably a DOI
-	push @dcdata, $plugin->simple_value( $eprint, id_number => "relation" );
+	push @dcdata, $plugin->simple_value( $eprint, id_number => "identifier" );
 	# .. not a default field but added by several IRs
-	push @dcdata, $plugin->simple_value( $eprint, doi => "relation" );
+	push @dcdata, $plugin->simple_value( $eprint, doi => "identifier" );
 
 	# If no documents, may still have an eprint-level language
 	push @dcdata, $plugin->simple_value( $eprint, language => "language" );
