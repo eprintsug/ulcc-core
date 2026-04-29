@@ -4034,4 +4034,8 @@ To create a blank EPM entire a new id in the input and click <epc:phrase ref="Pl
 
     <epp:phrase id="document_join"> - </epp:phrase>
 
+    <!-- Preprint phrases -->
+    <epp:phrase id="eprint_typename_preprint">Preprint</epp:phrase>
+    <epp:phrase id="eprint_optdetails_type_preprint">A preprint output that may not have been subjected to formal peer review</epp:phrase>
+
 </epp:phrases>

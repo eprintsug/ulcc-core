@@ -35,6 +35,12 @@ sub signposting
 
     my @links;
 
+    # LDN Inbox
+    if( $repository->config( "ldn_inbox" ) )
+    {
+        push @links, EPrints::Signposting::link_header( $repository->config( 'base_url')."/coar_notify/inbox", "http://www.w3.org/ns/ldp#inbox" );
+    }
+
     # citation
     push @links, EPrints::Signposting::link_header( $eprint->uri, "cite-as" );
 
@@ -42,7 +48,6 @@ sub signposting
     my @plugins = $repository->get_plugins(
         type => "Export",
         can_accept => "dataobj/eprint",
-        is_advertised => 1,
         is_visible => "all",
         signposting => 1,
     );
