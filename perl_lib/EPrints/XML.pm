@@ -20,8 +20,8 @@ B<EPrints::XML> - XML Abstraction Module
 
 	my $xml = $repository->xml;
 
-	$doc = $xml->parse_string( $string );
-	$doc = $xml->parse_file( $filename );
+	$doc = $xml->parse_string( $string, %opts );
+	$doc = $xml->parse_file( $filename, %opts );
 	$doc = $xml->parse_url( $url );
 
 	$utf8_string = $xml->to_string( $dom_node, %opts );
@@ -74,6 +74,9 @@ sub init
 		return 1 if !$@;
 	}
 
+	print STDERR "*** DEPRECATION WARNING ***
+In future versions, EPrints will be standardising to only support the LibXML library for providing XML functionality.  Please ensure LibXML is installed before upgrading EPrints.\n";
+
 	if( !$disable_gdome )
 	{
 		eval "use EPrints::XML::GDOME; 1";
@@ -87,7 +90,7 @@ use strict;
 
 # $xml = new EPrints::XML( $repository )
 #
-# Contructor, should be called by Repository only.
+# Constructor, should be called by Repository only.
 
 sub new($$)
 {
@@ -144,7 +147,7 @@ sub parse_file
 	return parse_xml( $filename, $opts{base_path}, $opts{no_expand} );
 }
 
-=item $doc = $xml->parse_url( $url, %opts )
+=item $doc = $xml->parse_url( $url )
 
 Returns an XML document parsed from the content located at $url.
 
@@ -174,7 +177,13 @@ sub create_element
 {
 	my( $self, $name, @attrs ) = @_;
 
+	my $repo = $self->{repository};
 	my $node = $self->{doc}->createElement( $name );
+
+	if ( defined $repo && $repo->can_call( "build_node_attributes" ) ){
+		@attrs = $repo->call( "build_node_attributes", $repo, $name, $node, @attrs );
+	}
+
 	while(my( $key, $value ) = splice(@attrs,0,2))
 	{
 		next if !defined $value;
@@ -372,7 +381,7 @@ sub contents_of
 
 =item $string = $xml->text_contents_of( $node )
 
-Returns the concantenated value of all text nodes in $node (or the value of $node if $node is a text node).
+Returns the concatenated value of all text nodes in $node (or the value of $node if $node is a text node).
 
 =cut
 
@@ -419,6 +428,9 @@ sub to_string
 
 	my $string = $node->toString( defined $opts{indent} ? $opts{indent} : 0 );
 	utf8::decode($string) unless utf8::is_utf8($string);
+
+	# Replaces invalid XML 1.0 code points with the Unicode substitution character (0xfffd), see http://www.w3.org/International/questions/qa-controls
+	$string =~ s/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f\x{fffe}-\x{ffff}]/\x{fffd}/g;
 
 	return $string;
 }
@@ -753,7 +765,7 @@ END
 	if( $options{add_doctype} )
 	{
 		print XMLFILE <<END;
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 END
 	}
 
@@ -772,7 +784,7 @@ END
 
 Neatly indent the DOM tree. 
 
-Note that this should not be done to XHTML as the differenct between
+Note that this should not be done to XHTML as the different between
 white space and no white space does matter sometimes.
 
 This method modifies the tree it is given. Possibly there should be
@@ -937,6 +949,15 @@ sub debug_xml
 	print STDERR "<\n";
 }
 
+sub remove_invalid_chars
+{
+	my( $value ) = @_;
+
+	$value =~ s/[\x00-\x08\x0B\x0C\x0E-\x19]//g;	
+
+	return $value;
+}
+
 sub is_empty
 {
 	my( $node ) = @_;
@@ -999,6 +1020,8 @@ sub add_to_xml
 	
 	my $xml = EPrints::XML::parse_xml( $filename );
 
+	$xml = _remove_blank_nodes($xml);
+
 	my $main_node;
 
 	foreach my $element ($xml->getChildNodes()) {
@@ -1013,6 +1036,7 @@ sub add_to_xml
 
 	unless (ref($node) eq "XML::LibXML::Element") {
 		my $in_xml = EPrints::XML::parse_string( undef, $node );
+		$in_xml = EPrints::XML::_remove_blank_nodes($in_xml);
 		$node = $in_xml->getFirstChild();
 	}
 
@@ -1020,11 +1044,9 @@ sub add_to_xml
 		$ret = _add_node_to_xml( $main_node, $child, $id, 0 );
 	}
 
-	open(my $fh, ">", $filename) or return 0;
-	print $fh EPrints::XML::to_string( $xml );
-	close($fh);
-
-	return 1;
+	$ret = _write_xml($xml,$filename);
+	
+	return $ret;
 }
 
 sub remove_package_from_xml
@@ -1338,28 +1360,31 @@ sub make_document_fragment
 
 =head1 COPYRIGHT
 
-=for COPYRIGHT BEGIN
+=begin COPYRIGHT
 
-Copyright 2000-2011 University of Southampton.
+Copyright 2024 University of Southampton.
+EPrints 3.4 is supplied by EPrints Services.
 
-=for COPYRIGHT END
+http://www.eprints.org/eprints-3.4/
 
-=for LICENSE BEGIN
+=end COPYRIGHT
 
-This file is part of EPrints L<http://www.eprints.org/>.
+=begin LICENSE
 
-EPrints is free software: you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as published
-by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+This file is part of EPrints 3.4 L<http://www.eprints.org/>.
 
-EPrints is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
-License for more details.
+EPrints 3.4 and this file are released under the terms of the
+GNU Lesser General Public License version 3 as published by
+the Free Software Foundation unless otherwise stated.
+
+EPrints 3.4 is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public
-License along with EPrints.  If not, see L<http://www.gnu.org/licenses/>.
+License along with EPrints 3.4.
+If not, see L<http://www.gnu.org/licenses/>.
 
-=for LICENSE END
+=end LICENSE
 

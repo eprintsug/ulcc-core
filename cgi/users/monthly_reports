@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use CGI;
+
+# New session
+my $session = new EPrints::Session();
+exit( 0 ) unless( defined $session );
+
+if( !$session->current_user )
+{
+    $session->terminate;
+    exit( 0 );
+}
+
+if( !$session->current_user->has_role( 'admin' ) )
+{
+    $session->terminate;
+    exit( 0 );
+}
+
+my $cgi = CGI->new;
+
+my $template_file = "/www/monthly-reports/templates/new_report.html";
+
+# Output HTML
+open(my $tfh, '<', $template_file) or die "Cannot open $template_file: $!";
+my $html = do { local $/; <$tfh> };
+close($tfh);
+
+# Output
+print $cgi->header(-type => 'text/html', -charset => 'UTF-8');
+print $html;

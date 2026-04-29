@@ -66,11 +66,11 @@ $EPrints::XML::LIB_LEN = length("XML::LibXML::");
 
 ##############################################################################
 
-our $PARSER = XML::LibXML->new();
+our $PARSER = XML::LibXML->new( expand_entities=>1, load_ext_dtd=>1 );
 
 sub CLONE
 {
-	$PARSER = XML::LibXML->new();
+	$PARSER = XML::LibXML->new( expand_entities=>1, load_ext_dtd=>1 );
 }
 
 =item $doc = parse_xml_string( $string, %opts )
@@ -105,9 +105,11 @@ sub _parse_url
 {
 	my( $url, $no_expand ) = @_;
 
-	my $doc = $PARSER->parse_file( "$url" );
+	return $PARSER->parse_file( "$url" ) if substr( $url, 0, 6 ) ne "https:";
 
-	return $doc;
+	use LWP::Simple qw(get);
+	my $string = get( $url );
+    	return $PARSER->parse_string( $string );
 }
 
 =item $doc = parse_xml( $filename [, $basepath [, $no_expand]] )
@@ -126,7 +128,8 @@ sub parse_xml
 	}
 
 	open(my $fh, "<", $file) or die "Error opening $file: $!";
-	my $doc = $PARSER->parse_fh( $fh, $basepath );
+	my $doc; 
+	eval { $doc = $PARSER->parse_fh( $fh, $basepath ) };
 	close($fh);
 
 	return $doc;
@@ -247,26 +250,29 @@ __END__
 
 =for COPYRIGHT BEGIN
 
-Copyright 2000-2011 University of Southampton.
+Copyright 2024 University of Southampton.
+EPrints 3.4 is supplied by EPrints Services.
+
+http://www.eprints.org/eprints-3.4/
 
 =for COPYRIGHT END
 
 =for LICENSE BEGIN
 
-This file is part of EPrints L<http://www.eprints.org/>.
+This file is part of EPrints 3.4 L<http://www.eprints.org/>.
 
-EPrints is free software: you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as published
-by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+EPrints 3.4 and this file are released under the terms of the
+GNU Lesser General Public License version 3 as published by
+the Free Software Foundation unless otherwise stated.
 
-EPrints is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
-License for more details.
+EPrints 3.4 is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public
-License along with EPrints.  If not, see L<http://www.gnu.org/licenses/>.
+License along with EPrints 3.4.
+If not, see L<http://www.gnu.org/licenses/>.
 
 =for LICENSE END
 

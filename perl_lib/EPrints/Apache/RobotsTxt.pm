@@ -51,7 +51,7 @@ END
 	my $sitemap = "Sitemap: ".$repository->config( 'http_url' )."/sitemap.xml";
 	if( ! ($robots =~ s/User-agent: \*\n/User-agent: \*\n$sitemap\n/ ) )
 	{
-		$robots = "User-agent: \*\n$sitemap\n\n$robots";	
+		$robots = "User-agent: \*\nDisallow: /cgi/\n$sitemap\n\n$robots";	
 	}
 
 	binmode( *STDOUT, ":utf8" );
