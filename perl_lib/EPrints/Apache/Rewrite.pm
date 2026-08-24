@@ -315,6 +315,20 @@ sub handler
 		return redir_see_other( $r, $url );
 	}
 
+    # Custom Handlers
+    if ( defined $repository->config( "custom_handlers" ) && keys %{$repository->config( "custom_handlers" )} )
+    {
+        while ( my ($ch, $custom_handler) = each ( %{ $repository->config( "custom_handlers" ) } ) )
+        {
+            my $ch_regex = $custom_handler->{regex};
+            $ch_regex =~ s/URLPATH/$urlpath/;
+            if ( $uri =~ m! $ch_regex !x )
+            {
+                return $custom_handler->{function}->( $r );
+            }
+        }
+    }
+
 	if( $uri =~ m! ^$urlpath/id/([^\/]+)/(ext-.*)$ !x )
 	{
 		my $exttype = $1;
@@ -657,6 +671,15 @@ sub handler
 			return OK;
 		}
 	} ##if long url format is not enabled
+
+    # we need to advertise the Linked Data Notification Inbox when enabled
+    if( $repository->get_conf( "ldn_inbox") )
+    {
+        if( $uri =~ m! ^/$ !x ) # advertise on the homepage
+        {
+            EPrints::Apache::AnApache::header_out( $r, "Link", "<".$repository->config( 'base_url')."/coar_notify/inbox>; rel=\"http://www.w3.org/ns/ldp#inbox\"" );
+        }
+    }
 
 	# apache 2 does not automatically look for index.html so we have to do it ourselves
 	my $localpath = $uri;
