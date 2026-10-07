@@ -21,8 +21,8 @@
 	url = https://github.com/eprintsug/irus.git
 [submodule "lib/epm/irstats2"]
 	path = lib/epm/irstats2
-    url = https://github.com/eprintsug/irstats2.git
-    branch = eprint_cache_stats
+        url = https://github.com/eprintsug/irstats2.git
+        branch = eprint_cache_stats
 [submodule "lib/epm/altmetric"]
 	path = lib/epm/altmetric
 	url = https://github.com/eprintsug/altmetric.git
@@ -143,8 +143,8 @@
 	url = https://github.com/eprintsug/funders_advanced.git
 [submodule "lib/epm/arkivum_v6"]
 	path = lib/epm/arkivum_v6
-    url = https://github.com/eprintsug/arkivum_v6
-    branch = arkivum_importing
+        url = https://github.com/eprintsug/arkivum_v6
+        branch = arkivum_importing
 [submodule "lib/epm/sd_goals"]
 	path = lib/epm/sd_goals
 	url = https://github.com/eprintsug/sd_goals.git
@@ -156,17 +156,21 @@
 	url = https://github.com/eprintsug/EPrintsOpenAIRE.git
 [submodule "lib/epm/creators_roles"]
 	path = lib/epm/creators_roles
-    url = https://github.com/eprintsug/creators_roles
-    branch = epm
+        url = https://github.com/eprintsug/creators_roles
+        branch = epm
 [submodule "lib/epm/coar_notify"]
 	path = lib/epm/coar_notify
-    url = https://github.com/eprintsug/coar_notify.git
-    branch = epm
+        url = https://github.com/eprintsug/coar_notify.git
+        branch = epm
 [submodule "lib/epm/pci_review"]
 	path = lib/epm/pci_review
-    url = https://github.com/eprintsug/pci_review.git
-    branch = epm
+        url = https://github.com/eprintsug/pci_review.git
+        branch = epm
 [submodule "lib/epm/ref2029"]
 	path = lib/epm/ref2029
-    url = https://github.com/eprintsug/ref2029
-    branch = epm
+        url = https://github.com/eprintsug/ref2029
+        branch = epm
+[submodule "lib/epm/eprints_matomo"]
+	path = lib/epm/eprints_matomo
+	url = https://github.com/eprintsug/EPrints-Matomo.git
+        branch = epm
