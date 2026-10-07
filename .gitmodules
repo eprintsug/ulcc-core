@@ -165,3 +165,8 @@
 	path = lib/epm/pci_review
     url = https://github.com/eprintsug/pci_review.git
     branch = epm
+[submodule "lib/epm/eprints_matomo"]
+	path = lib/epm/eprints_matomo
+	url = https://github.com/eprintsug/EPrints-Matomo.git
+        branch = epm
+
